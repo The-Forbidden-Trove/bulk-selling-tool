@@ -5,7 +5,7 @@ import { SiDiscord } from "react-icons/si";
 
 const Wrapper = styled(FlexWrap)`
   width: 100%;
-  max-height: 5vh;
+  max-height: 3vh;
   justify-content: space-between;
   color: ${(props) => props.theme.colors.text};
   background: ${(props) => props.theme.colors.fg};
@@ -13,6 +13,7 @@ const Wrapper = styled(FlexWrap)`
   font-size: ${(props) => props.theme.fontL};
   padding: 15px 0px;
   opacity: 0.8;
+  z-index: 99;
 `;
 
 const Left = styled(FlexWrap)`
@@ -25,9 +26,11 @@ const Left = styled(FlexWrap)`
   }
 `;
 const Middle = styled(FlexWrap)`
-  height: 300px;
-  width: 300px;
   padding-top: 3em;
+  > img {
+    width: 175px;
+    height: 175px;
+  }
 `;
 const Right = styled(FlexWrap)`
   width: 30%;
@@ -37,12 +40,10 @@ const Right = styled(FlexWrap)`
   > p {
     font-size: ${(props) => props.theme.fontM};
   }
-  > img {
-  }
 `;
 
 const Navbar = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true);
 
   const redirectDiscord = () => {
     const link = "https://discord.com/invite/zBpfweq";

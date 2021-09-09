@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import MainInterface from "./components/MainInterface/MainInterface";
 import Navbar from "./components/Navbar/Navbar";
 
 const Container = styled.div`
@@ -27,6 +28,7 @@ function App() {
   return (
     <Container>
       <Navbar />
+      <MainInterface />
     </Container>
   );
 }

@@ -1,7 +1,5 @@
-import { useState } from "react";
 import styled from "styled-components";
 import { Button, FlexWrap } from "../baseStyles";
-import { SiDiscord } from "react-icons/si";
 import { useAuth } from "../../api/oauth/AuthContext";
 
 const Wrapper = styled(FlexWrap)`

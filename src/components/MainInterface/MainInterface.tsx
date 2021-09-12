@@ -1,4 +1,12 @@
+import { useEffect } from "react";
 import styled from "styled-components";
+import { useAppDispatch, useAppSelector } from "../..";
+import { useAuth } from "../../api/oauth/AuthContext";
+import {
+  highlightStash,
+  initStashes,
+  selectStash,
+} from "../../reducers/stashReducer";
 import PickedItems from "./PickedItems";
 import PickedTabs from "./PickedTabs";
 import StashTabPicker from "./StashTabPicker";
@@ -30,6 +38,13 @@ const Header = styled.h2`
 `;
 
 const MainInterface = () => {
+  const { authService } = useAuth();
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(
+      initStashes(authService.getAuthTokens().access_token, "expedition")
+    );
+  }, []);
   return (
     <Wrapper>
       <Header>bulk-selling-tool</Header>

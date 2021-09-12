@@ -33,7 +33,7 @@ const Guide = () => {
   return (
     <Wrapper>
       <Header>bulk-selling-tool</Header>
-      guide
+      guide Type: currency :list of which items are included
     </Wrapper>
   );
 };

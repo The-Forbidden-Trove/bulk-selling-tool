@@ -29,6 +29,7 @@ const Container = styled.div`
 
 function App() {
   const { authService } = useAuth();
+
   return (
     <Container>
       <Navbar />

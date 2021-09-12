@@ -1,7 +1,6 @@
 import axios from "axios";
 
 const baseUrl = "https://api.pathofexile.com";
-const league = "expedition";
 
 export const getUserData = async (token: string) => {
   const request = await axios.get(`${baseUrl}/profile`, {
@@ -9,8 +8,16 @@ export const getUserData = async (token: string) => {
       Authorization: `Bearer ${token}`,
     },
   });
+  return request.data;
 };
-export const getAllSTashTabs = async (token: string) => {
+
+export const getLeagues = async () => {
+  const url = "https://api.pathofexile.com/leagues?type=main&compact=1";
+  const request = await axios.get(url);
+  return request.data;
+};
+
+export const getAllSTashTabs = async (token: string, league: string) => {
   const request = await axios.get(`${baseUrl}/stash/${league}`, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -19,7 +26,11 @@ export const getAllSTashTabs = async (token: string) => {
   return request.data;
 };
 
-export const getSTashTab = async (token: string, id: string) => {
+export const getSTashTab = async (
+  token: string,
+  league: string,
+  id: string
+) => {
   const request = await axios.get(`${baseUrl}/stash/${league}/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,

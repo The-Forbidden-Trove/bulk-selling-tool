@@ -1,4 +1,4 @@
-import { AuthServiceProps, AuthTokens, TokenRequestBody } from "./oauthTypes";
+import { AuthServiceProps, AuthTokens } from "./oauthTypes";
 import { toUrlEncoded } from "./utils";
 const axios = require("axios").default;
 
@@ -124,7 +124,7 @@ export class AuthService {
   async fetchToken(code: string, isRefresh = false): Promise<AuthTokens> {
     const { tokenEndpoint, autoRefresh = true } = this.props;
 
-    if (code && isRefresh == false) {
+    if (code && isRefresh === false) {
       const response = await axios.get(`${tokenEndpoint}?code=${code}`);
 
       let json = response.data;

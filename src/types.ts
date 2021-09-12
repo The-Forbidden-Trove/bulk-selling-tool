@@ -12,13 +12,9 @@ export interface Item {
 export interface StashTab {
   id: string;
   name: string;
-  type: string;
-  index: number;
-  metadata: {
-    public: boolean;
-    colour: string;
-  };
-  items?: Item[];
+  colour: string;
+  isHighlited: boolean;
+  isSelected: boolean;
 }
 
 export interface CurrencyType {

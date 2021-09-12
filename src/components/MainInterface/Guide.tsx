@@ -29,15 +29,13 @@ const Header = styled.h2`
   font-size: ${(props) => props.theme.fontL};
 `;
 
-const MainInterface = () => {
+const Guide = () => {
   return (
     <Wrapper>
       <Header>bulk-selling-tool</Header>
-      <StashTabPicker />
-      <PickedTabs />
-      <PickedItems />
+      guide
     </Wrapper>
   );
 };
 
-export default MainInterface;
+export default Guide;

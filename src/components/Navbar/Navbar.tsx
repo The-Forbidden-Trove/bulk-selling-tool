@@ -2,6 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { Button, FlexWrap } from "../baseStyles";
 import { SiDiscord } from "react-icons/si";
+import { useAuth } from "../../api/oauth/AuthContext";
 
 const Wrapper = styled(FlexWrap)`
   width: 100%;
@@ -43,14 +44,18 @@ const Right = styled(FlexWrap)`
 `;
 
 const Navbar = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true);
-
   const redirectDiscord = () => {
     const link = "https://discord.com/invite/zBpfweq";
     window.open(link);
   };
-  const logOut = () => {};
-  const logIn = () => {};
+  const { authService } = useAuth();
+
+  const login = async () => {
+    authService.authorize();
+  };
+  const logout = async () => {
+    authService.logout();
+  };
 
   return (
     <Wrapper>
@@ -67,14 +72,14 @@ const Navbar = () => {
       </Middle>
 
       <Right>
-        {isLoggedIn ? (
+        {authService.isAuthenticated() ? (
           <>
             <p>You are logged in!</p>
-            <Button onClick={logOut}>Log out</Button>
+            <Button onClick={logout}>Log out</Button>
           </>
         ) : (
           <>
-            <Button onClick={logIn}>Log in</Button>
+            <Button onClick={login}>Log in</Button>
           </>
         )}
       </Right>

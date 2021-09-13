@@ -2,11 +2,13 @@ import { useEffect } from "react";
 import styled from "styled-components";
 import { useAppDispatch, useAppSelector } from "../..";
 import { useAuth } from "../../api/oauth/AuthContext";
+import { initCurrencies } from "../../reducers/currencyTypeReducer";
 import {
   highlightStash,
   initStashes,
   selectStash,
 } from "../../reducers/stashReducer";
+import { currencies } from "../../types";
 import PickedItems from "./PickedItems";
 import PickedTabs from "./PickedTabs";
 import StashTabPicker from "./StashTabPicker";
@@ -28,7 +30,10 @@ const Wrapper = styled.div`
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 3fr 4fr 1fr;
   grid-gap: 0px 20px;
+
+  overflow: scroll;
 `;
+// TODO: style scrolls  in global conf lol
 
 const Header = styled.h2`
   grid-column: 1 / -1;
@@ -44,6 +49,7 @@ const MainInterface = () => {
     dispatch(
       initStashes(authService.getAuthTokens().access_token, "expedition")
     );
+    dispatch(initCurrencies(currencies));
   }, []);
   return (
     <Wrapper>

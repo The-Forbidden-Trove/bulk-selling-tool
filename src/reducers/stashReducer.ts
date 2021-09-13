@@ -1,7 +1,7 @@
 import { AnyAction } from "redux";
 import { getAllSTashTabs } from "../api/ggg/ggg";
 import { AppDispatch, RootState } from "../store";
-import { StashTab } from "../types";
+import { CurrencyType, StashTab } from "../types";
 
 const initialState: StashTab[] | undefined = [];
 
@@ -14,7 +14,7 @@ const stashReducer = (state = initialState, action: any) => {
       const newState = state.map((stash: StashTab) => {
         return {
           ...stash,
-          isHighlited: stash.id === action.data ? true : false,
+          isHighlited: stash.id === action.data ? !stash.isHighlited : false,
         };
       });
       return newState;
@@ -23,7 +23,14 @@ const stashReducer = (state = initialState, action: any) => {
       const newState = state.map((stash: StashTab) => {
         return {
           ...stash,
-          isSelected: stash.id === action.data ? true : stash.isSelected,
+          isSelected: stash.isHighlited ? true : stash.isSelected,
+          isHighlited: false,
+          assignedTypes: stash.isSelected
+            ? stash.assignedTypes
+            : action.data.types.map((type: CurrencyType) => {
+                return { type: type.type, icon: type.icon };
+              }),
+          defaultMultiplier: action.data.multiplier,
         };
       });
       return newState;
@@ -90,10 +97,13 @@ export const toggleSelectStash = (id: string) => {
     data: id,
   };
 };
-export const selectStash = (id: string) => {
+export const selectStash = (types: CurrencyType[], multiplier: number) => {
   return {
     type: "SELECT_STASH",
-    data: id,
+    data: {
+      types: types,
+      multiplier: multiplier,
+    },
   };
 };
 export const unselectStash = (id: string) => {

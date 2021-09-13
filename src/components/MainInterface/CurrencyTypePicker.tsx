@@ -1,33 +1,49 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { CurrencyType } from "../../types";
-import { FlexWrap } from "../baseStyles";
+import { useAppDispatch, useAppSelector } from "../..";
+import { currencies, CurrencyType } from "../../types";
+import { toggleSelectCurrency } from "../../reducers/currencyTypeReducer";
+import { FlexWrap, Button } from "../baseStyles";
 
 const Wrapper = styled.div`
   color: ${(props) => props.theme.colors.accent};
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  display: flex;
+  flex-wrap: wrap;
 `;
-const TypeWrap = styled(FlexWrap)`
-  margin: 5px;
+const TypeWrap = styled(FlexWrap)<{ isSelected?: boolean }>`
+  cursor: pointer;
+  max-height: 42px;
+  margin: 0px 5px;
   > p {
-    color: ${(props) => props.theme.colors.text};
+    color: ${(props) =>
+      props.isSelected ? props.theme.colors.accent : props.theme.colors.text};
     font-size: ${(props) => props.theme.fontM};
     padding: 0px 5px;
   }
   > img {
-    width: 36px;
-    height: 36px;
+    width: 42px;
+    height: 42px;
     object-fit: contain;
   }
 `;
 const CurrencyTypePicker = () => {
-  const [currencyTypes, setCurrencyTypes] = useState<CurrencyType[]>([]);
+  const currencyTypes = useAppSelector((store) => store.currencyTypes);
+  // "#33ACD0"
+  // color change instead of a checkbox
+  const dispatch = useAppDispatch();
 
   return (
     <Wrapper>
       {currencyTypes.map((currencyType: CurrencyType) => {
-        return <TypeWrap>{currencyType.type}</TypeWrap>;
+        return (
+          <TypeWrap
+            isSelected={currencyType.isSelected}
+            onClick={() => dispatch(toggleSelectCurrency(currencyType.type))}
+          >
+            <img src={currencyType.icon} alt="icon" />
+            <p>{currencyType.type}</p>
+          </TypeWrap>
+        );
       })}
     </Wrapper>
   );

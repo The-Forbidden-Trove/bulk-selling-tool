@@ -68,6 +68,12 @@ export class AuthService {
     window.localStorage.removeItem(key);
   }
 
+  //setUser(user: string): void {
+  //window.localStorage.setItem("user", JSON.stringify(user));
+  //}
+  //getUser(): string {
+  //return JSON.parse(window.localStorage.getItem("user") || "{}");
+  //}
   setAuthTokens(auth: AuthTokens): void {
     console.log(auth);
     const { refreshSlack = 5 } = this.props;
@@ -114,7 +120,6 @@ export class AuthService {
       responseType: "code",
       redirectUri: redirectUri,
     })}`;
-    console.log(url);
 
     window.location.replace(url);
     return true;
@@ -122,14 +127,14 @@ export class AuthService {
 
   // this happens after a full page reload. Read the code from localstorage
   async fetchToken(code: string, isRefresh = false): Promise<AuthTokens> {
-    const { tokenEndpoint, autoRefresh = true } = this.props;
+    const { tokenEndpoint, autoRefresh = true, scopes } = this.props;
 
     if (code && isRefresh === false) {
-      const response = await axios.get(`${tokenEndpoint}?code=${code}`);
+      const response = await axios.get(
+        `${tokenEndpoint}?code=${code}&scope=${scopes.join(" ")}`
+      );
 
-      let json = response.data;
-
-      if (isRefresh && !json.refresh_token) {
+      if (isRefresh) {
         console.log("refresh");
       }
       this.setAuthTokens(response.data as AuthTokens);

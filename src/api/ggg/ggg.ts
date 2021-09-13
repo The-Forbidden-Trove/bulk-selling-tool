@@ -1,4 +1,5 @@
 import axios from "axios";
+import { StashTab } from "../../types";
 
 const baseUrl = "https://api.pathofexile.com";
 
@@ -38,3 +39,9 @@ export const getSTashTab = async (
   });
   return request.data;
 };
+
+export const getSelectedTabsItems = async (
+  token: string,
+  league: string,
+  stashes: StashTab[]
+) => {};

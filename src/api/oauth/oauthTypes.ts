@@ -21,6 +21,7 @@ export interface AuthTokens {
   scope: string;
   expires_at?: number; // calculated on login
   token_type: string;
+  user?: string;
 }
 
 export interface TokenRequestBody {

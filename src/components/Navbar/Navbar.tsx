@@ -72,7 +72,7 @@ const Navbar = () => {
       <Right>
         {authService.isAuthenticated() ? (
           <>
-            <p>You are logged in!</p>
+            <p>{authService.getAuthTokens().user} You are logged in!</p>
             <Button onClick={logout}>Log out</Button>
           </>
         ) : (

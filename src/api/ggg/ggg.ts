@@ -27,7 +27,7 @@ export const getAllSTashTabs = async (token: string, league: string) => {
   return request.data;
 };
 
-export const getSTashTab = async (
+export const getSTashTabItems = async (
   token: string,
   league: string,
   id: string
@@ -44,4 +44,35 @@ export const getSelectedTabsItems = async (
   token: string,
   league: string,
   stashes: StashTab[]
-) => {};
+) => {
+  let items: Record<string, any> = {};
+
+  const result = await Promise.allSettled(
+    stashes.map((stash: StashTab) => {
+      axios
+        .get(`${baseUrl}/stash/${league}/${stash.id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response: any) => {
+          const res = response.data.stash.items;
+          res.map((item: any) => {
+            items[item.baseType] = {
+              id: item.id,
+              name: item.baseType,
+              icon: item.icon,
+              stackSize: item.stackSize,
+            };
+          });
+          //items[res.baseType] = {
+          //id: res?.id,
+          //name: res?.baseType,
+          //icon: res?.icon,
+          //stackSize: res?.stackSize,
+          //};
+        });
+    })
+  );
+  return items;
+};

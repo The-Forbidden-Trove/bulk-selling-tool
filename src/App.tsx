@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar/Navbar";
 
 import { useAuth } from "./api/oauth/AuthContext";
 import Guide from "./components/MainInterface/Guide";
-import { getAllItems } from "./api/poeninja/poeninja";
+import { useAppSelector } from ".";
 
 const Container = styled.div`
   width: 100vw;

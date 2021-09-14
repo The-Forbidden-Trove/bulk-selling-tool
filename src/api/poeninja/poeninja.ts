@@ -17,7 +17,7 @@ export const getItemOverview = async (
   return request.data;
 };
 
-export const getAllItems = async (league: string) => {
+export const getAllCurrencyItems = async (league: string) => {
   let items: Record<string, any> = {};
   const result = await Promise.allSettled(
     currencies.map((currency: CurrencyType) => {

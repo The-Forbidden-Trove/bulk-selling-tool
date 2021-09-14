@@ -9,14 +9,12 @@ export class AuthService {
   constructor(props: AuthServiceProps) {
     this.props = props;
     const code = this.getCodeFromLocation(window.location);
-    console.log(code);
     if (code !== null) {
       this.fetchToken(code)
         .then(() => {
           this.restoreUri();
         })
         .catch((e) => {
-          console.log(e);
           this.removeItem("auth");
           this.removeCodeFromLocation();
         });
@@ -45,7 +43,6 @@ export class AuthService {
     if (!search) {
       return;
     }
-    console.log("search", search);
     const newSearch = search
       .split("&")
       .map((param) => param.split("="))
@@ -57,8 +54,6 @@ export class AuthService {
       "null",
       base + (newSearch.length ? `?${newSearch}` : "")
     );
-
-    console.log("new search", newSearch);
   }
 
   getItem(key: string): string | null {
@@ -75,7 +70,6 @@ export class AuthService {
   //return JSON.parse(window.localStorage.getItem("user") || "{}");
   //}
   setAuthTokens(auth: AuthTokens): void {
-    console.log(auth);
     const { refreshSlack = 5 } = this.props;
     const now = new Date().getTime();
     auth.expires_at = now + (auth.expires_in + refreshSlack) * 1000;
@@ -192,7 +186,8 @@ export class AuthService {
 
   restoreUri(): void {
     const uri = window.localStorage.getItem("preAuthUri");
-    window.localStorage.removeItem("preAuthUri");
+    //window.localStorage.removeItem("preAuthUri");
+
     console.log({ uri });
     if (uri !== null) {
       window.location.replace(uri);

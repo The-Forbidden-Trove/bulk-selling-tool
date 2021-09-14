@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import { useAppDispatch, useAppSelector } from "../..";
+import { useAuth } from "../../api/oauth/AuthContext";
 import { unselectAllCurrencyTypes } from "../../reducers/currencyTypeReducer";
-import { selectStash } from "../../reducers/stashReducer";
-import { CurrencyType } from "../../types";
+import { initStashItems, selectStash } from "../../reducers/stashReducer";
+import { CurrencyType, StashTab } from "../../types";
 import { Button, FlexWrap } from "../baseStyles";
 import AllTabs from "./AllTabs";
 import CurrencyTypePicker from "./CurrencyTypePicker";
@@ -18,7 +19,13 @@ const AddTab = styled(Button)`
   font-size: ${(props) => props.theme.fontM};
 `;
 const StashTabPicker = () => {
+  const { authService } = useAuth();
   const dispatch = useAppDispatch();
+  const highlightedStash = useAppSelector((store) =>
+    store.stashes.find((stash: StashTab) => {
+      return stash.isHighlited === true;
+    })
+  );
   const types = useAppSelector((store) => store.currencyTypes).filter(
     (currencyType: CurrencyType) => {
       return currencyType.isSelected === true;
@@ -27,6 +34,13 @@ const StashTabPicker = () => {
   const click = (multiplier: number) => {
     dispatch(selectStash(types, multiplier));
     dispatch(unselectAllCurrencyTypes());
+    dispatch(
+      initStashItems(
+        authService.getAuthTokens().access_token,
+        "expedition",
+        highlightedStash
+      )
+    );
   };
   return (
     <div>

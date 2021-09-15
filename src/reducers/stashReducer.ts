@@ -29,6 +29,7 @@ const stashReducer = (state = initialState, action: any) => {
           ...stash,
           isSelected: stash.isHighlited ? true : stash.isSelected,
           isHighlited: false,
+          defaultMultiplier: action.data.multiplier,
           assignedTypes: stash.isSelected
             ? stash.assignedTypes
             : action.data.types.map((type: CurrencyType) => {
@@ -38,13 +39,12 @@ const stashReducer = (state = initialState, action: any) => {
                   typeFilter: type.typeFilter,
                 };
               }),
-          defaultMultiplier: action.data.multiplier,
         };
       });
       return newState;
     }
     case "INIT_STASH_ITEMS": {
-      let items: Record<string, any> = {};
+      let items: Record<string, any> = [];
 
       const newStash = state.find((stash: StashTab) => {
         return stash.id === action.data.id;
@@ -73,6 +73,8 @@ const stashReducer = (state = initialState, action: any) => {
           isSelected: stash.id === action.data ? false : stash.isSelected,
           assignedTypes:
             stash.id === action.data ? undefined : stash.assignedTypes,
+          defaultMultiplier: undefined,
+          filteredItems: undefined,
         };
       });
       return newState;
@@ -127,10 +129,11 @@ export const selectStash = (types: CurrencyType[], multiplier: number) => {
 export const initStashItems = (
   token: string,
   league: string,
-  stash: StashTab
+  stash: StashTab,
+  multiplier: number
 ) => {
   return async (dispatch: AppDispatch, getState: any) => {
-    let items: Record<string, any> = {};
+    let items: Record<string, any> = [];
     const res = await axios
       .get(`https://api.pathofexile.com/stash/${league}/${stash.id}`, {
         headers: {
@@ -146,6 +149,8 @@ export const initStashItems = (
             name: item?.baseType,
             icon: item?.icon,
             stackSize: item?.stackSize,
+            chaosEquivalent: 10,
+            multiplier: multiplier,
           };
         });
       });
@@ -159,7 +164,7 @@ export const initStashItems = (
 
 export const unselectStash = (id: string) => {
   return {
-    type: "UNCELECT_STASH",
+    type: "UNSELECT_STASH",
     data: id,
   };
 };

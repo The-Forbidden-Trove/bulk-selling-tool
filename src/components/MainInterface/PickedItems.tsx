@@ -3,37 +3,105 @@ import styled from "styled-components";
 import { useAppSelector } from "../..";
 import { getSelectedTabsItems } from "../../api/ggg/ggg";
 import { useAuth } from "../../api/oauth/AuthContext";
-import { StashTab } from "../../types";
+import { StashTab, Item } from "../../types";
+import { FlexWrap } from "../baseStyles";
 
 const Wrapper = styled.div`
+  margin: 10px 5px 0px 5px;
   grid-column: 1 / -1;
+`;
+
+const Header = styled.h3`
+  text-align: center;
+  margin: 5px 0px;
+  color: ${(props) => props.theme.colors.text};
+  font-size: ${(props) => props.theme.fontM};
 `;
 const ItemRecordWrap = styled.div`
   display: grid;
-  grid-template-columns: 1fr 3fr 2fr 2fr 2fr 2fr;
+  justify-items: start;
+  grid-row-gap: 15px;
+  grid-template-columns: 3fr 2fr 2fr 1fr 2fr;
+  grid-auto-columns: min-content;
+  grid-auto-rows: min-content;
 `;
-const PickedItems = ({ selectedItems }: any) => {
+const P = styled(FlexWrap)`
+  color: ${(props) => props.theme.colors.text};
+`;
+const Label = styled(FlexWrap)`
+  color: ${(props) => props.theme.colors.accent};
+  margin: 15px 0px;
+`;
+const NameWrap = styled(FlexWrap)``;
+const PickedItems = () => {
   const { authService } = useAuth();
 
-  return <Wrapper></Wrapper>;
+  const runCallback = (cb: any) => {
+    return cb();
+  };
+
+  const selectedStashes: StashTab[] = useAppSelector(
+    (store) => store.stashes
+  ).filter((stash: StashTab) => {
+    return stash.isSelected;
+  });
+  let selectedItems: Record<string, any> = [];
+
+  return (
+    <Wrapper>
+      <Header>Picked Items</Header>
+      <ItemRecordWrap>
+        <Label>Name</Label>
+        <Label>Stack size</Label>
+        <Label>Item value</Label>
+        <Label>Multiplier</Label>
+        <Label>Total value</Label>
+
+        {runCallback(() => {
+          const row: any = [];
+          let items: Record<string, any> = [];
+
+          selectedStashes.map((stash) => {
+            if (stash.filteredItems)
+              for (const [key, value] of Object.entries(stash.filteredItems)) {
+                if (items[key]) {
+                  items[key].stackSize += value.stackSize;
+                }
+                items[key] = value;
+              }
+          });
+          for (const [key, value] of Object.entries(items)) {
+            const item = {
+              name: value.name,
+              icon: value.icon,
+              stackSize: value.stackSize,
+              multiplier: value.multiplier,
+            };
+            row.push(item);
+          }
+          return row
+            .sort((x: any, y: any) => {
+              return y.stackSize - x.stackSize;
+            })
+            .map((x: any) => {
+              return (
+                <>
+                  <NameWrap>
+                    <p>x</p>
+                    <img src={x.icon} alt="icon" />
+                    <P>{x.name}</P>
+                  </NameWrap>
+                  <P>{x.stackSize}</P>
+                  <P>C</P>
+                  <P>{x.multiplier}</P>
+                  <P>T</P>
+                </>
+              );
+            });
+        })}
+      </ItemRecordWrap>
+    </Wrapper>
+  );
 };
 
 export default PickedItems;
-
-//{selectedItems &&
-//Object.keys(selectedItems).map((item: any) => {
-//console.log("ITEM: ", selectedItems[item]);
-//return (
-//<ItemRecordWrap>
-//<p>Remove</p>
-//<div style={{ display: "flex" }}>
-//<img src={selectedItems[item].icon} />
-//<p>{selectedItems[item].name}</p>
-//</div>
-//<p>Multiplier:</p>
-//<p>Single value:</p>
-//<p>Amount:</p>
-//<p>Total value:</p>
-//</ItemRecordWrap>
-//);
-//})}

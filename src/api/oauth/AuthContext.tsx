@@ -26,7 +26,6 @@ export function withAuth<T>(
 ): React.FC<T & AuthServiceProps> {
   const WrappedComponent = (props: T & AuthServiceProps): ReactElement => {
     const authProps = useAuth();
-    console.log("authProps: ", authProps);
     return <ComponentToWrap {...authProps} {...props} />;
   };
   WrappedComponent.displayName =

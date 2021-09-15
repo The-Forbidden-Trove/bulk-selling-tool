@@ -1,16 +1,18 @@
 import styled from "styled-components";
-import { Button, FlexWrap } from "../baseStyles";
+import { FlexWrap } from "../baseStyles";
 import StashTabL from "../../assets/StashTabL.png";
 import StashTabM from "../../assets/StashTabM.png";
 import StashTabR from "../../assets/StashTabR.png";
 import { useAppDispatch, useAppSelector } from "../..";
 import { StashTab } from "../../types";
+import { unselectStash } from "../../reducers/stashReducer";
 
-//const Wrapper = styled(FlexWrap)`
-//flex-flow: column wrap;
-//flex-direction: row;
-//justify-content: flex-start;
-//`;
+const Header = styled.h3`
+  text-align: center;
+  margin: 5px 0px;
+  color: ${(props) => props.theme.colors.text};
+  font-size: ${(props) => props.theme.fontM};
+`;
 const Wrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -53,9 +55,13 @@ const PickedTabs = () => {
   const stashes = useAppSelector((store) => store.stashes);
   const dispatch = useAppDispatch();
 
+  const click = (id: string) => {
+    dispatch(unselectStash(id));
+  };
+
   return (
-    <div>
-      <h3>Picked tabs:</h3>
+    <div style={{ margin: "5px 0px" }}>
+      <Header>Picked tabs</Header>
       <Wrapper>
         {stashes.map((stashTab: StashTab) => {
           return (
@@ -63,7 +69,7 @@ const PickedTabs = () => {
               {!stashTab.isSelected ? (
                 <></>
               ) : (
-                <TabWrap>
+                <TabWrap onClick={() => click(stashTab.id)}>
                   <LeftPart />
                   <MidPart>{stashTab.name}</MidPart>
                   <RightPart />

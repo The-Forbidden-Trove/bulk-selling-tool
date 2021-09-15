@@ -45,7 +45,7 @@ export const getSelectedTabsItems = async (
   league: string,
   stashes: StashTab[]
 ) => {
-  let items: Record<string, any> = {};
+  let items: Record<string, any> = [];
 
   const result = await Promise.allSettled(
     stashes.map((stash: StashTab) => {

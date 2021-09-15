@@ -10,6 +10,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
 `;
+
 const TypeWrap = styled(FlexWrap)<{ isSelected?: boolean }>`
   cursor: pointer;
   max-height: 42px;
@@ -28,8 +29,6 @@ const TypeWrap = styled(FlexWrap)<{ isSelected?: boolean }>`
 `;
 const CurrencyTypePicker = () => {
   const currencyTypes = useAppSelector((store) => store.currencyTypes);
-  // "#33ACD0"
-  // color change instead of a checkbox
   const dispatch = useAppDispatch();
 
   return (

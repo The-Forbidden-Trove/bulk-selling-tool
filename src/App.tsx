@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import MainInterface from "./components/MainInterface/MainInterface";
 import Navbar from "./components/Navbar/Navbar";
-
 import { useAuth } from "./api/oauth/AuthContext";
 import Guide from "./components/MainInterface/Guide";
-import { useAppSelector } from ".";
+import { useEffect } from "react";
+import { getAllCurrencyItems } from "./api/poeninja/poeninja";
 
 const Container = styled.div`
   width: 100vw;

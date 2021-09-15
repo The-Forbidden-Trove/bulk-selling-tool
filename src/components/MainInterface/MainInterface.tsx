@@ -32,6 +32,7 @@ const Wrapper = styled.div`
 // TODO: style scrolls  in global conf lol
 
 const Header = styled.h2`
+  margin: 5px 0px;
   grid-column: 1 / -1;
   text-align: center;
   color: ${(props) => props.theme.colors.text};

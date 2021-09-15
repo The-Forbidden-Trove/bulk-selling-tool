@@ -29,7 +29,7 @@ export interface StashTab {
   defaultMultiplier?: number;
   isSpecial?: boolean;
   items?: Record<string, Item[]>;
-  filteredItems?: Record<string, Item[]>;
+  filteredItems?: Record<string, Item[]>[];
 }
 
 export interface NinjaItem {

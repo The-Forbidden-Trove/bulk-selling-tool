@@ -10,7 +10,6 @@ export const getItemOverview = async (
 ) => {
   // accepts: Oil Incubators Scarab Fossil Resonator Essence DivinationCard
   // Prophecy Beast
-  console.log(`${baseUrl}/${endpoint}?league=${league}&type=${type}`);
   const request = await axios.get(
     `${baseUrl}/${endpoint}?league=${league}&type=${type}`
   );
@@ -52,8 +51,6 @@ export const getAllCurrencyItems = async (league: string) => {
             });
     })
   );
-
-  console.log("ITEMS: ", items);
 
   return items;
 };

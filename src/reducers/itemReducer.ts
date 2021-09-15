@@ -15,20 +15,8 @@ const itemReducer = (state = initialState, action: any) => {
   }
 };
 
-export const initItems = (
-  token: string,
-  league: string,
-  selectedStashes: StashTab[]
-) => {
-  return (dispatch: AppDispatch, getState: RootState) => {
-    getSelectedTabsItems(token, league, selectedStashes).then((response) => {
-      console.log(response);
-      dispatch({
-        type: "INIT_ITEMS",
-        data: response,
-      });
-    });
-  };
+export const initItems = (selectedStashes: StashTab[]) => {
+  return (dispatch: AppDispatch, getState: RootState) => {};
 };
 
 export default itemReducer;

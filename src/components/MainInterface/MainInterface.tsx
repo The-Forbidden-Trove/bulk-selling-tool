@@ -1,4 +1,6 @@
 import { useEffect } from "react";
+
+import { fetchNinjaData } from "../../api/poeninja/poeninja";
 import styled from "styled-components";
 import { useAppDispatch } from "../..";
 import { useAuth } from "../../api/oauth/AuthContext";
@@ -44,6 +46,7 @@ const MainInterface = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    fetchNinjaData("Expedition");
     dispatch(
       initStashes(authService.getAuthTokens().access_token, "expedition")
     );

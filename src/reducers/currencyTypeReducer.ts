@@ -1,5 +1,4 @@
 import { AnyAction } from "redux";
-import { AppDispatch, RootState } from "../store";
 import { CurrencyType } from "../types";
 
 const initialState: CurrencyType[] | undefined = [];

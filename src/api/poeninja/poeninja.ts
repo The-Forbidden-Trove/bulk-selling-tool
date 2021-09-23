@@ -8,6 +8,7 @@ export const getAllItemTypePrices = async (league: string) => {
   let items: Record<string, NinjaItem> = {};
   await Promise.allSettled(
     currencies.map((currency: CurrencyType) => {
+      console.log(currency.type);
       const uri = `${baseUrl}/${currency.ninjaEndpoint}?league=${league}&type=${currency.type}`;
       return axios
         .get(uri, {
@@ -24,14 +25,19 @@ export const getAllItemTypePrices = async (league: string) => {
                 items[x.name] = x;
               })
             : data.map((item: any) => {
+                if (item.hasOwnProperty("receive")) {
+                  if (!item.receive.hasOwnProperty("value")) {
+                    console.log(currency, item);
+                  }
+                }
                 const x = {
                   name: item.currencyTypeName,
-                  chaosValue: item.receive.value,
+                  chaosValue: item.chaosEquivalent,
                 };
                 items[x.name] = x;
               });
         })
-        .catch((e) => console.log(e));
+        .catch((e) => console.log(e.message));
     })
   );
 
@@ -39,7 +45,9 @@ export const getAllItemTypePrices = async (league: string) => {
 };
 
 export const fetchNinjaData = (league: string) => {
+  console.log("fetch", league);
   const time = JSON.parse(window.localStorage.getItem("ninjaFetch") || "{}");
+
   if (typeof time !== "number") {
     localStorage.setItem("ninjaFetch", JSON.stringify(new Date().getTime()));
     getAllItemTypePrices(league).then((res) => {

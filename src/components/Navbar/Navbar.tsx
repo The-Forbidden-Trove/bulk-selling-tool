@@ -1,6 +1,138 @@
 import styled from "styled-components";
 import { Button, FlexWrap } from "../baseStyles";
 import { useAuth } from "../../api/oauth/AuthContext";
+import Select from "react-select";
+import { useAppDispatch, useAppSelector } from "../..";
+import { changeDefaultLeague } from "../../reducers/leagueReducer";
+
+const customStyles = {
+  option: (provided: any, state: any) => ({
+    ...provided,
+    fontWeight: state.isSelected ? "bold" : "normal",
+    color: state.isSelected ? "#33ACD0" : "#f8f5ff",
+    backgroundColor: "#25262A",
+    fontSize: "16px",
+  }),
+  singleValue: (provided: any, state: any) => ({
+    ...provided,
+    color: "#f8f5ff",
+    background: "none",
+    fontSize: "16px",
+  }),
+  menu: (provided: any, state: any) => ({
+    ...provided,
+    color: "red",
+    backgroundColor: "#050710",
+    padding: "0px 2px",
+  }),
+  control: (provided: any, state: any) => ({
+    ...provided,
+    background: "none",
+    border: "none",
+  }),
+};
+
+const SelectExtend = styled(Select).attrs((props) => ({}))`
+  && {
+    [class*="MenuList"] {
+      ::-webkit-scrollbar {
+        width: 5px;
+      }
+      ::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        border-radius: 10px;
+        background-color: #f5f5f5;
+        background: none;
+      }
+      ::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        background-color: #555;
+      }
+      &:hover::-webkit-scrollbar-thumb {
+        -webkit-border-radius: 4px;
+        border-radius: 4px;
+      }
+    }
+  }
+`;
+
+const Navbar = () => {
+  const dispatch = useAppDispatch();
+  const leagues = useAppSelector((store) => store.leagues);
+  const redirectDiscord = () => {
+    const link = "https://discord.com/invite/zBpfweq";
+    window.open(link);
+  };
+  const { authService } = useAuth();
+
+  const login = async () => {
+    authService.authorize();
+  };
+  const logout = async () => {
+    authService.logout();
+  };
+  const handleChange = (newLeague: any) => {
+    dispatch(changeDefaultLeague(newLeague.label));
+  };
+
+  return (
+    <Wrapper>
+      <Left>
+        <p>TheForbiddenTrove</p>
+        <Button onClick={redirectDiscord}>join our discord!</Button>
+      </Left>
+
+      <Middle>
+        <img
+          src="https://avatars.githubusercontent.com/u/74618880?s=200&v=4"
+          alt="logo"
+        />
+      </Middle>
+
+      <Right>
+        <div style={{ width: "150px", margin: "0px 20px 0px 0px" }}>
+          {!leagues.hasOwnProperty("defaultLeague") && (
+            <SelectExtend
+              options={[{ label: "", value: "" }]}
+              defaultValue={{
+                label: "",
+              }}
+              styles={customStyles}
+              isSearchable={false}
+            />
+          )}
+          {leagues.hasOwnProperty("defaultLeague") && (
+            <SelectExtend
+              options={leagues.allLeagues.map((x: any) => {
+                return { label: x.id, value: x.id };
+              })}
+              defaultValue={{
+                label: leagues.defaultLeague,
+                value: leagues.defaultLeague,
+              }}
+              onChange={handleChange}
+              styles={customStyles}
+              isSearchable={false}
+            />
+          )}
+        </div>
+        {authService.isAuthenticated() ? (
+          <>
+            <p>{authService.getAuthTokens().user} You are logged in!</p>
+            <Button onClick={logout}>Log out</Button>
+          </>
+        ) : (
+          <>
+            <Button onClick={login}>Log in</Button>
+          </>
+        )}
+      </Right>
+    </Wrapper>
+  );
+};
+
+export default Navbar;
 
 const Wrapper = styled(FlexWrap)`
   width: 100%;
@@ -40,49 +172,3 @@ const Right = styled(FlexWrap)`
     font-size: ${(props) => props.theme.fontM};
   }
 `;
-
-const Navbar = () => {
-  const redirectDiscord = () => {
-    const link = "https://discord.com/invite/zBpfweq";
-    window.open(link);
-  };
-  const { authService } = useAuth();
-
-  const login = async () => {
-    authService.authorize();
-  };
-  const logout = async () => {
-    authService.logout();
-  };
-
-  return (
-    <Wrapper>
-      <Left>
-        <p>TheForbiddenTrove</p>
-        <Button onClick={redirectDiscord}>join our discord!</Button>
-      </Left>
-
-      <Middle>
-        <img
-          src="https://avatars.githubusercontent.com/u/74618880?s=200&v=4"
-          alt="logo"
-        />
-      </Middle>
-
-      <Right>
-        {authService.isAuthenticated() ? (
-          <>
-            <p>{authService.getAuthTokens().user} You are logged in!</p>
-            <Button onClick={logout}>Log out</Button>
-          </>
-        ) : (
-          <>
-            <Button onClick={login}>Log in</Button>
-          </>
-        )}
-      </Right>
-    </Wrapper>
-  );
-};
-
-export default Navbar;

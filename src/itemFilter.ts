@@ -21,7 +21,6 @@ export const currencyFilter: string[] = [
   "Blessing of Xoph",
   "Blessing of Tul",
   "Orb of Unmaking",
-  "Exalted Shard",
   "Veiled Chaos Orb",
   "Orb of Annulment",
   "Unstable Catalyst",
@@ -33,7 +32,6 @@ export const currencyFilter: string[] = [
   "Accelerating Catalyst",
   "Stacked Deck",
   "Tempering Catalyst",
-  "Annulment Shard",
   "Gemcutter's Prism",
   "Blessed Orb",
   "Prime Sextant",
@@ -60,11 +58,9 @@ export const currencyFilter: string[] = [
   "Orb of Augmentation",
   "Jeweller's Orb",
   "Armourer's Scrap",
-  "Portal Scroll",
   "Orb of Transmutation",
   "Blacksmith's Whetstone",
   "Engineer's Orb",
-  "Scroll of Wisdom",
 ];
 export const fragmentFilter: string[] = [
   "The Maven's Writ",

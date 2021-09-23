@@ -10,12 +10,18 @@ import {
 export interface Item {
   id: string;
   icon: string;
-  typeLine?: string;
-  baseType: string;
-  stackSize?: number;
+  name: string;
+  multiplier: number;
+  sellMultiplier: number;
+  chaosEquivalent?: number;
+  totalValue?: number;
+  sellValue?: number;
+  isSelected: boolean;
+  stackSize: number;
+  sellStackSize?: number;
   maxStackSize?: number;
-  w?: number;
-  h?: number; // might be usefull if we want to calculate something like a total
+  w: number;
+  h: number; // might be usefull if we want to calculate something like a total
   // inventories needed to trade all items
 }
 
@@ -25,16 +31,16 @@ export interface StashTab {
   colour: string;
   isHighlited: boolean;
   isSelected: boolean;
-  assignedTypes: {}[];
+  assignedTypes: CurrencyType[];
   defaultMultiplier?: number;
   isSpecial?: boolean;
-  items?: Record<string, Item[]>;
-  filteredItems?: Record<string, Item[]>[];
+  items: Record<string, Item> | undefined;
+  filteredItems: Record<string, Item> | undefined;
 }
 
 export interface NinjaItem {
-  currencyTypeName: string;
-  chaosEquivalent: number;
+  name: string;
+  chaosValue: number;
 }
 
 export interface CurrencyType {

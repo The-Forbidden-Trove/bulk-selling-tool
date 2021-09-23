@@ -21,11 +21,13 @@ const TypeWrap = styled(FlexWrap)<{ isSelected?: boolean }>`
     font-size: ${(props) => props.theme.fontM};
     padding: 0px 5px;
   }
-  > img {
-    width: 42px;
-    height: 42px;
-    object-fit: contain;
-  }
+`;
+
+const Icon = styled.img`
+  padding: 0px 5px 0px 0px;
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
 `;
 const CurrencyTypePicker = () => {
   const currencyTypes = useAppSelector((store) => store.currencyTypes);
@@ -39,7 +41,7 @@ const CurrencyTypePicker = () => {
             isSelected={currencyType.isSelected}
             onClick={() => dispatch(toggleSelectCurrency(currencyType.type))}
           >
-            <img src={currencyType.icon} alt="icon" />
+            <Icon src={currencyType.icon} alt="icon" />
             <p>{currencyType.type}</p>
           </TypeWrap>
         );

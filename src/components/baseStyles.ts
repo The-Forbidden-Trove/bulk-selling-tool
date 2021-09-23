@@ -15,3 +15,13 @@ export const FlexWrap = styled.div`
   align-items: center;
   align-content: center;
 `;
+
+export const Input = styled.input`
+  border: none;
+
+  color: ${(props) => props.theme.colors.accent2};
+  background: none;
+  outline: none;
+  padding: 10px;
+  box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
+`;

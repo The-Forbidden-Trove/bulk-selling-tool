@@ -51,6 +51,13 @@ const RightPart = styled.div`
   height: 26px;
   width: 19px;
 `;
+
+const Icon = styled.img`
+  padding: 0px 5px 0px 0px;
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+`;
 const PickedTabs = () => {
   const stashes = useAppSelector((store) => store.stashes);
   const dispatch = useAppDispatch();
@@ -74,7 +81,7 @@ const PickedTabs = () => {
                   <MidPart>{stashTab.name}</MidPart>
                   <RightPart />
                   {stashTab.assignedTypes?.map((type: any) => {
-                    return <img src={type.icon} />;
+                    return <Icon src={type.icon} />;
                   })}
 
                   <p>{stashTab.defaultMultiplier}%</p>

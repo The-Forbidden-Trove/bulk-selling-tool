@@ -75,7 +75,7 @@ const Guide = () => {
         </div>
 
         <div style={{ display: "flex" }}>
-          <div style={{ width: "30%", padding: "5px 0px" }}>
+          <div style={{ width: "40%", padding: "5px 0px" }}>
             <P style={{ padding: "25px 0px" }}>
               Now the last thing to do is click Generate Discord Message to have
               a pastable message in your clipboard!. Due to Discord limitations,
@@ -83,7 +83,7 @@ const Guide = () => {
               second to pase the header message.
             </P>
           </div>
-          <div style={{ width: "70%", padding: "5px 0px" }}>
+          <div style={{ width: "60%", padding: "5px 0px" }}>
             <img
               src={Guide3}
               style={{

@@ -9,5 +9,9 @@ export const GlobalStyles = createGlobalStyle`
 
   body {
     font-family: Verdana, Geneva, sans-serif;
+    ::-webkit-scrollbar {
+        width: 100px;
+        border: 1px solid red;
+    }
 }
 `;

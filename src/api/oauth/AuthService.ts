@@ -186,7 +186,7 @@ export class AuthService {
 
   restoreUri(): void {
     const uri = window.localStorage.getItem("preAuthUri");
-    //window.localStorage.removeItem("preAuthUri");
+    window.localStorage.removeItem("preAuthUri");
 
     console.log({ uri });
     if (uri !== null) {

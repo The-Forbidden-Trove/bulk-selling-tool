@@ -1,107 +1,64 @@
-import { useEffect } from "react";
 import styled from "styled-components";
 import { useAppSelector } from "../..";
-import { getSelectedTabsItems } from "../../api/ggg/ggg";
-import { useAuth } from "../../api/oauth/AuthContext";
-import { StashTab, Item } from "../../types";
-import { FlexWrap } from "../baseStyles";
+import { Item } from "../../types";
+import ItemRecord from "./ItemRecord";
 
-const Wrapper = styled.div`
-  margin: 10px 5px 0px 5px;
-  grid-column: 1 / -1;
-`;
-
-const Header = styled.h3`
-  text-align: center;
-  margin: 5px 0px;
-  color: ${(props) => props.theme.colors.text};
-  font-size: ${(props) => props.theme.fontM};
-`;
-const ItemRecordWrap = styled.div`
-  display: grid;
-  justify-items: start;
-  grid-row-gap: 15px;
-  grid-template-columns: 3fr 2fr 2fr 1fr 2fr;
-  grid-auto-columns: min-content;
-  grid-auto-rows: min-content;
-`;
-const P = styled(FlexWrap)`
-  color: ${(props) => props.theme.colors.text};
-`;
-const Label = styled(FlexWrap)`
-  color: ${(props) => props.theme.colors.accent};
-  margin: 15px 0px;
-`;
-const NameWrap = styled(FlexWrap)``;
-const PickedItems = () => {
-  const { authService } = useAuth();
+const PickedItems = ({ filter }: any) => {
+  const items = useAppSelector((store) => store.items);
 
   const runCallback = (cb: any) => {
     return cb();
   };
 
-  const selectedStashes: StashTab[] = useAppSelector(
-    (store) => store.stashes
-  ).filter((stash: StashTab) => {
-    return stash.isSelected;
-  });
-  let selectedItems: Record<string, any> = [];
-
   return (
     <Wrapper>
-      <Header>Picked Items</Header>
-      <ItemRecordWrap>
-        <Label>Name</Label>
-        <Label>Stack size</Label>
-        <Label>Item value</Label>
-        <Label>Multiplier</Label>
-        <Label>Total value</Label>
-
-        {runCallback(() => {
-          const row: any = [];
-          let items: Record<string, any> = [];
-
-          selectedStashes.map((stash) => {
-            if (stash.filteredItems)
-              for (const [key, value] of Object.entries(stash.filteredItems)) {
-                if (items[key]) {
-                  items[key].stackSize += value.stackSize;
-                }
-                items[key] = value;
-              }
+      {runCallback(() => {
+        const rows: Item[] = [];
+        for (const [key, value] of Object.entries(items)) {
+          rows.push(value as Item);
+        }
+        return rows
+          .filter((x: any) => {
+            return x.name
+              .toLocaleLowerCase()
+              .includes(filter.toLocaleLowerCase());
+          })
+          .sort((item1: any, item2: any) => {
+            return item2.stackSize - item1.stackSize;
+          })
+          .map((item: any) => {
+            return <ItemRecord item={item} />;
           });
-          for (const [key, value] of Object.entries(items)) {
-            const item = {
-              name: value.name,
-              icon: value.icon,
-              stackSize: value.stackSize,
-              multiplier: value.multiplier,
-            };
-            row.push(item);
-          }
-          return row
-            .sort((x: any, y: any) => {
-              return y.stackSize - x.stackSize;
-            })
-            .map((x: any) => {
-              return (
-                <>
-                  <NameWrap>
-                    <p>x</p>
-                    <img src={x.icon} alt="icon" />
-                    <P>{x.name}</P>
-                  </NameWrap>
-                  <P>{x.stackSize}</P>
-                  <P>C</P>
-                  <P>{x.multiplier}</P>
-                  <P>T</P>
-                </>
-              );
-            });
-        })}
-      </ItemRecordWrap>
+      })}
     </Wrapper>
   );
 };
+
+const Wrapper = styled.div`
+  margin: 0px 5px 0px 5px;
+  padding: 0px 25px;
+  overflow-y: scroll;
+
+  grid-column: 1 / -1;
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    background-color: #f5f5f5;
+    background: none;
+  }
+
+  &::-webkit-scrollbar {
+    width: 12px;
+    background-color: #f5f5f5;
+
+    background: none;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #555;
+  }
+`;
 
 export default PickedItems;

@@ -50,12 +50,15 @@ const StashTabPicker = () => {
         <AllTabs />
         <CurrencyTypePicker />
         <ButtonWrap>
-          <Multiplier
-            placeholder="Default multiplier 100%"
-            value={input}
-            onChange={handleMultiplierChange}
-            onKeyPress={onKeyPress}
-          />
+          <FlexWrap>
+            <P>Item multiplier</P>
+            <Multiplier
+              placeholder="Default multiplier 100%"
+              value={input}
+              onChange={handleMultiplierChange}
+              onKeyPress={onKeyPress}
+            />
+          </FlexWrap>
           <AddTab onClick={() => click()}>Select tab</AddTab>
         </ButtonWrap>
       </Wrapper>
@@ -72,7 +75,16 @@ const ButtonWrap = styled(FlexWrap)`
   padding: 10px 0px;
   align-self: flex-end;
 `;
-const Multiplier = styled(Input)``;
+const Multiplier = styled(Input)`
+  width: 60px;
+  color: ${(props) => props.theme.colors.accent2};
+  font-size: ${(props) => props.theme.fontM};
+`;
+const P = styled.p`
+  color: ${(props) => props.theme.colors.text};
+  font-size: ${(props) => props.theme.fontM};
+  padding: 0px 5px 0px 0px;
+`;
 
 const Header = styled.h3`
   text-align: center;
@@ -81,6 +93,6 @@ const Header = styled.h3`
   font-size: ${(props) => props.theme.fontM};
 `;
 const AddTab = styled(Button)`
-  color: ${(props) => props.theme.colors.accent2};
+  color: ${(props) => props.theme.colors.accent};
   font-size: ${(props) => props.theme.fontM};
 `;

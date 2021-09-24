@@ -1,4 +1,3 @@
-import { AnyAction } from "redux";
 import { CurrencyType } from "../types";
 
 const initialState: CurrencyType[] | undefined = [];

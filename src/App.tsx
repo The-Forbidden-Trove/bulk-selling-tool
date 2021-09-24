@@ -3,8 +3,52 @@ import MainInterface from "./components/MainInterface/MainInterface";
 import Navbar from "./components/Navbar/Navbar";
 import { useAuth } from "./api/oauth/AuthContext";
 import Guide from "./components/MainInterface/Guide";
+import { useAppDispatch } from ".";
+import { FlexWrap } from "./components/baseStyles";
 import { useEffect } from "react";
-import { getAllCurrencyItems } from "./api/poeninja/poeninja";
+import { initAppState } from "./reducers/leagueReducer";
+import GeneratedMessage from "./components/GeneratedMessage/GeneratedMessage";
+
+function App() {
+  const { authService } = useAuth();
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(initAppState());
+  }, []);
+
+  return (
+    <Container>
+      <Navbar />
+      {authService.isAuthenticated() ? <MainInterface /> : <Guide />}
+      <Bottom>
+        <P style={{ textAlign: "left" }}>
+          This product isn't affiliated with or endorsed by Grinding Gear Games
+          in any way.
+        </P>
+
+        <P style={{ textAlign: "right" }}>
+          All prices gathered thanks to poe.ninja
+        </P>
+      </Bottom>
+    </Container>
+  );
+}
+
+export default App;
+
+const Bottom = styled(FlexWrap)`
+  justify-content: space-between;
+  width: 75%;
+`;
+const P = styled.p`
+  font-size: 10px;
+  width: 50%;
+  color: ${(props) => props.theme.colors.text};
+  opacity: 0.5;
+  margin: 5px 0px;
+`;
 
 const Container = styled.div`
   width: 100vw;
@@ -25,18 +69,5 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow: scroll;
+  overflow: hidden;
 `;
-
-function App() {
-  const { authService } = useAuth();
-
-  return (
-    <Container>
-      <Navbar />
-      {authService.isAuthenticated() ? <MainInterface /> : <Guide />}
-    </Container>
-  );
-}
-
-export default App;

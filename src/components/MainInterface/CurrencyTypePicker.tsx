@@ -1,9 +1,8 @@
-import { useState } from "react";
 import styled from "styled-components";
 import { useAppDispatch, useAppSelector } from "../..";
-import { currencies, CurrencyType } from "../../types";
+import { CurrencyType } from "../../types";
 import { toggleSelectCurrency } from "../../reducers/currencyTypeReducer";
-import { FlexWrap, Button } from "../baseStyles";
+import { FlexWrap } from "../baseStyles";
 
 const Wrapper = styled.div`
   color: ${(props) => props.theme.colors.accent};

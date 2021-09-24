@@ -1,10 +1,8 @@
 import axios from "axios";
-import { AnyAction } from "redux";
 import { getAllSTashTabs } from "../api/ggg/ggg";
-import { AppDispatch, RootState } from "../store";
+import { AppDispatch } from "../store";
 import { CurrencyType, Item, NinjaItem, StashTab } from "../types";
 import { unselectAllCurrencyTypes } from "./currencyTypeReducer";
-import { setDefaultExaltPrice } from "./exaltPriceReducer";
 import { addGlobalItems, removeGlobalItems } from "./itemReducer";
 
 const initialState: StashTab[] | undefined = [];
@@ -83,7 +81,7 @@ const stashReducer = (state = initialState, action: any) => {
 export const initStashes = (token: string, league: string) => {
   return async (dispatch: AppDispatch, getState: any) => {
     const response = await getAllSTashTabs(token, league);
-    const stashes: StashTab[] = response.stashes
+    const stashes: StashTab[] = response
       .filter((stash: any) => {
         return stash.type !== "MapStash";
       })
@@ -124,6 +122,14 @@ export const selectStash = (
         return currencyType.isSelected === true;
       }
     );
+
+    if (
+      !highlightStash ||
+      !highlightStash.hasOwnProperty("id") ||
+      types.length === 0
+    ) {
+      return;
+    }
 
     const exPrice: number = ninjaItems["Exalted Orb"].chaosValue;
 

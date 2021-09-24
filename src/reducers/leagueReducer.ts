@@ -41,12 +41,9 @@ export const changeDefaultLeague = (leagueName: string) => {
 
     let ninjaItems: any = window.localStorage.getItem("ninjaItems");
 
-    console.log("new league", defaultLeague, "ninjaItems", ninjaItems);
     if (!ninjaItems) {
       ninjaItems = await getAllItemTypePrices(defaultLeague);
-      console.log("A", ninjaItems);
     } else {
-      console.log("B", ninjaItems);
     }
 
     dispatch(setDefaultExaltPrice(ninjaItems["Exalted Orb"].chaosValue));
@@ -67,14 +64,20 @@ export const initAppState = () => {
 
     let league;
 
-    await getLeagues().then(async (res) => {
+    await getLeagues().then(async (response) => {
+      const res = response.filter((x: any) => {
+        return (
+          !x.id.toLowerCase().includes("ssf") &&
+          !x.id.toLowerCase().includes("royale")
+        );
+      });
       if (!defaultLeague.hasOwnProperty("defaultLeague")) {
         window.localStorage.setItem(
           "defaultLeague",
           JSON.stringify({ defaultLeague: res[4] })
         );
-        league = res[4].id;
-        fetchNinjaData(res[4].id);
+        league = res[2].id;
+        fetchNinjaData(res[2].id);
       } else {
         league = defaultLeague.defaultLeague.id;
         fetchNinjaData(defaultLeague?.defaultLeague?.id);

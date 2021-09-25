@@ -67,8 +67,8 @@ const MainInterface = () => {
               onChange={(e) => setItemFilter(e.target.value)}
             />
 
-            <ExWrap onClick={handleExReset}>
-              <P>
+            <ExWrap>
+              <P onClick={handleExReset}>
                 <Icon
                   src={
                     "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollRare.png?scale=1&w=1&h=1"

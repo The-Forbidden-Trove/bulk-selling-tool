@@ -46,7 +46,13 @@ export const changeDefaultLeague = (leagueName: string) => {
     } else {
     }
 
-    dispatch(setDefaultExaltPrice(ninjaItems["Exalted Orb"].chaosValue));
+    if (ninjaItems.hasOwnProperty("Exalted Orb")) {
+      dispatch(setDefaultExaltPrice(ninjaItems["Exalted Orb"].chaosValue));
+    } else {
+      window.localStorage.removeItem("ninjaItems");
+      window.localStorage.removeItem("ninjaFetch");
+    }
+
     dispatch(clearAllItems());
 
     dispatch({
@@ -74,7 +80,7 @@ export const initAppState = () => {
       if (!defaultLeague.hasOwnProperty("defaultLeague")) {
         window.localStorage.setItem(
           "defaultLeague",
-          JSON.stringify({ defaultLeague: res[4] })
+          JSON.stringify({ defaultLeague: res[2] })
         );
         league = res[2].id;
         fetchNinjaData(res[2].id);
@@ -91,7 +97,13 @@ export const initAppState = () => {
         ninjaItems = JSON.parse(ninjaItems);
       }
 
-      dispatch(setDefaultExaltPrice(ninjaItems["Exalted Orb"].chaosValue));
+      // if poeninja fails
+      if (ninjaItems.hasOwnProperty("Exalted Orb")) {
+        dispatch(setDefaultExaltPrice(ninjaItems["Exalted Orb"].chaosValue));
+      } else {
+        window.localStorage.removeItem("ninjaItems");
+        window.localStorage.removeItem("ninjaFetch");
+      }
 
       dispatch({
         type: "INIT_LEAGUES",

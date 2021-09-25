@@ -1,6 +1,7 @@
 import axios from "axios";
 import { differenceInMinutes } from "date-fns";
 import { currencies, CurrencyType, NinjaItem } from "../../types";
+import { provider } from "../../index";
 
 const baseUrl = "https://poe.ninja/api/data";
 
@@ -8,12 +9,11 @@ export const getAllItemTypePrices = async (league: string) => {
   let items: Record<string, NinjaItem> = {};
   await Promise.allSettled(
     currencies.map((currency: CurrencyType) => {
-      const uri = `${baseUrl}/${currency.ninjaEndpoint}?league=${league}&type=${currency.type}`;
+      const uri = `${provider}/ninjaItems?endpoint=${currency.ninjaEndpoint}&league=${league}&type=${currency.type}`;
       return axios
-        .get(uri, {
-          headers: {},
-        })
+        .get(uri)
         .then((response) => {
+          console.log(response);
           const data = response.data.lines;
           currency.ninjaEndpoint === "itemoverview"
             ? data.map((item: any) => {

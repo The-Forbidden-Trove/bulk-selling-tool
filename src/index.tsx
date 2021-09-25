@@ -14,10 +14,13 @@ import type { RootState, AppDispatch } from "./store";
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
+export const provider = "http://localhost:8000";
+export const tokenEndpoint = "http://localhost:8000/redirect";
+
 const authServiceData = new AuthService({
   clientId: "tftbulksellingtool",
-  provider: "https://localhost:8000",
-  tokenEndpoint: "https://localhost:8000/redirect",
+  provider: provider,
+  tokenEndpoint: tokenEndpoint,
   authorizeEndpoint: "https://www.pathofexile.com/oauth/authorize",
   redirectUri: "https://the-forbidden-trove.github.io/bulk-selling-tool/",
   location: window.location,

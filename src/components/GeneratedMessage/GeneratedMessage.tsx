@@ -36,7 +36,7 @@ const GeneratedMessage = () => {
 
   return (
     <Wrapper id="generatedMessage">
-      <H>Generated with tft-bulk-selling-tool</H>
+      <H>Generated with TFT Bulk Selling Tool</H>
       <Header>
         <CurrencyTypes>
           <P>Currency types</P>

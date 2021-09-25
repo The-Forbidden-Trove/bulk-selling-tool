@@ -5,6 +5,9 @@ import {
   fragmentFilter,
   oilFilter,
   scarabFilter,
+  incubatorFilter,
+  blightedMapFilter,
+  deliriumOrbFilter,
 } from "./itemFilter";
 
 export interface Item {
@@ -14,6 +17,7 @@ export interface Item {
   multiplier: number;
   sellMultiplier: number;
   chaosEquivalent?: number;
+  mapTier?: number;
   totalValue?: number;
   sellValue?: number;
   isSelected: boolean;
@@ -94,6 +98,36 @@ export const currencies: CurrencyType[] = [
     ninjaEndpoint: "itemoverview",
     isSelected: false,
     typeFilter: essenceFilter,
+  },
+
+  {
+    type: "Incubator",
+    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvSW5jdWJhdGlvbi9JbmN1YmF0aW9uQXJtb3VyIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/637c41a730/IncubationArmour.png",
+    ninjaEndpoint: "itemoverview",
+    isSelected: false,
+    typeFilter: incubatorFilter,
+  },
+  {
+    type: "BlightedMap",
+    icon: "https://web.poecdn.com/gen/image/WzI4LDE0LHsiZiI6IjJESXRlbXMvTWFwcy9BdGxhczJNYXBzL05ldy9Gb3JraW5nUml2ZXIiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwibW4iOjExLCJtdCI6MTUsIm1iIjp0cnVlfV0/d14b4572d0/ForkingRiver.png",
+    ninjaEndpoint: "itemoverview",
+    isSelected: false,
+    typeFilter: blightedMapFilter,
+  },
+  {
+    type: "DeliriumOrb",
+    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvRGVsaXJpdW0vRGVsaXJpdW1PcmJTY2FyYWJzIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/fa4c5160ca/DeliriumOrbScarabs.png",
+    ninjaEndpoint: "itemoverview",
+    isSelected: false,
+    typeFilter: deliriumOrbFilter,
+  },
+
+  {
+    type: "Beast",
+    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQmVzdGlhcnlPcmJGdWxsIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/3214b44360/BestiaryOrbFull.png",
+    ninjaEndpoint: "itemoverview",
+    isSelected: false,
+    typeFilter: deliriumOrbFilter,
   },
   //{
   // type: "Fossil",

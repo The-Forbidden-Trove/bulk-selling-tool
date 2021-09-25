@@ -37,7 +37,7 @@ const P = styled(FlexWrap)`
 const Guide = () => {
   return (
     <Wrapper>
-      <Header>bulk-selling-tool</Header>
+      <Header>TFT Bulk Selling Tool</Header>
       <Text>
         <P>To start using the app log in with your Path of Exile account.</P>
         <div style={{ display: "flex" }}>

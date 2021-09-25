@@ -54,7 +54,7 @@ const MainInterface = () => {
   return (
     <>
       <Wrapper>
-        <Header>bulk-selling-tool</Header>
+        <Header>TFT Bulk Selling Tool</Header>
         <StashTabPicker />
         <PickedTabs />
         <Wrap>

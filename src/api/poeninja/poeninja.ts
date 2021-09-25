@@ -13,7 +13,6 @@ export const getAllItemTypePrices = async (league: string) => {
       return axios
         .get(uri)
         .then((response) => {
-          console.log(response);
           const data = response.data.lines;
           currency.ninjaEndpoint === "itemoverview"
             ? data.map((item: any) => {

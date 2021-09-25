@@ -92,7 +92,12 @@ const TotalValue = () => {
           </Price>
         </Total>
 
-        <Generate onClick={generateImage}>Generate discord message!</Generate>
+        <Generate onClick={generateImage}>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <P>Generate discord message!</P>
+            <P2>Remember to CTRL+V twice on Discord!</P2>
+          </div>
+        </Generate>
       </A>
     </Wrapper>
   );
@@ -109,6 +114,7 @@ const A = styled(FlexWrap)`
   align-items: center;
 `;
 const Generate = styled(Button)`
+  padding: 3px 0px 0px 0px;
   font-size: ${(props) => props.theme.fontL};
 `;
 
@@ -126,4 +132,18 @@ const Icon = styled.img`
 const Price = styled(FlexWrap)`
   padding: 5px;
   color: ${(props) => props.theme.colors.accent2};
+`;
+const P = styled.p`
+  font-size: ${(props) => props.theme.fontL};
+
+  color: ${(props) => props.theme.colors.text};
+  color: ${(props) => props.theme.colors.accent};
+`;
+
+const P2 = styled.p`
+  margin: 3px 0px;
+  opacity: 0.8;
+  align-self: flex-end;
+  font-size: 10px;
+  color: ${(props) => props.theme.colors.text};
 `;

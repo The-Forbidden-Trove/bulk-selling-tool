@@ -66,6 +66,29 @@ const itemReducer = (state = initialState, action: any) => {
         newState[action.data.name].sellValue;
       return newState;
     }
+
+    case "UPDATE_MULTIPLIER_VALUE": {
+      const newState = { ...state };
+
+      newState[action.data.name].sellMultiplier = action.data.multiplier;
+      newState[action.data.name].totalValue =
+        ((newState[action.data.name].stackSize *
+          newState[action.data.name].sellMultiplier) /
+          100) *
+        newState[action.data.name].sellValue;
+      return newState;
+    }
+    case "UPDATE_CHAOS_VALUE": {
+      const newState = { ...state };
+
+      newState[action.data.name].sellValue = action.data.chaosValue;
+      newState[action.data.name].totalValue =
+        ((newState[action.data.name].stackSize *
+          newState[action.data.name].sellMultiplier) /
+          100) *
+        newState[action.data.name].sellValue;
+      return newState;
+    }
     case "CLEAR_ALL_ITEMS": {
       const newState = { ...state };
       return {};
@@ -92,6 +115,19 @@ export const toggleItemSelect = (name: string) => {
   return {
     type: "TOGGLE_ITEM_SELECT",
     data: { name: name },
+  };
+};
+
+export const updateMultiplierValue = (name: string, multiplier: number) => {
+  return {
+    type: "UPDATE_MULTIPLIER_VALUE",
+    data: { name: name, multiplier: multiplier },
+  };
+};
+export const updateChaosValue = (name: string, chaosValue: number) => {
+  return {
+    type: "UPDATE_CHAOS_VALUE",
+    data: { name: name, chaosValue: chaosValue },
   };
 };
 export const updateItemProps = (

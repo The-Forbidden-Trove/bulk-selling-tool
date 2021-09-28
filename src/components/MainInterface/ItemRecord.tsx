@@ -1,13 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useAppDispatch, useAppSelector } from "../..";
-import { toggleItemSelect, updateItemProps } from "../../reducers/itemReducer";
+import {
+  toggleItemSelect,
+  updateChaosValue,
+  updateItemProps,
+  updateMultiplierValue,
+} from "../../reducers/itemReducer";
 import { FlexWrap, Input } from "../baseStyles";
 
 const ItemRecord = ({ item }: any) => {
   const [multiplier, setMultiplier] = useState(`${item.sellMultiplier}%`);
   const [chaosValue, setChaosValue] = useState(
-    Math.round((item.sellValue + Number.EPSILON) * 100) / 100
+    `${Math.round((item.sellValue + Number.EPSILON) * 100) / 100}`
   );
 
   const dispatch = useAppDispatch();
@@ -15,27 +20,20 @@ const ItemRecord = ({ item }: any) => {
   const handleMultiplierChange = (e: any) => {
     const val = e.target.value;
     if (/^\d*\.?\d*%$/.test(val)) {
-      setMultiplier(val);
       dispatch(
-        updateItemProps(
+        updateMultiplierValue(
           item.name,
-          Number(val.substr(0, val.length - 1)) || 0,
-          Number(chaosValue) || 0
+          Number(val.substr(0, val.length - 1)) || 0
         )
       );
+      setMultiplier(val);
     }
   };
   const handleChaosChange = (e: any) => {
     const val = e.target.value;
     if (/^\d*\.?\d*$/.test(val)) {
+      dispatch(updateChaosValue(item.name, Number(val) || 0));
       setChaosValue(val);
-      dispatch(
-        updateItemProps(
-          item.name,
-          Number(multiplier.substr(0, multiplier.length - 1)) || 0,
-          Number(val) || 0
-        )
-      );
     }
   };
 
@@ -46,6 +44,11 @@ const ItemRecord = ({ item }: any) => {
   };
 
   const exPrice = useAppSelector((store) => store.exaltedPrice).value || 1;
+
+  useEffect(() => {
+    setMultiplier(`${item.sellMultiplier}%`);
+    setChaosValue(`${item.sellValue}`);
+  }, [dispatch, handleChaosChange, handleMultiplierChange]);
 
   return (
     <ItemRecordWrap isSelected={item.isSelected}>

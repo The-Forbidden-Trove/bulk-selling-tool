@@ -80,7 +80,9 @@ const stashReducer = (state = initialState, action: any) => {
 
 export const initStashes = (token: string, league: string) => {
   return async (dispatch: AppDispatch, getState: any) => {
+    if (league === undefined) return;
     const response = await getAllSTashTabs(token, league);
+
     const stashes: StashTab[] = response
       .filter((stash: any) => {
         return stash.type !== "MapStash";
@@ -93,7 +95,7 @@ export const initStashes = (token: string, league: string) => {
           id: stash.id,
           name: stash.name,
           colour: stash.metadata.colour,
-          //isSpecial: false,
+          // isSpecial: false,
           isHighlited: false,
           isSelected: false,
         };
@@ -154,42 +156,46 @@ export const selectStash = (
         const allItems = response.data.stash.items;
 
         allItems.map((item: any) => {
-          if (items[item.baseType]) {
-            items[item.baseType] = {
+          const name = item.baseType.match(/Blighted [\w\s]+Map/)
+            ? `${item.baseType} ${
+                //@ts-ignore
+                item.properties.find((x): any => x.name === "Map Tier")
+                  .values[0][0]
+              }`
+            : item.baseType;
+
+          if (items[name]) {
+            items[name] = {
               id: item?.id,
-              name: item.baseType,
+              name: name,
               icon: item.icon,
               w: item.w,
               h: item.h,
               maxStackSize: item.maxStackSize ? item.maxStackSize : 1,
               stackSize: item.stackSize
-                ? items[item.baseType].stackSize + item.stackSize
-                : items[item.baseType].stackSize + 1,
-              chaosEquivalent: ninjaItems[item.baseType]
-                ? ninjaItems[item.baseType].chaosValue
+                ? items[name].stackSize + item.stackSize
+                : items[name].stackSize + 1,
+              chaosEquivalent: ninjaItems[name]
+                ? ninjaItems[name].chaosValue
                 : 0,
-              sellValue: ninjaItems[item.baseType]
-                ? ninjaItems[item.baseType].chaosValue
-                : 0,
+              sellValue: ninjaItems[name] ? ninjaItems[name].chaosValue : 0,
               multiplier: multiplier,
               sellMultiplier: multiplier,
               isSelected: true,
             };
           } else {
-            items[item.baseType] = {
+            items[name] = {
               id: item?.id,
-              name: item.baseType,
+              name: name,
               icon: item.icon,
               w: item.w,
               h: item.h,
               maxStackSize: item.maxStackSize ? item.maxStackSize : 1,
               stackSize: item.stackSize ? item.stackSize : 1,
-              chaosEquivalent: ninjaItems[item.baseType]
-                ? ninjaItems[item.baseType].chaosValue
+              chaosEquivalent: ninjaItems[name]
+                ? ninjaItems[name].chaosValue
                 : 0,
-              sellValue: ninjaItems[item.baseType]
-                ? ninjaItems[item.baseType].chaosValue
-                : 0,
+              sellValue: ninjaItems[name] ? ninjaItems[name].chaosValue : 0,
               multiplier: multiplier,
               sellMultiplier: multiplier,
               isSelected: true,
@@ -205,7 +211,14 @@ export const selectStash = (
     });
 
     for (const [key, value] of Object.entries(items)) {
-      if (itemFilters && itemFilters.includes(key)) {
+      if (key.match(/Blighted [\w\s]+Map \d+/)) {
+        if (
+          itemFilters &&
+          itemFilters.includes(key.split(" ").slice(0, -1).join(" "))
+        ) {
+          filteredItems[key] = value as Item;
+        }
+      } else if (itemFilters && itemFilters.includes(key)) {
         filteredItems[key] = value as Item;
       }
     }

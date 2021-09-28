@@ -67,6 +67,7 @@ const AllTabs = () => {
               <></>
             ) : (
               <TabWrap
+                key={stashTab.id}
                 onClick={() => click(stashTab.id)}
                 scale={stashTab.isHighlited ? 1.2 : 1}
                 z={stashTab.isHighlited ? 99 : 1}

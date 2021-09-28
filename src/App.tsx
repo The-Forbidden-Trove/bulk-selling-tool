@@ -7,8 +7,6 @@ import { useAppDispatch } from ".";
 import { FlexWrap } from "./components/baseStyles";
 import { useEffect } from "react";
 import { initAppState } from "./reducers/leagueReducer";
-import GeneratedMessage from "./components/GeneratedMessage/GeneratedMessage";
-
 function App() {
   const { authService } = useAuth();
 

@@ -43,6 +43,9 @@ const MidPart = styled.div`
   > p {
     color: rgb(59, 44, 27);
     margin: 3px 0px 0px 0px;
+    text-align: center;
+    vertical-align: middle;
+    padding: 2px 0px 0px 0px;
   }
 `;
 const RightPart = styled.div`
@@ -78,7 +81,9 @@ const PickedTabs = () => {
               ) : (
                 <TabWrap onClick={() => click(stashTab.id)}>
                   <LeftPart />
-                  <MidPart>{stashTab.name}</MidPart>
+                  <MidPart>
+                    <p>{stashTab.name}</p>
+                  </MidPart>
                   <RightPart />
                   {stashTab.assignedTypes?.map((type: any) => {
                     return <Icon src={type.icon} />;

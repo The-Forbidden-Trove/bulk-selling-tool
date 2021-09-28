@@ -37,11 +37,18 @@ const CurrencyTypePicker = () => {
       {currencyTypes.map((currencyType: CurrencyType) => {
         return (
           <TypeWrap
+            key={currencyType.type}
             isSelected={currencyType.isSelected}
             onClick={() => dispatch(toggleSelectCurrency(currencyType.type))}
           >
             <Icon src={currencyType.icon} alt="icon" />
-            <p>{currencyType.type}</p>
+            <p>
+              {currencyType.type === "BlightedMap"
+                ? "Blighted Map"
+                : currencyType.type === "DeliriumOrb"
+                ? "Delirium Orb"
+                : currencyType.type}
+            </p>
           </TypeWrap>
         );
       })}

@@ -44,12 +44,9 @@ const MainInterface = () => {
 
   useEffect(() => {
     dispatch(initStashes(authService.getAuthTokens().access_token, league));
-  }, [league]);
 
-  useEffect(() => {
     dispatch(initCurrencies(currencies));
-    dispatch(initStashes(authService.getAuthTokens().access_token, league));
-  }, []);
+  }, [league]);
 
   return (
     <>

@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { useAppSelector } from "../..";
 import { FlexWrap } from "../baseStyles";
+import chaosOrb from "../../assets/chaosOrb.png";
+import exaltedOrb from "../../assets/exaltedOrb.png";
 
 const GeneratedMessageItemRecord = ({ item }: any) => {
   const exPrice = useAppSelector((store) => store.exaltedPrice).value || 1;
@@ -13,29 +15,17 @@ const GeneratedMessageItemRecord = ({ item }: any) => {
       </NameWrap>
 
       <P>
-        <Icon
-          src={
-            "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollRare.png?scale=1&w=1&h=1"
-          }
-        />
+        <Icon src={chaosOrb} />
         <ChaosValue>{item.sellValue}</ChaosValue>
       </P>
 
       <P>
-        <Icon
-          src={
-            "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollRare.png?scale=1&w=1&h=1"
-          }
-        />
+        <Icon src={chaosOrb} />
         {Math.round((item.totalValue + Number.EPSILON) * 100) / 100}
       </P>
 
       <P>
-        <Icon
-          src={
-            "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyAddModToRare.png?scale=1&w=1&h=1"
-          }
-        />
+        <Icon src={exaltedOrb} />
         {Math.round(((item.totalValue + Number.EPSILON) * 100) / exPrice) / 100}
       </P>
     </ItemRecordWrap>

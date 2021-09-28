@@ -3,6 +3,10 @@ import { useAppSelector } from "../..";
 import { FlexWrap } from "../baseStyles";
 import { CurrencyType, Item, StashTab } from "../../types";
 import GeneratedMessageItemRecord from "./GeneratedMessageItemRecord";
+// for some reason I couldn't get these to render on the generated message
+// even tho I added cors and tainted canvas to html2canvas
+import chaosOrb from "../../assets/chaosOrb.png";
+import exaltedOrb from "../../assets/exaltedOrb.png";
 
 const GeneratedMessage = () => {
   let sum = 0;
@@ -41,23 +45,18 @@ const GeneratedMessage = () => {
         <CurrencyTypes>
           <P>Currency types</P>
           {selectedTypes.map((x: Partial<CurrencyType>) => {
+            if (x.type === "Currency") {
+              return <Icon src={chaosOrb} />;
+            }
             return <Icon src={x.icon} />;
           })}
         </CurrencyTypes>
         <ExPrice>
           <P>
-            <Icon
-              src={
-                "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollRare.png?scale=1&w=1&h=1"
-              }
-            />
+            <Icon src={chaosOrb} />
             <p>/</p>
 
-            <Icon
-              src={
-                "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyAddModToRare.png?scale=1&w=1&h=1"
-              }
-            />
+            <Icon src={exaltedOrb} />
           </P>
           <P> {exPrice}</P>
         </ExPrice>
@@ -68,20 +67,12 @@ const GeneratedMessage = () => {
           <P>Total value </P>
 
           <FlexWrap>
-            <Icon
-              src={
-                "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollRare.png?scale=1&w=1&h=1"
-              }
-            />
+            <Icon src={chaosOrb} />
             <P>{Math.round((sum + Number.EPSILON) * 100) / 100}</P>
           </FlexWrap>
 
           <FlexWrap>
-            <Icon
-              src={
-                "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyAddModToRare.png?scale=1&w=1&h=1"
-              }
-            />
+            <Icon src={exaltedOrb} />
             <P>{Math.round(((sum + Number.EPSILON) * 100) / exPrice) / 100}</P>
           </FlexWrap>
         </TotalValue>
@@ -140,8 +131,6 @@ const Header = styled(FlexWrap)`
   margin: 5px 0px;
   width: 100%;
   justify-content: space-between;
-
-  background: ${(props) => props.theme.colors.bg};
 `;
 const CurrencyTypes = styled(FlexWrap)``;
 const ExPrice = styled(FlexWrap)``;
@@ -151,10 +140,11 @@ const Wrapper = styled(FlexWrap)`
   padding: 20px 20px 10px 20px;
   flex-direction: column;
   left: -500%;
+  top: -500%;
   position: absolute;
 
   background: ${(props) => props.theme.colors.bg};
-  min-height: 80vh;
+  min-height: 50vh;
   min-width: 80vw;
   box-shadow: 4px 5px 52px rgba(0, 0, 0, 0.8);
   -webkit-box-shadow: 4px 5px 52px rgba(0, 0, 0, 0.8);
@@ -184,7 +174,6 @@ const H = styled.h3`
 `;
 
 const ItemsWrapper = styled.div`
-  background: ${(props) => props.theme.colors.bg};
   width: 100%;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

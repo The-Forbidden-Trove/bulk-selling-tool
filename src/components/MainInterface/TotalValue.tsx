@@ -1,5 +1,7 @@
 import html2canvas from "html2canvas";
 import styled from "styled-components";
+import { isFirefox, isSafari } from "react-device-detect";
+
 import { useAppSelector } from "../..";
 import { CurrencyType, StashTab } from "../../types";
 import { Button, FlexWrap } from "../baseStyles";
@@ -41,28 +43,39 @@ const TotalValue = () => {
       })
         .then((canvas: any) => {
           canvas.toBlob((blob: any) => {
-            const textBlob: any = new Blob(
-              [
-                `Item types: ${selectedTypes.map((x: any) => {
-                  return x.type;
-                })}\nTotal price ${
-                  Math.round((sum + Number.EPSILON) * 100) / 100
-                } chaos ( ${
-                  Math.round(((sum + Number.EPSILON) * 100) / exPrice) / 100
-                }ex )`,
-              ],
-              {
-                type: "text/plain",
-              }
-            );
-            navigator.clipboard
-              .write([
-                new ClipboardItem({
-                  "image/png": blob,
-                  "text/plain": textBlob,
-                }),
-              ])
-              .catch((e) => console.log(e));
+            const copyText = `Item types: ${selectedTypes.map((x: any) => {
+              return x.type === "BlightedMap"
+                ? "Blighted Map"
+                : x.type === "DeliriumOrb"
+                ? "Delirium Orb"
+                : x.type;
+            })}\nTotal price ${
+              Math.round((sum + Number.EPSILON) * 100) / 100
+            } chaos ( ${
+              Math.round(((sum + Number.EPSILON) * 100) / exPrice) / 100
+            }ex )`;
+            const textBlob: any = new Blob([copyText], {
+              type: "text/plain",
+            });
+
+            if (isFirefox || isSafari) {
+              navigator.clipboard
+                .writeText(copyText)
+                .then((x) => {
+                  const fileObjectURL = URL.createObjectURL(blob);
+                  window.open(fileObjectURL);
+                })
+                .catch((e) => console.log(e));
+            } else {
+              navigator.clipboard
+                .write([
+                  new ClipboardItem({
+                    "image/png": blob,
+                    "text/plain": textBlob,
+                  }),
+                ])
+                .catch((e) => console.log(e));
+            }
           });
         })
         .catch((e) => console.log(e));

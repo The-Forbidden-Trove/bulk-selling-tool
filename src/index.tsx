@@ -14,8 +14,9 @@ import type { RootState, AppDispatch } from "./store";
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
-export const provider = "http://localhost:8000";
-export const tokenEndpoint = "http://localhost:8000/redirect";
+export const provider = "http://bulk-selling-tool.theforbiddentrove.xyz";
+export const tokenEndpoint =
+  "http://bulk-selling-tool.theforbiddentrove.xyz/redirect ";
 
 const authServiceData = new AuthService({
   clientId: "tftbulksellingtool",

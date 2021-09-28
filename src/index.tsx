@@ -16,7 +16,7 @@ export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 export const provider = "https://bulk-selling-tool.theforbiddentrove.xyz";
 export const tokenEndpoint =
-  "https://bulk-selling-tool.theforbiddentrove.xyz/redirect ";
+  "https://bulk-selling-tool.theforbiddentrove.xyz/redirect";
 
 const authServiceData = new AuthService({
   clientId: "tftbulksellingtool",

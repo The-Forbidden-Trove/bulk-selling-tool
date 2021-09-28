@@ -19,21 +19,27 @@ export const getLeagues = async () => {
 };
 
 export const getAllSTashTabs = async (token: string, league: string) => {
-  const request = await axios.get(`${baseUrl}/stash/${league}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/x-www-form-urlencoded",
-      "User-Agent": "OAuth tftbulksellingtool/1.0",
-    },
-  });
-  return request.data.stashes
-    .map((x: any) => {
-      if (x.hasOwnProperty("children")) {
-        return x.children;
-      }
-      return x;
-    })
-    .flat();
+  try {
+    const url = `${baseUrl}/stash/${league}`;
+    const request = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+        "User-Agent": "OAuth tftbulksellingtool/1.0",
+      },
+    });
+    return request.data.stashes
+      .map((x: any) => {
+        if (x.hasOwnProperty("children")) {
+          return x.children;
+        }
+        return x;
+      })
+      .flat();
+  } catch (error) {
+    console.log(error);
+    return Promise.reject(400);
+  }
 };
 
 export const getSTashTabItems = async (

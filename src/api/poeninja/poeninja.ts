@@ -11,13 +11,21 @@ export const getAllItemTypePrices = async (league: string) => {
     currencies.map((currency: CurrencyType) => {
       const uri = `${provider}/ninjaItems?endpoint=${currency.ninjaEndpoint}&league=${league}&type=${currency.type}`;
       return axios
-        .get(uri)
+        .get(uri, {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+          },
+        })
         .then((response) => {
           const data = response.data.lines;
           currency.ninjaEndpoint === "itemoverview"
             ? data.map((item: any) => {
+                const name = item.name.match(/Blighted [\w\s]+Map/)
+                  ? `${item.baseType} ${item.mapTier}`
+                  : item.name;
+
                 const x = {
-                  name: item.name,
+                  name: name,
                   chaosValue: item.chaosValue,
                 };
                 items[x.name] = x;
@@ -34,7 +42,7 @@ export const getAllItemTypePrices = async (league: string) => {
                 items[x.name] = x;
               });
         })
-        .catch((e) => console.log(e.message));
+        .catch((e) => console.log(e));
     })
   );
 

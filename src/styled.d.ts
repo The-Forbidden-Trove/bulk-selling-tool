@@ -14,6 +14,7 @@ declare module "styled-components" {
       fg2: string;
       accent: string;
       accent2: string;
+      accentDark: string;
       text: string;
     };
   }

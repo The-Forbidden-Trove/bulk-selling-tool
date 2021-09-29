@@ -3,96 +3,83 @@ import { FlexWrap } from "../baseStyles";
 import Guide1 from "../../assets/Guide1.png";
 import Guide2 from "../../assets/Guide2.png";
 import Guide3 from "../../assets/Guide3.png";
-
-const Wrapper = styled.div`
-  width: 75%;
-  height: 75%;
-  display: flex;
-  flex-direction: column;
-  background: ${(props) => props.theme.colors.bg};
-  box-shadow: 4px 5px 52px rgba(0, 0, 0, 0.8);
-  -webkit-box-shadow: 4px 5px 52px rgba(0, 0, 0, 0.8);
-  -moz-box-shadow: 4px 5px 52px rgba(0, 0, 0, 0.8);
-  padding: 25px;
-  margin: 55px 0px 10px 0px;
-  border-radius: 15px;
-  opacity: 0.9;
-  border: 3px solid ${(props) => props.theme.colors.fg2};
-`;
-
-const Header = styled.h2`
-  margin: 10px 0px;
-  text-align: center;
-  color: ${(props) => props.theme.colors.text};
-  font-size: ${(props) => props.theme.fontL};
-`;
-
-const P = styled(FlexWrap)`
-  font-size: 18px;
-  color: ${(props) => props.theme.colors.text};
-  margin: 0px 5px;
-  align-items: flex-start;
-`;
+import { useAuth } from "../../api/oauth/AuthContext";
 
 const Guide = () => {
+  const { authService } = useAuth();
   return (
     <Wrapper>
-      <Header>TFT Bulk Selling Tool</Header>
       <Text>
-        <P>To start using the app log in with your Path of Exile account.</P>
-        <div style={{ display: "flex" }}>
-          <div style={{ width: "30%", padding: "5px 0px" }}>
-            <P style={{ padding: "25px 0px" }}>
-              Then you can pick a stash tab and currency types which you want to
-              be associated with it. After that select your % multiplier which
-              will be added to each item in a picked stash tab. All there is
-              left to do is to click "Select Tab" and all you items will be
-              listed below.
-            </P>
-          </div>
-          <div style={{ width: "70%", padding: "5px 0px" }}>
-            <img src={Guide1} style={{ width: "100%", height: "100%" }} />
-          </div>
-        </div>
+        <P>
+          To start using the app{" "}
+          <Highlight
+            onClick={() => authService.authorize()}
+            style={{ cursor: "pointer" }}
+          >
+            Log in
+          </Highlight>{" "}
+          with your Path of Exile account.
+        </P>
+        <P>
+          Then select a tab by clicking on it and pick currency type filter
+          which you want to be applied to that tab. Optionally you can change
+          the default multiplier which will adjust the default price fetched
+          from <Highlight href="https://poe.ninja/">poe.ninja</Highlight>. Now
+          all that is left to do is click the <Highlight>Select tab</Highlight>{" "}
+          button.
+        </P>
 
         <div style={{ display: "flex" }}>
-          <div style={{ width: "70%", padding: "5px 0px" }}>
-            <img src={Guide2} style={{ width: "100%", height: "100%" }} />
-          </div>
-          <div style={{ width: "30%", padding: "5px 0px" }}>
-            <P style={{ padding: "25px 0px" }}>
-              You can select or deselect each listed item, change the chaos
-              price of a single item and multiplier. All prices will be
-              automatically updated.{" "}
-            </P>
-            <P>
-              Above the list of items you are provided with a filter for easier
-              finding of items and the default exalted orb price on the right.
-              This price can also be changed and all the prices will get
-              updated.
-            </P>
-          </div>
+          <P style={{ width: "20%" }}>
+            <br />
+            You can <Highlight>add</Highlight> multiple tabs.
+            <br />
+            <br />
+            You can select <Highlight>multiple</Highlight> currency types.
+            <br />
+            <br />
+            Show or hide <Highlight>Remove-Only</Highlight> tabs.
+            <br />
+            <br />
+            <Highlight>Find</Highlight> a tab by its name.
+            <br />
+          </P>
+          <Img src={Guide1} alt="guide1" />
         </div>
 
+        <P>
+          Now all items according to the currency types you chose will be
+          displayed and priced below. You can manually adjust
+          <Highlight> Ex Price</Highlight>,<Highlight> multiplier</Highlight>{" "}
+          and
+          <Highlight> single item value</Highlight>.
+        </P>
         <div style={{ display: "flex" }}>
-          <div style={{ width: "40%", padding: "5px 0px" }}>
-            <P style={{ padding: "25px 0px" }}>
-              Now the last thing to do is click Generate Discord Message to have
-              a pastable message in your clipboard!. Due to Discord limitations,
-              you will have to press CTRL+V twice - first to paste the image and
-              second to pase the header message.
-            </P>
-          </div>
-          <div style={{ width: "60%", padding: "5px 0px" }}>
-            <img
-              src={Guide3}
-              style={{
-                width: "100%",
-                height: "50%",
-                padding: "50px 0px 0px 0px",
-              }}
-            />
-          </div>
+          <Img src={Guide2} alt="guide2" />
+
+          <P style={{ width: "35%" }}>
+            <br />
+            You can deselect a tab by clicking on its name in the{" "}
+            <Highlight>Picked Tabs</Highlight> section.
+            <br />
+            <br />
+            It is also possible to <Highlight>find</Highlight> an item by its
+            name.
+            <br />
+            <br />
+            To generate the image press{" "}
+            <Highlight>Generate discord message!</Highlight> button and it will
+            be in you clipboard with a{" "}
+            <Highlight>discord header message</Highlight> and because of that
+            you need to paste it twice in discord chat.
+            <br />
+            <br />
+            Generated message will contain a text header with{" "}
+            <Highlight>currency types</Highlight>,{" "}
+            <Highlight>total value</Highlight> of your items and generated image
+            of all items with their <Highlight>count</Highlight>,{" "}
+            <Highlight>price</Highlight> and <Highlight>total value</Highlight>.
+          </P>
         </div>
       </Text>
     </Wrapper>
@@ -101,8 +88,42 @@ const Guide = () => {
 
 export default Guide;
 const Text = styled(FlexWrap)`
-  padding: 5px 50px;
+  padding: 5px 5px;
   align-items: flex-start;
+  justify-content: flex-start;
   flex-direction: column;
-  width: 90%;
+  width: 95%;
+  height: 100%;
+`;
+
+const Img = styled.img`
+  object-fit: contain;
+  width: 80%;
+  align-self: center;
+`;
+const Wrapper = styled(FlexWrap)`
+  flex-direction: column;
+  width: 83vw;
+  height: 83vh;
+  background: ${(props) => props.theme.colors.bg};
+  box-shadow: 4px 5px 52px rgba(0, 0, 0, 0.8);
+  -webkit-box-shadow: 4px 5px 52px rgba(0, 0, 0, 0.8);
+  -moz-box-shadow: 4px 5px 52px rgba(0, 0, 0, 0.8);
+  padding: 15px 35px;
+  margin: 20px 0px 10px 0px;
+  border-radius: 15px;
+  opacity: 0.9;
+  border: 3px solid ${(props) => props.theme.colors.fg2};
+
+  overflow-y: scroll;
+`;
+
+const P = styled.p`
+  font-size: 16px;
+  color: ${(props) => props.theme.colors.text};
+  padding: 10px 5px;
+`;
+const Highlight = styled.a`
+  font-size: 18px;
+  color: ${(props) => props.theme.colors.accent};
 `;

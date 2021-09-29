@@ -10,6 +10,8 @@ const Wrapper = styled.div`
 
 const ItemRecordWrap = styled.div`
   display: grid;
+
+  padding: 50px 0px;
   justify-items: start;
   grid-row-gap: 15px;
   grid-template-columns: 3fr 2fr 2fr 1fr 2fr;

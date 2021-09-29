@@ -78,6 +78,19 @@ const itemReducer = (state = initialState, action: any) => {
         newState[action.data.name].sellValue;
       return newState;
     }
+
+    case "RESET_MULTIPLIER_VALUE": {
+      const newState = { ...state };
+
+      newState[action.data.name].sellMultiplier = action.data.multiplier;
+
+      newState[action.data.name].totalValue =
+        ((newState[action.data.name].stackSize *
+          newState[action.data.name].sellMultiplier) /
+          100) *
+        newState[action.data.name].sellValue;
+      return newState;
+    }
     case "UPDATE_CHAOS_VALUE": {
       const newState = { ...state };
 
@@ -87,6 +100,19 @@ const itemReducer = (state = initialState, action: any) => {
           newState[action.data.name].sellMultiplier) /
           100) *
         newState[action.data.name].sellValue;
+      return newState;
+    }
+    case "RESET_CHAOS_VALUE": {
+      const newState = { ...state };
+
+      console.log(action.data);
+      newState[action.data.name].sellValue = action.data.chaosEquivalent;
+
+      newState[action.data.name].totalValue =
+        ((newState[action.data.name].stackSize *
+          newState[action.data.name].sellMultiplier) /
+          100) *
+        action.data.chaosEquivalent;
       return newState;
     }
     case "CLEAR_ALL_ITEMS": {
@@ -124,10 +150,23 @@ export const updateMultiplierValue = (name: string, multiplier: number) => {
     data: { name: name, multiplier: multiplier },
   };
 };
+export const resetMultiplierValue = (name: string, multiplier: number) => {
+  return {
+    type: "RESET_MULTIPLIER_VALUE",
+    data: { name: name, multiplier: multiplier },
+  };
+};
 export const updateChaosValue = (name: string, chaosValue: number) => {
   return {
     type: "UPDATE_CHAOS_VALUE",
     data: { name: name, chaosValue: chaosValue },
+  };
+};
+
+export const resetChaosValue = (name: string, chaosEquivalent: number) => {
+  return {
+    type: "RESET_CHAOS_VALUE",
+    data: { name: name, chaosEquivalent: chaosEquivalent },
   };
 };
 export const updateItemProps = (

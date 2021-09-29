@@ -118,8 +118,9 @@ const TotalValue = () => {
 export default TotalValue;
 
 const Wrapper = styled.div`
-  margin: 15px 5px 0px 5px;
-  padding: 35px 25px 0px 25px;
+  width: 100%;
+  height: 5%;
+  padding: 5px 25px 0px 25px;
   grid-column: 1 / -1;
 `;
 const A = styled(FlexWrap)`

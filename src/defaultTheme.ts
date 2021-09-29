@@ -11,6 +11,7 @@ const defaultTheme: DefaultTheme = {
     fg2: "#25262A",
     accent: "#33ACD0",
     accent2: "#A8DBE3",
+    accentDark: "#555",
     text: "#f8f5ff",
   },
 };

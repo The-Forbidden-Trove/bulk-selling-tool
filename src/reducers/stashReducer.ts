@@ -87,9 +87,6 @@ export const initStashes = (token: string, league: string) => {
       .filter((stash: any) => {
         return stash.type !== "MapStash";
       })
-      .filter((stash: any) => {
-        return !stash.name.toLowerCase().includes("Remove-only".toLowerCase());
-      })
       .map((stash: any) => {
         return {
           id: stash.id,

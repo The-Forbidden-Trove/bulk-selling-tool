@@ -7,23 +7,83 @@ import { useAppDispatch, useAppSelector } from "../..";
 import { StashTab } from "../../types";
 import { unselectStash } from "../../reducers/stashReducer";
 
-const Header = styled.h3`
-  text-align: center;
-  margin: 5px 0px;
-  color: ${(props) => props.theme.colors.text};
-  font-size: ${(props) => props.theme.fontM};
-`;
-const Wrapper = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  justify-items: start;
-  grid-row-gap: 15px;
-  grid-auto-rows: min-content;
+const PickedTabs = () => {
+  const stashes = useAppSelector((store) => store.stashes);
+  const dispatch = useAppDispatch();
+
+  const click = (id: string) => {
+    dispatch(unselectStash(id));
+  };
+
+  return (
+    <Wrapper>
+      {stashes.map((stashTab: StashTab) => {
+        return (
+          <>
+            {!stashTab.isSelected ? (
+              <></>
+            ) : (
+              <TabWrap onClick={() => click(stashTab.id)}>
+                <LeftPart />
+                <MidPart>
+                  <p>
+                    {stashTab.name.toLowerCase().includes("remove-only")
+                      ? `${stashTab.name.split(" ").slice(0, -1)} (R/O)`
+                      : stashTab.name}
+                  </p>
+                </MidPart>
+                <RightPart />
+                {stashTab.assignedTypes?.map((type: any) => {
+                  return <Icon src={type.icon} />;
+                })}
+
+                <p>{stashTab.defaultMultiplier}%</p>
+              </TabWrap>
+            )}
+          </>
+        );
+      })}
+    </Wrapper>
+  );
+};
+
+export default PickedTabs;
+
+const Wrapper = styled(FlexWrap)`
+  height: 36px;
+  width: 100%;
+  overflow-y: scroll;
+  flex-flow: column wrap;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+  padding: 0px 15px 0px 30px;
+
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    background-color: #f5f5f5;
+    background: none;
+  }
+
+  &::-webkit-scrollbar {
+    width: 12px;
+    background-color: #f5f5f5;
+
+    background: none;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #555;
+  }
 `;
 
 const TabWrap = styled(FlexWrap)`
-  height: 26px;
-  margin: 0px 0px;
+  height: 36px;
+
   cursor: pointer;
   outline: none;
   border: none;
@@ -61,43 +121,3 @@ const Icon = styled.img`
   height: 36px;
   object-fit: contain;
 `;
-const PickedTabs = () => {
-  const stashes = useAppSelector((store) => store.stashes);
-  const dispatch = useAppDispatch();
-
-  const click = (id: string) => {
-    dispatch(unselectStash(id));
-  };
-
-  return (
-    <div style={{ margin: "5px 0px" }}>
-      <Header>Picked tabs</Header>
-      <Wrapper>
-        {stashes.map((stashTab: StashTab) => {
-          return (
-            <>
-              {!stashTab.isSelected ? (
-                <></>
-              ) : (
-                <TabWrap onClick={() => click(stashTab.id)}>
-                  <LeftPart />
-                  <MidPart>
-                    <p>{stashTab.name}</p>
-                  </MidPart>
-                  <RightPart />
-                  {stashTab.assignedTypes?.map((type: any) => {
-                    return <Icon src={type.icon} />;
-                  })}
-
-                  <p>{stashTab.defaultMultiplier}%</p>
-                </TabWrap>
-              )}
-            </>
-          );
-        })}
-      </Wrapper>
-    </div>
-  );
-};
-
-export default PickedTabs;

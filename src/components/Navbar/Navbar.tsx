@@ -5,56 +5,11 @@ import Select from "react-select";
 import { useAppDispatch, useAppSelector } from "../..";
 import { changeDefaultLeague } from "../../reducers/leagueReducer";
 
-const customStyles = {
-  option: (provided: any, state: any) => ({
-    ...provided,
-    fontWeight: state.isSelected ? "bold" : "normal",
-    color: state.isSelected ? "#33ACD0" : "#f8f5ff",
-    backgroundColor: "#25262A",
-    fontSize: "16px",
-  }),
-  singleValue: (provided: any, state: any) => ({
-    ...provided,
-    color: "#f8f5ff",
-    background: "none",
-    fontSize: "16px",
-  }),
-  menu: (provided: any, state: any) => ({
-    ...provided,
-    color: "red",
-    backgroundColor: "#050710",
-    padding: "0px 2px",
-  }),
-  control: (provided: any, state: any) => ({
-    ...provided,
-    background: "none",
-    border: "none",
-  }),
-};
-
-const SelectExtend = styled(Select).attrs((props) => ({}))`
-  && {
-    [class*="MenuList"] {
-      ::-webkit-scrollbar {
-        width: 5px;
-      }
-      ::-webkit-scrollbar-track {
-        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-        border-radius: 10px;
-        background-color: #f5f5f5;
-        background: none;
-      }
-      ::-webkit-scrollbar-thumb {
-        border-radius: 10px;
-        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-        background-color: #555;
-      }
-      &:hover::-webkit-scrollbar-thumb {
-        -webkit-border-radius: 4px;
-        border-radius: 4px;
-      }
-    }
-  }
+const Img = styled.img`
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  padding: 5px;
 `;
 
 const Navbar = () => {
@@ -79,16 +34,14 @@ const Navbar = () => {
   return (
     <Wrapper>
       <Left>
+        <Img
+          src={"https://avatars.githubusercontent.com/u/74618880?s=200&v=4"}
+        />
         <p>TheForbiddenTrove</p>
         <Button onClick={redirectDiscord}>join our discord!</Button>
       </Left>
 
-      <Middle>
-        <img
-          src="https://avatars.githubusercontent.com/u/74618880?s=200&v=4"
-          alt="logo"
-        />
-      </Middle>
+      <Middle>TFT Bulk Selling Tool</Middle>
 
       <Right>
         <div style={{ width: "150px", margin: "0px 20px 0px 0px" }}>
@@ -148,7 +101,7 @@ const Wrapper = styled(FlexWrap)`
 `;
 
 const Left = styled(FlexWrap)`
-  width: 30%;
+  width: 33%;
   margin: 0px 0px 0px 10px;
   justify-content: flex-start;
   color: ${(props) => props.theme.colors.text};
@@ -157,18 +110,71 @@ const Left = styled(FlexWrap)`
   }
 `;
 const Middle = styled(FlexWrap)`
-  padding-top: 3em;
-  > img {
-    width: 175px;
-    height: 175px;
-  }
+  color: ${(props) => props.theme.colors.text};
+
+  width: 33%;
+  font-size: 32px;
 `;
 const Right = styled(FlexWrap)`
-  width: 30%;
+  width: 33%;
   justify-content: flex-end;
   color: ${(props) => props.theme.colors.text};
   margin: 0px 10px 0px 0px;
   > p {
     font-size: ${(props) => props.theme.fontM};
+  }
+`;
+
+const customStyles = {
+  option: (provided: any, state: any) => ({
+    ...provided,
+    fontWeight: state.isSelected ? "bold" : "normal",
+    color: state.isSelected ? "#33ACD0" : "#f8f5ff",
+    backgroundColor: "#25262A",
+    fontSize: "16px",
+  }),
+  singleValue: (provided: any, state: any) => ({
+    ...provided,
+    color: "#f8f5ff",
+    background: "none",
+    fontSize: "16px",
+  }),
+  menu: (provided: any, state: any) => ({
+    ...provided,
+    color: "red",
+    backgroundColor: "#050710",
+    padding: "0px 2px",
+  }),
+  control: (provided: any, state: any) => ({
+    ...provided,
+    background: "none",
+    border: "1px solid #f8f5ff",
+
+    cursor: "pointer",
+  }),
+};
+
+const SelectExtend = styled(Select).attrs((props) => ({}))`
+  && {
+    [class*="MenuList"] {
+      ::-webkit-scrollbar {
+        width: 5px;
+      }
+      ::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        border-radius: 10px;
+        background-color: #f5f5f5;
+        background: none;
+      }
+      ::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        background-color: #555;
+      }
+      &:hover::-webkit-scrollbar-thumb {
+        -webkit-border-radius: 4px;
+        border-radius: 4px;
+      }
+    }
   }
 `;

@@ -110,7 +110,7 @@ const GeneratedMessage = () => {
               return x.isSelected;
             })
             .sort((item1: any, item2: any) => {
-              return item2.stackSize - item1.stackSize;
+              return item2.totalValue - item1.totalValue;
             })
             .map((item: any) => {
               return <GeneratedMessageItemRecord item={item} />;
@@ -135,12 +135,13 @@ const Header = styled(FlexWrap)`
 const CurrencyTypes = styled(FlexWrap)``;
 const ExPrice = styled(FlexWrap)``;
 const Wrapper = styled(FlexWrap)`
+  width: 100%;
   justify-content: flex-start;
   visibility: visible;
   padding: 20px 20px 10px 20px;
   flex-direction: column;
-  left: -500%;
-  top: -500%;
+  left: -5000%;
+  top: -5000%;
   position: absolute;
 
   background: ${(props) => props.theme.colors.bg};

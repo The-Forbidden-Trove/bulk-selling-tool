@@ -2,12 +2,21 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useAppDispatch, useAppSelector } from "../..";
 import {
+  resetChaosValue,
+  resetMultiplierValue,
   toggleItemSelect,
   updateChaosValue,
-  updateItemProps,
   updateMultiplierValue,
 } from "../../reducers/itemReducer";
 import { FlexWrap, Input } from "../baseStyles";
+import { FaTimes, FaCheck, FaRedo } from "react-icons/fa";
+import { Checkbox } from "../Checkbox";
+
+const iconStyle = {
+  fill: "#555",
+  padding: "0px 5px",
+  cursor: "pointer",
+};
 
 const ItemRecord = ({ item }: any) => {
   const [multiplier, setMultiplier] = useState(`${item.sellMultiplier}%`);
@@ -20,21 +29,34 @@ const ItemRecord = ({ item }: any) => {
   const handleMultiplierChange = (e: any) => {
     const val = e.target.value;
     if (/^\d*\.?\d*%$/.test(val)) {
-      dispatch(
-        updateMultiplierValue(
-          item.name,
-          Number(val.substr(0, val.length - 1)) || 0
-        )
-      );
       setMultiplier(val);
     }
   };
+  const updateMultiplierPrice = () => {
+    dispatch(
+      updateMultiplierValue(item.name, Number(multiplier.slice(0, -1)) || 0)
+    );
+    setMultiplier(multiplier);
+  };
+  const setDefaultMultiplierValue = () => {
+    dispatch(resetMultiplierValue(item.name, Number(item.multiplier)));
+    setMultiplier(`${item.multiplier}%`);
+  };
+
   const handleChaosChange = (e: any) => {
     const val = e.target.value;
     if (/^\d*\.?\d*$/.test(val)) {
-      dispatch(updateChaosValue(item.name, Number(val) || 0));
       setChaosValue(val);
     }
+  };
+
+  const updateChaosPrice = () => {
+    dispatch(updateChaosValue(item.name, Number(chaosValue) || 0));
+  };
+
+  const setDefaultChaosPrice = () => {
+    dispatch(resetChaosValue(item.name, Number(item.chaosEquivalent)));
+    setChaosValue(item.chaosEquivalent);
   };
 
   const onKeyPress = (event: any) => {
@@ -48,16 +70,24 @@ const ItemRecord = ({ item }: any) => {
   useEffect(() => {
     setMultiplier(`${item.sellMultiplier}%`);
     setChaosValue(`${item.sellValue}`);
-  }, [dispatch, handleChaosChange, handleMultiplierChange]);
+  }, [item]);
 
   return (
     <ItemRecordWrap isSelected={item.isSelected}>
       <NameWrap onClick={() => dispatch(toggleItemSelect(item.name))}>
-        <Icon src={item.icon} alt="icon" />
+        <Checkbox checked={item.isSelected} />
+        <Icon
+          src={item.icon}
+          alt="icon"
+          style={{ padding: "0px 5px 0px 10px" }}
+        />
         <P>{item.name}</P>
       </NameWrap>
-      <P>{item.stackSize}</P>
-      <P>
+      <StackSizeWrap>
+        <P>{item.stackSize}</P>
+      </StackSizeWrap>
+
+      <PriceWrap>
         <Icon
           src={
             "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollRare.png?scale=1&w=1&h=1"
@@ -68,31 +98,45 @@ const ItemRecord = ({ item }: any) => {
           onChange={handleChaosChange}
           onKeyPress={onKeyPress}
         />
-      </P>
-      <P>
+        <FaCheck style={iconStyle} onClick={(e) => updateChaosPrice()} />
+        <FaRedo style={iconStyle} onClick={(e) => setDefaultChaosPrice()} />
+      </PriceWrap>
+
+      <PriceWrap style={{ padding: "0px 0px 0px 15px" }}>
         <Multiplier
           value={multiplier}
           onChange={handleMultiplierChange}
           onKeyPress={onKeyPress}
         />
-      </P>
-      <P>
+
+        <FaCheck style={iconStyle} onClick={(e) => updateMultiplierPrice()} />
+        <FaRedo
+          style={iconStyle}
+          onClick={(e) => setDefaultMultiplierValue()}
+        />
+      </PriceWrap>
+      <PriceWrap>
         <Icon
           src={
             "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollRare.png?scale=1&w=1&h=1"
           }
         />
-        {Math.round((item.totalValue + Number.EPSILON) * 100) / 100}
-      </P>
+        <PriceP>
+          {Math.round((item.totalValue + Number.EPSILON) * 100) / 100}
+        </PriceP>
+      </PriceWrap>
 
-      <P>
+      <PriceWrap>
         <Icon
           src={
             "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyAddModToRare.png?scale=1&w=1&h=1"
           }
         />
-        {Math.round(((item.totalValue + Number.EPSILON) * 100) / exPrice) / 100}
-      </P>
+        <PriceP>
+          {Math.round(((item.totalValue + Number.EPSILON) * 100) / exPrice) /
+            100}
+        </PriceP>
+      </PriceWrap>
     </ItemRecordWrap>
   );
 };
@@ -100,45 +144,70 @@ const ItemRecord = ({ item }: any) => {
 const Multiplier = styled(Input)`
   color: ${(props) => props.theme.colors.text};
 
-  padding: 0px;
-  width: 60px;
+  text-align: center;
+  width: 80px;
   font-size: 22px;
   margin: 0;
+
+  padding: 2px 2px 2px 5px;
+  border-bottom: 1px solid ${(props) => props.theme.colors.accentDark};
+  border-radius: 4px;
 `;
 const ChaosValue = styled(Input)`
-  width: 100%;
+  max-width: 120px;
   font-size: 22px;
+
+  text-align: center;
   color: ${(props) => props.theme.colors.text};
-  margin: 0;
-  padding: 0px;
+  padding: 2px 2px 2px 5px;
+  border-bottom: 1px solid ${(props) => props.theme.colors.accentDark};
+  border-radius: 4px;
 `;
 
-const ItemRecordWrap = styled.div<{ isSelected?: boolean }>`
-  display: grid;
+const ItemRecordWrap = styled(FlexWrap)<{ isSelected?: boolean }>`
+  width: 100%;
+  margin: 5px 0px;
   opacity: ${(props) => (props.isSelected ? 1 : 0.4)};
-  justify-items: start;
-  grid-row-gap: 20px;
   font-size: ${(props) => props.theme.fontM};
-  grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
-  grid-auto-columns: min-content;
-  grid-auto-rows: min-content;
+  justify-content: space-between;
 `;
 
 const P = styled(FlexWrap)`
   font-size: 22px;
   color: ${(props) => props.theme.colors.text};
 `;
+const PriceP = styled.p`
+  width: 100px;
+  font-size: 22px;
+  text-align: center;
+  color: ${(props) => props.theme.colors.text};
+`;
 
 const NameWrap = styled(FlexWrap)`
+  width: 25%;
+  justify-content: flex-start;
   background: none;
   outline: none;
   border: none;
   cursor: pointer;
 `;
+
 const Icon = styled.img`
-  padding: 0px 10px 0px 0px;
+  padding: 0px 5px 0px 0px;
   width: 36px;
   height: 36px;
   object-fit: contain;
 `;
+
+const StackSizeWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 15%;
+`;
+
+const PriceWrap = styled(FlexWrap)`
+  justify-content: center;
+  width: 15%;
+`;
+
 export default ItemRecord;

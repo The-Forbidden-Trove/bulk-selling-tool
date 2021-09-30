@@ -10,6 +10,7 @@ const TotalValue = () => {
   let sum = 0;
   const items = useAppSelector((store) => store.items);
   const exPrice = useAppSelector((store) => store.exaltedPrice).value || 1;
+  const league = useAppSelector((store) => store.leagues).defaultLeague;
 
   const selectedTypes = useAppSelector((store) => store.stashes)
     .filter((stash: StashTab) => {
@@ -43,13 +44,15 @@ const TotalValue = () => {
       })
         .then((canvas: any) => {
           canvas.toBlob((blob: any) => {
-            const copyText = `Item types: ${selectedTypes.map((x: any) => {
-              return x.type === "BlightedMap"
-                ? "Blighted Map"
-                : x.type === "DeliriumOrb"
-                ? "Delirium Orb"
-                : x.type;
-            })}\nTotal price ${
+            const copyText = `WTS ${league}\nItem types: ${selectedTypes.map(
+              (x: any) => {
+                return x.type === "BlightedMap"
+                  ? "Blighted Map"
+                  : x.type === "DeliriumOrb"
+                  ? "Delirium Orb"
+                  : x.type;
+              }
+            )}\nTotal price ${
               Math.round((sum + Number.EPSILON) * 100) / 100
             } chaos ( ${
               Math.round(((sum + Number.EPSILON) * 100) / exPrice) / 100

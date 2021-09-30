@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/bulk-selling-tool/static/js/main.02733888.chunk.js",
-    "main.js.map": "/bulk-selling-tool/static/js/main.02733888.chunk.js.map",
+    "main.js": "/bulk-selling-tool/static/js/main.5b46efdd.chunk.js",
+    "main.js.map": "/bulk-selling-tool/static/js/main.5b46efdd.chunk.js.map",
     "runtime-main.js": "/bulk-selling-tool/static/js/runtime-main.b9a7b8f9.js",
     "runtime-main.js.map": "/bulk-selling-tool/static/js/runtime-main.b9a7b8f9.js.map",
     "static/js/2.07b8b3e8.chunk.js": "/bulk-selling-tool/static/js/2.07b8b3e8.chunk.js",
@@ -14,6 +14,6 @@
   "entrypoints": [
     "static/js/runtime-main.b9a7b8f9.js",
     "static/js/2.07b8b3e8.chunk.js",
-    "static/js/main.02733888.chunk.js"
+    "static/js/main.5b46efdd.chunk.js"
   ]
 }

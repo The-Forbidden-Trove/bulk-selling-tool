@@ -7,8 +7,6 @@ import StashTabR from "../../assets/StashTabR.png";
 import { useAppDispatch, useAppSelector } from "../..";
 import { highlightStash } from "../../reducers/stashReducer";
 import { useState } from "react";
-import { FaTimes } from "react-icons/fa";
-import { IconContext } from "react-icons";
 import { Checkbox } from "../Checkbox";
 
 const AllTabs = () => {
@@ -39,7 +37,7 @@ const AllTabs = () => {
           isSelected={!removeOnly}
           onClick={(e: any) => handleRemoveOnly(e)}
         >
-          <Checkbox checked={!removeOnly} />
+          <Checkbox checked={!removeOnly} onChange={() => {}} />
           <HideRemoveOnlyTabs>Show Remove-Only Tabs</HideRemoveOnlyTabs>
         </RemoveOnly>
       </Options>
@@ -58,31 +56,27 @@ const AllTabs = () => {
           })
           .map((stashTab: StashTab) => {
             return (
-              <>
-                {stashTab.isSelected ? (
-                  <></>
-                ) : (
-                  <TabWrap
-                    key={stashTab.id}
-                    onClick={() => click(stashTab.id)}
-                    scale={stashTab.isHighlited ? 1.1 : 1}
-                    z={stashTab.isHighlited ? 99 : 1}
+              !stashTab.isSelected && (
+                <TabWrap
+                  key={stashTab.id}
+                  onClick={() => click(stashTab.id)}
+                  scale={stashTab.isHighlited ? 1.1 : 1}
+                  z={stashTab.isHighlited ? 99 : 1}
+                >
+                  <LeftPart backColor={stashTab.colour} />
+                  <MidPart
+                    backColor={stashTab.colour}
+                    isSelected={stashTab.isHighlited}
                   >
-                    <LeftPart backColor={stashTab.colour} />
-                    <MidPart
-                      backColor={stashTab.colour}
-                      isSelected={stashTab.isHighlited}
-                    >
-                      <p>
-                        {stashTab.name.toLowerCase().includes("remove-only")
-                          ? `${stashTab.name.split(" ").slice(0, -1)} (R/O)`
-                          : stashTab.name}
-                      </p>
-                    </MidPart>
-                    <RightPart backColor={stashTab.colour} />
-                  </TabWrap>
-                )}
-              </>
+                    <p>
+                      {stashTab.name.toLowerCase().includes("remove-only")
+                        ? `${stashTab.name.split(" ").slice(0, -1)} (R/O)`
+                        : stashTab.name}
+                    </p>
+                  </MidPart>
+                  <RightPart backColor={stashTab.colour} />
+                </TabWrap>
+              )
             );
           })}
       </TabList>

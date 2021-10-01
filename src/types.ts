@@ -14,6 +14,7 @@ export interface Item {
   id: string;
   icon: string;
   name: string;
+  shortName?: string;
   multiplier: number;
   sellMultiplier: number;
   chaosEquivalent?: number;

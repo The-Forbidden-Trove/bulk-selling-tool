@@ -19,28 +19,24 @@ const PickedTabs = () => {
     <Wrapper>
       {stashes.map((stashTab: StashTab) => {
         return (
-          <>
-            {!stashTab.isSelected ? (
-              <></>
-            ) : (
-              <TabWrap onClick={() => click(stashTab.id)}>
-                <LeftPart />
-                <MidPart>
-                  <p>
-                    {stashTab.name.toLowerCase().includes("remove-only")
-                      ? `${stashTab.name.split(" ").slice(0, -1)} (R/O)`
-                      : stashTab.name}
-                  </p>
-                </MidPart>
-                <RightPart />
-                {stashTab.assignedTypes?.map((type: any) => {
-                  return <Icon src={type.icon} />;
-                })}
+          stashTab.isSelected && (
+            <TabWrap onClick={() => click(stashTab.id)} key={stashTab.id}>
+              <LeftPart />
+              <MidPart>
+                <p>
+                  {stashTab.name.toLowerCase().includes("remove-only")
+                    ? `${stashTab.name.split(" ").slice(0, -1)} (R/O)`
+                    : stashTab.name}
+                </p>
+              </MidPart>
+              <RightPart />
+              {stashTab.assignedTypes?.map((type: any) => {
+                return <Icon src={type.icon} key={type.type} />;
+              })}
 
-                <p>{stashTab.defaultMultiplier}%</p>
-              </TabWrap>
-            )}
-          </>
+              <p>{stashTab.defaultMultiplier}%</p>
+            </TabWrap>
+          )
         );
       })}
     </Wrapper>

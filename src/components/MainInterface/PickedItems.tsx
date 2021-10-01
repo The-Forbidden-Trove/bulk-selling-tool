@@ -32,7 +32,7 @@ const PickedItems = ({ filter }: any) => {
               return item2.totalValue - item1.totalValue;
             })
             .map((item: any) => {
-              return <ItemRecord item={item} />;
+              return <ItemRecord item={item} key={item.id} />;
             })
         );
       })}

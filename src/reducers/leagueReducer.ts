@@ -1,6 +1,6 @@
 import { getLeagues } from "../api/ggg/ggg";
 import { fetchNinjaData, getAllItemTypePrices } from "../api/poeninja/poeninja";
-import { AppDispatch, RootState } from "../store";
+import { AppDispatch } from "../store";
 import { setDefaultExaltPrice } from "./exaltPriceReducer";
 import { clearAllItems } from "./itemReducer";
 

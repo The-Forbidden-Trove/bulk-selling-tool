@@ -75,7 +75,7 @@ const ItemRecord = ({ item }: any) => {
   return (
     <ItemRecordWrap isSelected={item.isSelected}>
       <NameWrap onClick={() => dispatch(toggleItemSelect(item.name))}>
-        <Checkbox checked={item.isSelected} />
+        <Checkbox checked={item.isSelected} onChange={() => {}} />
         <Icon
           src={item.icon}
           alt="icon"

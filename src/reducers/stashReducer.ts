@@ -166,6 +166,7 @@ export const selectStash = (
               id: item?.id,
               name: name,
               icon: item.icon,
+              shortName: generateSimpleName(name),
               w: item.w,
               h: item.h,
               maxStackSize: item.maxStackSize ? item.maxStackSize : 1,
@@ -184,6 +185,7 @@ export const selectStash = (
             items[name] = {
               id: item?.id,
               name: name,
+              shortName: generateSimpleName(name),
               icon: item.icon,
               w: item.w,
               h: item.h,
@@ -257,3 +259,17 @@ export const highlightStash = (id: string) => {
 };
 
 export default stashReducer;
+
+const generateSimpleName = (name: string) => {
+  if (name.includes("Essence of ")) {
+    return name.replace("Essence of ", "");
+  } else if (name.includes("Delirium Orb")) {
+    return name.replace(" Delirium Orb", "");
+  } else if (name.includes("Scarab")) {
+    return name.replace(" Scarab", "");
+  } else if (name.includes("Fossil")) {
+    return name.replace(" Fossil", "");
+  }
+
+  return "";
+};

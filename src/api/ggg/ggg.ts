@@ -25,7 +25,6 @@ export const getAllSTashTabs = async (token: string, league: string) => {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/x-www-form-urlencoded",
-        "User-Agent": "OAuth tftbulksellingtool/1.0",
       },
     });
     return request.data.stashes
@@ -52,7 +51,6 @@ export const getSTashTabItems = async (
       Authorization: `Bearer ${token}`,
 
       "Content-Type": "application/x-www-form-urlencoded",
-      "User-Agent": "OAuth tftbulksellingtool/1.0",
     },
   });
   return request.data;
@@ -67,7 +65,7 @@ export const getSelectedTabsItems = async (
 
   await Promise.allSettled(
     stashes.map((stash: StashTab) => {
-      axios
+      return axios
         .get(`${baseUrl}/stash/${league}/${stash.id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -75,7 +73,7 @@ export const getSelectedTabsItems = async (
         })
         .then((response: any) => {
           const res = response.data.stash.items;
-          res.map((item: any) => {
+          res.forEach((item: any) => {
             items[item.baseType] = {
               id: item.id,
               name: item.baseType,

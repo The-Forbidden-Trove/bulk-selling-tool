@@ -3,8 +3,6 @@ import { differenceInMinutes } from "date-fns";
 import { currencies, CurrencyType, NinjaItem } from "../../types";
 import { provider } from "../../index";
 
-const baseUrl = "https://poe.ninja/api/data";
-
 export const getAllItemTypePrices = async (league: string) => {
   let items: Record<string, NinjaItem> = {};
   await Promise.allSettled(
@@ -19,7 +17,7 @@ export const getAllItemTypePrices = async (league: string) => {
         .then((response) => {
           const data = response.data.lines;
           currency.ninjaEndpoint === "itemoverview"
-            ? data.map((item: any) => {
+            ? data.forEach((item: any) => {
                 const name = item.name.match(/Blighted [\w\s]+Map/)
                   ? `${item.baseType} ${item.mapTier}`
                   : item.name;
@@ -30,7 +28,7 @@ export const getAllItemTypePrices = async (league: string) => {
                 };
                 items[x.name] = x;
               })
-            : data.map((item: any) => {
+            : data.forEach((item: any) => {
                 if (item.hasOwnProperty("receive")) {
                   if (!item.receive.hasOwnProperty("value")) {
                   }

@@ -8,6 +8,9 @@ import {
   incubatorFilter,
   blightedMapFilter,
   deliriumOrbFilter,
+  resonatorFilter,
+  prophecyFilter,
+  divinationFilter,
 } from "./itemFilter";
 
 export interface Item {
@@ -129,6 +132,29 @@ export const currencies: CurrencyType[] = [
     ninjaEndpoint: "itemoverview",
     isSelected: false,
     typeFilter: deliriumOrbFilter,
+  },
+
+  {
+    type: "Resonator",
+    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvRGVsdmUvUmVyb2xsMngyQyIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/584267701b/Reroll2x2C.png",
+    ninjaEndpoint: "itemoverview",
+    isSelected: false,
+    typeFilter: resonatorFilter,
+  },
+
+  {
+    type: "Prophecy",
+    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvUHJvcGhlY3lPcmJSZWQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/c45e04700d/ProphecyOrbRed.png",
+    ninjaEndpoint: "itemoverview",
+    isSelected: false,
+    typeFilter: prophecyFilter,
+  },
+  {
+    type: "DivinationCard",
+    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvRGl2aW5hdGlvbi9JbnZlbnRvcnlJY29uIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/f34bf8cbb5/InventoryIcon.png",
+    ninjaEndpoint: "itemoverview",
+    isSelected: false,
+    typeFilter: divinationFilter,
   },
   //{
   // type: "Fossil",

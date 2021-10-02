@@ -9,7 +9,7 @@ import {
   updateMultiplierValue,
 } from "../../reducers/itemReducer";
 import { FlexWrap, Input } from "../baseStyles";
-import { FaTimes, FaCheck, FaRedo } from "react-icons/fa";
+import { FaCheck, FaRedo } from "react-icons/fa";
 import { Checkbox } from "../Checkbox";
 
 const iconStyle = {

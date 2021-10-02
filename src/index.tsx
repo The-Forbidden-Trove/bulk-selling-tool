@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom";
 import App from "./App";
-import { ThemeProvider } from "styled-components";
+import styled, { css, ThemeProvider } from "styled-components";
 import { defaultTheme } from "./defaultTheme";
 import { GlobalStyles } from "./global";
 import AuthProvider from "./api/oauth/AuthProvider";
@@ -9,8 +9,9 @@ import { Provider } from "react-redux";
 import store from "./store";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from "./store";
-
+import { ToastContainer, toast } from "react-toastify";
 import GlobalFonts from "./fonts/fonts";
+import "react-toastify/dist/ReactToastify.css";
 
 // Use throughout your app instead of plain `useDispatch` and `useSelector`
 export const useAppDispatch = () => useDispatch<AppDispatch>();
@@ -31,6 +32,36 @@ const authServiceData = new AuthService({
   state: "fd3a90ef-ce50-4361-86ae-985d6d8a26aa",
 });
 
+const StyledToastContainer = styled(ToastContainer).attrs({
+  className: "toast-container",
+  toastClassName: "toast",
+  bodyClassName: "body",
+  progressClassName: "progress",
+})`
+  /* .toast-container */
+  width: 15%;
+  background-color: none;
+
+  /* .toast is passed to toastClassName */
+  .toast {
+    background-color: ${(props) => props.theme.colors.accentDark};
+  }
+
+  button[aria-label="close"] {
+    display: visible;
+  }
+
+  /* .body is passed to bodyClassName */
+  .body {
+    background-color: ${(props) => props.theme.colors.accentDark};
+  }
+
+  /* .progress is passed to progressClassName */
+  .progress {
+    background-color: ${(props) => props.theme.colors.fg2};
+  }
+`;
+
 ReactDOM.render(
   <Provider store={store}>
     <AuthProvider authService={authServiceData}>
@@ -38,6 +69,13 @@ ReactDOM.render(
         <GlobalStyles />
         <GlobalFonts />
         <App />
+        <StyledToastContainer
+          autoClose={2500}
+          //hideProgressBar={true}
+          pauseOnFocusLoss={false}
+          newestOnTop={true}
+          limit={2}
+        />
       </ThemeProvider>
     </AuthProvider>
   </Provider>,

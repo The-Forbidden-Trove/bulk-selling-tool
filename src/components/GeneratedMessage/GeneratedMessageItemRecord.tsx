@@ -87,7 +87,7 @@ const P2 = styled(FlexWrap)`
 const Stack = styled(FlexWrap)`
   font-size: 16px;
   width: 100%;
-  color: ${(props) => props.theme.colors.accent};
+  color: ${(props) => props.theme.colors.text};
   align-items: center;
   text-align: middle;
   align-content: center;

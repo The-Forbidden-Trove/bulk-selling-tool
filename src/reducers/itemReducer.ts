@@ -28,16 +28,17 @@ const itemReducer = (state = initialState, action: any) => {
     }
     case "REMOVE_ITEMS": {
       let newState = { ...state };
-      for (const [key, value] of Object.entries(action.data.items)) {
-        const temp: any = value;
-        if (newState[key]) {
-          newState[key].stackSize -= temp.stackSize;
+      if (action.data.items)
+        for (const [key, value] of Object.entries(action.data.items)) {
+          const temp: any = value;
+          if (newState[key]) {
+            newState[key].stackSize -= temp.stackSize;
 
-          newState[key].totalValue =
-            ((newState[key].stackSize * newState[key].sellMultiplier) / 100) *
-            newState[key].sellValue;
+            newState[key].totalValue =
+              ((newState[key].stackSize * newState[key].sellMultiplier) / 100) *
+              newState[key].sellValue;
+          }
         }
-      }
       let result: Record<string, Item> = {};
 
       for (const [key, value] of Object.entries(newState)) {
@@ -119,6 +120,39 @@ const itemReducer = (state = initialState, action: any) => {
       const newState = { ...state };
       return {};
     }
+    case "SELECT_ALL_ITEMS": {
+      const newState = { ...state };
+
+      for (const [key, value] of Object.entries(state)) {
+        newState[key].isSelected = true;
+      }
+
+      return newState;
+    }
+    case "UNSELECT_ALL_ITEMS": {
+      const newState = { ...state };
+
+      for (const [key, value] of Object.entries(state)) {
+        newState[key].isSelected = false;
+      }
+
+      return newState;
+    }
+    case "FILTER_BY_MIN_STACK": {
+      const newState = { ...state };
+      console.log(action.data.minStackSize);
+
+      for (const [key, value] of Object.entries(state)) {
+        if (newState[key].stackSize < action.data.minStackSize) {
+          newState[key].isSelected = false;
+        } else {
+          newState[key].isSelected = true;
+        }
+      }
+
+      return newState;
+    }
+
     default:
       return state;
   }
@@ -182,6 +216,23 @@ export const updateItemProps = (
 export const clearAllItems = () => {
   return {
     type: "CLEAR_ALL_ITEMS",
+  };
+};
+
+export const selectAllItems = () => {
+  return {
+    type: "SELECT_ALL_ITEMS",
+  };
+};
+export const unselectAllItems = () => {
+  return {
+    type: "UNSELECT_ALL_ITEMS",
+  };
+};
+export const filterByMinStack = (minStackSize: number) => {
+  return {
+    type: "FILTER_BY_MIN_STACK",
+    data: { minStackSize: minStackSize },
   };
 };
 export default itemReducer;

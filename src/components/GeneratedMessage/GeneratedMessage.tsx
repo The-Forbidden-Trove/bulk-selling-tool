@@ -181,6 +181,6 @@ const ItemRecordWrap = styled.div`
 
   justify-items: start;
   font-size: ${(props) => props.theme.fontM};
-  grid-template-columns: 1fr 2fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 4fr 3fr 3fr 3fr;
   display: grid;
 `;

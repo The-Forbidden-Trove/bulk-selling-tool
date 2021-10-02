@@ -1,13 +1,15 @@
 import html2canvas from "html2canvas";
 import styled from "styled-components";
 import { isFirefox, isSafari } from "react-device-detect";
-import { FaTimes, FaCheck, FaRedo } from "react-icons/fa";
+import { FaCheck } from "react-icons/fa";
 import { useAppSelector } from "../..";
 import { Button, FlexWrap } from "../baseStyles";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const TotalValue = () => {
   const [userName, setUserName] = useState("");
+  const [warning, setWarning] = useState(false);
   let sum = 0;
   const items = useAppSelector((store) => store.items);
   const exPrice = useAppSelector((store) => store.exaltedPrice).value || 1;
@@ -19,62 +21,75 @@ const TotalValue = () => {
     }
   }
   const generateImage = () => {
-    let component = document.getElementById("generatedMessage");
+    toast.promise(generate, {
+      pending: "Generating",
+      success: "Image generated successfully!",
+      error:
+        "Couldn't generate an image.\nPlease stay on the site while it is being generated.",
+    });
+  };
+  const generate = () => {
+    return new Promise((resolve, reject) => {
+      let component = document.getElementById("generatedMessage");
 
-    if (component) {
-      html2canvas(component, {
-        useCORS: true,
-        allowTaint: true,
-        backgroundColor: "none",
-      })
-        .then((canvas: any) => {
-          canvas.toBlob((blob: any) => {
-            const copyText = `WTS ${league}\nIGN: \`${userName}\`\nPrice: \`${Math.round(
-              Math.round((sum + Number.EPSILON) * 100) / 100
-            )} chaos\` ( \`${Math.floor(
-              Math.round(((sum + Number.EPSILON) * 100) / exPrice) / 100
-            )} ex\` + \`${Math.round(
-              (Math.round(((sum + Number.EPSILON) * 100) / exPrice) / 100 -
-                Math.floor(
-                  Math.round(((sum + Number.EPSILON) * 100) / exPrice) / 100
-                )) *
-                exPrice
-            )} chaos\` )`;
-            const textBlob: any = new Blob([copyText], {
-              type: "text/plain",
-            });
-
-            if (isFirefox || isSafari) {
-              navigator.clipboard
-                .writeText(copyText)
-                .then((x) => {
-                  const fileObjectURL = URL.createObjectURL(blob);
-                  window.open(fileObjectURL);
-                })
-                .catch((e) => console.log(e));
-            } else {
-              navigator.clipboard
-                .write([
-                  new ClipboardItem({
-                    "image/png": blob,
-                    "text/plain": textBlob,
-                  }),
-                ])
-                .catch((e) => console.log(e));
-            }
-          });
+      if (component) {
+        component.focus();
+        return html2canvas(component, {
+          useCORS: true,
+          allowTaint: true,
+          backgroundColor: "none",
         })
-        .catch((e) => console.log(e));
-    }
+          .then((canvas: any) => {
+            return canvas.toBlob((blob: any) => {
+              const copyText = `WTS ${league}\nIGN: \`${userName}\`\nPrice: \`${Math.round(
+                Math.round((sum + Number.EPSILON) * 100) / 100
+              )} chaos\` ( \`${Math.floor(
+                Math.round(((sum + Number.EPSILON) * 100) / exPrice) / 100
+              )} ex\` + \`${Math.round(
+                (Math.round(((sum + Number.EPSILON) * 100) / exPrice) / 100 -
+                  Math.floor(
+                    Math.round(((sum + Number.EPSILON) * 100) / exPrice) / 100
+                  )) *
+                  exPrice
+              )} chaos\` )`;
+              const textBlob: any = new Blob([copyText], {
+                type: "text/plain",
+              });
+
+              if (isFirefox || isSafari) {
+                navigator.clipboard
+                  .writeText(copyText)
+                  .then((x) => {
+                    const fileObjectURL = URL.createObjectURL(blob);
+                    window.open(fileObjectURL);
+                  })
+                  .catch((e) => console.log(e));
+              } else {
+                window.navigator.clipboard
+                  .write([
+                    new window.ClipboardItem({
+                      "image/png": blob,
+                      "text/plain": textBlob,
+                    }),
+                  ])
+                  .then((x) => {
+                    resolve("Image Generated");
+                  })
+                  .catch((e) => {
+                    reject(new Error("Not generated"));
+                  });
+              }
+            });
+          })
+          .catch((e) => console.log(e));
+      }
+    });
   };
 
   useEffect(() => {
     const data = window.localStorage.getItem("userName");
     if (data) {
       setUserName(data);
-
-      console.log(data);
-      console.log(userName);
     }
   }, []);
   const updateName = () => {
@@ -116,7 +131,9 @@ const TotalValue = () => {
           </UserName>
           <Generate onClick={generateImage}>
             <div style={{ display: "flex", flexDirection: "column" }}>
-              <P>Generate discord message!</P>
+              <P style={warning ? { color: "red" } : {}}>
+                Generate discord message!
+              </P>
               <P2>Remember to CTRL+V twice on Discord!</P2>
             </div>
           </Generate>

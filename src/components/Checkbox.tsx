@@ -13,10 +13,10 @@ const Icon = styled.svg<{ checked: boolean }>`
   visibility: ${(props) => (props.checked ? "visible" : "hidden")};
 `;
 
-export const Checkbox = ({ checked, ...props }: any) => (
+export const Checkbox = ({ checked, style, ...props }: any) => (
   <CheckboxContainer>
     <HiddenCheckbox checked={checked} {...props} />
-    <StyledCheckbox checked={checked}>
+    <StyledCheckbox checked={checked} style={style}>
       <Icon viewBox="0 0 24 24" checked={checked}>
         <polyline points="20 6 9 17 4 12" />
       </Icon>

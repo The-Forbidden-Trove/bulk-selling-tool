@@ -306,5 +306,5 @@ const generateSimpleName = (name: string) => {
       return name.replace(result, "").replace("Emblem", "").trim() || "";
     return name.replace(result, "").trim() || "";
   }
-  return "";
+  return name;
 };

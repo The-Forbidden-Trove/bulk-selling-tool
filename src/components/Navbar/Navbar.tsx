@@ -132,24 +132,28 @@ const customStyles = {
     color: state.isSelected ? "#33ACD0" : "#f8f5ff",
     backgroundColor: "#25262A",
     fontSize: "16px",
+    opacity: "1",
   }),
   singleValue: (provided: any, state: any) => ({
     ...provided,
     color: "#f8f5ff",
     background: "none",
     fontSize: "16px",
+    opacity: "1",
   }),
   menu: (provided: any, state: any) => ({
     ...provided,
     color: "red",
     backgroundColor: "#050710",
     padding: "0px 2px",
+    opacity: "1",
   }),
   control: (provided: any, state: any) => ({
     ...provided,
     background: "none",
     border: "1px solid #f8f5ff",
 
+    opacity: "1",
     cursor: "pointer",
   }),
 };

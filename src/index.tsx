@@ -10,6 +10,8 @@ import store from "./store";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from "./store";
 
+import GlobalFonts from "./fonts/fonts";
+
 // Use throughout your app instead of plain `useDispatch` and `useSelector`
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
@@ -34,6 +36,7 @@ ReactDOM.render(
     <AuthProvider authService={authServiceData}>
       <ThemeProvider theme={defaultTheme}>
         <GlobalStyles />
+        <GlobalFonts />
         <App />
       </ThemeProvider>
     </AuthProvider>

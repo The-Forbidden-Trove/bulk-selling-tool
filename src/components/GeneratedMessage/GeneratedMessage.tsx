@@ -46,9 +46,9 @@ const GeneratedMessage = () => {
           <P>Currency types</P>
           {selectedTypes.map((x: Partial<CurrencyType>) => {
             if (x.type === "Currency") {
-              return <Icon src={chaosOrb} />;
+              return <Icon src={chaosOrb} key={x.type} />;
             }
-            return <Icon src={x.icon} />;
+            return <Icon src={x.icon} key={x.type} />;
           })}
         </CurrencyTypes>
         <ExPrice>
@@ -80,6 +80,7 @@ const GeneratedMessage = () => {
 
       <ItemsWrapper>
         <ItemRecordWrap>
+          <div></div>
           <P2>Currency</P2>
           <P2>Price per unit</P2>
           <P2>Total chaos</P2>
@@ -87,13 +88,7 @@ const GeneratedMessage = () => {
         </ItemRecordWrap>
 
         <ItemRecordWrap>
-          <P2>Currency</P2>
-          <P2>Price per unit</P2>
-          <P2>Total chaos</P2>
-          <P2>Total exalted</P2>
-        </ItemRecordWrap>
-
-        <ItemRecordWrap>
+          <div></div>
           <P2>Currency</P2>
           <P2>Price per unit</P2>
           <P2>Total chaos</P2>
@@ -113,7 +108,7 @@ const GeneratedMessage = () => {
               return item2.totalValue - item1.totalValue;
             })
             .map((item: any) => {
-              return <GeneratedMessageItemRecord item={item} />;
+              return <GeneratedMessageItemRecord item={item} key={item.id} />;
             });
         })}
       </ItemsWrapper>
@@ -135,7 +130,6 @@ const Header = styled(FlexWrap)`
 const CurrencyTypes = styled(FlexWrap)``;
 const ExPrice = styled(FlexWrap)``;
 const Wrapper = styled(FlexWrap)`
-  width: 100%;
   justify-content: flex-start;
   visibility: visible;
   padding: 20px 20px 10px 20px;
@@ -146,7 +140,7 @@ const Wrapper = styled(FlexWrap)`
 
   background: ${(props) => props.theme.colors.bg};
   min-height: 50vh;
-  min-width: 80vw;
+  min-width: 80%;
   box-shadow: 4px 5px 52px rgba(0, 0, 0, 0.8);
   -webkit-box-shadow: 4px 5px 52px rgba(0, 0, 0, 0.8);
   -moz-box-shadow: 4px 5px 52px rgba(0, 0, 0, 0.8);
@@ -177,7 +171,7 @@ const H = styled.h3`
 const ItemsWrapper = styled.div`
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   grid-auto-columns: min-content;
   grid-auto-rows: min-content;
 `;
@@ -187,6 +181,6 @@ const ItemRecordWrap = styled.div`
 
   justify-items: start;
   font-size: ${(props) => props.theme.fontM};
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 2fr 1fr 1fr 1fr;
   display: grid;
 `;

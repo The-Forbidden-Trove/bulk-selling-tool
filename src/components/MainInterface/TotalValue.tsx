@@ -1,38 +1,23 @@
 import html2canvas from "html2canvas";
 import styled from "styled-components";
 import { isFirefox, isSafari } from "react-device-detect";
-
+import { FaTimes, FaCheck, FaRedo } from "react-icons/fa";
 import { useAppSelector } from "../..";
-import { CurrencyType, StashTab } from "../../types";
 import { Button, FlexWrap } from "../baseStyles";
+import { useEffect, useState } from "react";
 
 const TotalValue = () => {
+  const [userName, setUserName] = useState("");
   let sum = 0;
   const items = useAppSelector((store) => store.items);
   const exPrice = useAppSelector((store) => store.exaltedPrice).value || 1;
   const league = useAppSelector((store) => store.leagues).defaultLeague;
-
-  const selectedTypes = useAppSelector((store) => store.stashes)
-    .filter((stash: StashTab) => {
-      return stash.isSelected;
-    })
-    .flatMap((stash: StashTab) => {
-      return stash.assignedTypes;
-    })
-    .filter(
-      (thing: CurrencyType, index: number, self: any) =>
-        index ===
-        self.findIndex(
-          (t: CurrencyType) => t.type === thing.type && t.icon === thing.icon
-        )
-    );
 
   for (const [key, value] of Object.entries(items)) {
     if (items[key].isSelected) {
       sum += items[key].totalValue;
     }
   }
-
   const generateImage = () => {
     let component = document.getElementById("generatedMessage");
 
@@ -44,19 +29,17 @@ const TotalValue = () => {
       })
         .then((canvas: any) => {
           canvas.toBlob((blob: any) => {
-            const copyText = `WTS ${league}\nItem types: ${selectedTypes.map(
-              (x: any) => {
-                return x.type === "BlightedMap"
-                  ? "Blighted Map"
-                  : x.type === "DeliriumOrb"
-                  ? "Delirium Orb"
-                  : x.type;
-              }
-            )}\nTotal price ${
+            const copyText = `WTS ${league}\nIGN: \`${userName}\`\nPrice: \`${Math.round(
               Math.round((sum + Number.EPSILON) * 100) / 100
-            } chaos ( ${
+            )} chaos\` ( \`${Math.floor(
               Math.round(((sum + Number.EPSILON) * 100) / exPrice) / 100
-            }ex )`;
+            )} ex\` + \`${Math.round(
+              (Math.round(((sum + Number.EPSILON) * 100) / exPrice) / 100 -
+                Math.floor(
+                  Math.round(((sum + Number.EPSILON) * 100) / exPrice) / 100
+                )) *
+                exPrice
+            )} chaos\` )`;
             const textBlob: any = new Blob([copyText], {
               type: "text/plain",
             });
@@ -85,6 +68,19 @@ const TotalValue = () => {
     }
   };
 
+  useEffect(() => {
+    const data = window.localStorage.getItem("userName");
+    if (data) {
+      setUserName(data);
+
+      console.log(data);
+      console.log(userName);
+    }
+  }, []);
+  const updateName = () => {
+    window.localStorage.setItem("userName", userName);
+  };
+
   return (
     <Wrapper>
       <A>
@@ -107,18 +103,49 @@ const TotalValue = () => {
             {Math.round(((sum + Number.EPSILON) * 100) / exPrice) / 100}
           </Price>
         </Total>
+        <div style={{ display: "flex" }}>
+          <UserName>
+            <P style={{ padding: "0px 15px 0px 0px", fontSize: "22px" }}>IGN</P>
+            <Input
+              placeholder="Put your in game name here..."
+              value={userName}
+              onChange={(e: any) => setUserName(e.target.value)}
+            />
 
-        <Generate onClick={generateImage}>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <P>Generate discord message!</P>
-            <P2>Remember to CTRL+V twice on Discord!</P2>
-          </div>
-        </Generate>
+            <FaCheck style={iconStyle} onClick={(e) => updateName()} />
+          </UserName>
+          <Generate onClick={generateImage}>
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <P>Generate discord message!</P>
+              <P2>Remember to CTRL+V twice on Discord!</P2>
+            </div>
+          </Generate>
+        </div>
       </A>
     </Wrapper>
   );
 };
 export default TotalValue;
+
+const iconStyle = {
+  fill: "#555",
+  padding: "5px 15px 5px 5px",
+  cursor: "pointer",
+};
+
+const UserName = styled(FlexWrap)`
+  padding: 5px 25px 5px 0px;
+`;
+
+const Input = styled.input`
+  border: none;
+  color: ${(props) => props.theme.colors.accent2};
+  background: none;
+  outline: none;
+  padding: 5px 3px;
+  border-bottom: 1px solid ${(props) => props.theme.colors.accentDark};
+  font-size: ${(props) => props.theme.fontM};
+`;
 
 const Wrapper = styled.div`
   width: 100%;

@@ -261,15 +261,50 @@ export const highlightStash = (id: string) => {
 export default stashReducer;
 
 const generateSimpleName = (name: string) => {
-  if (name.includes("Essence of ")) {
-    return name.replace("Essence of ", "");
-  } else if (name.includes("Delirium Orb")) {
-    return name.replace(" Delirium Orb", "");
-  } else if (name.includes("Scarab")) {
-    return name.replace(" Scarab", "");
-  } else if (name.includes("Fossil")) {
-    return name.replace(" Fossil", "");
-  }
+  const filters = [
+    "Essence of ",
+    "Delirium Orb",
+    "Fragment of the",
+    "Fragment of",
+    "of Corruption",
+    "Scroll of",
+    "Sacrifice at",
+    "Scroll",
+    "Blessing of",
+    "Orb of",
+    "Sextant",
+    "Prism",
+    "Chisel",
+    "Orb",
+    "Splinter of",
+    "Scarab",
+    "Fossil",
+    "Resonator",
+    "Incubator",
+    "Oil",
+    "Catalyst",
+    "Breachstone",
+    "Splinter",
+    "Map",
+    "Mortal",
+    "Timeless",
+    "Bauble",
+    "Scroll",
+    "Scrap",
+    "Whetstone",
+    "The",
+  ];
 
+  const result: string | undefined = filters.find((filter: string) => {
+    return name.includes(filter);
+  });
+
+  if (result) {
+    if (result === "Splinter" && name.includes("Timeless")) {
+      return name.replace(result, "").replace("Timeless", "").trim() || "";
+    } else if (result === "Timeless")
+      return name.replace(result, "").replace("Emblem", "").trim() || "";
+    return name.replace(result, "").trim() || "";
+  }
   return "";
 };

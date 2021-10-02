@@ -4,14 +4,23 @@ import { FlexWrap } from "../baseStyles";
 import chaosOrb from "../../assets/chaosOrb.png";
 import exaltedOrb from "../../assets/exaltedOrb.png";
 
+import { FaTimes } from "react-icons/fa";
+
+const iconStyle = {
+  fill: "#555",
+  padding: "0px 5px",
+  cursor: "pointer",
+};
 const GeneratedMessageItemRecord = ({ item }: any) => {
   const exPrice = useAppSelector((store) => store.exaltedPrice).value || 1;
 
   return (
     <ItemRecordWrap>
+      <Stack>{item.stackSize}</Stack>
       <NameWrap>
+        <FaTimes style={iconStyle} />
         <Icon src={item.icon} alt="icon" />
-        <P>{item.stackSize}</P>
+        <P2>{item.shortName}</P2>
       </NameWrap>
 
       <P>
@@ -46,7 +55,7 @@ const ItemRecordWrap = styled.div`
 
   justify-items: start;
   font-size: ${(props) => props.theme.fontM};
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 4fr 3fr 3fr 3fr;
   display: grid;
   border: 0.5px solid ${(props) => props.theme.colors.fg2};
 `;
@@ -68,4 +77,18 @@ const Icon = styled.img`
 const P = styled(FlexWrap)`
   font-size: 16px;
   color: ${(props) => props.theme.colors.text};
+`;
+
+const P2 = styled(FlexWrap)`
+  font-size: 16px;
+  color: ${(props) => props.theme.colors.accent};
+`;
+
+const Stack = styled(FlexWrap)`
+  font-size: 16px;
+  width: 100%;
+  color: ${(props) => props.theme.colors.accent};
+  align-items: center;
+  text-align: middle;
+  align-content: center;
 `;

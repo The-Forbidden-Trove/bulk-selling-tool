@@ -160,6 +160,8 @@ const CurrencyTypePicker = () => {
                     ? "Blighted Map"
                     : currencyType.type === "DeliriumOrb"
                     ? "Delirium Orb"
+                    : currencyType.type === "DivinationCard"
+                    ? "Divination"
                     : currencyType.type}
                 </p>
               </TypeWrap>

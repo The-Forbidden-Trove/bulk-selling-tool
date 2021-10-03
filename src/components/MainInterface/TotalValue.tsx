@@ -7,6 +7,8 @@ import { Button, FlexWrap } from "../baseStyles";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
+import { FaExclamationTriangle } from "react-icons/fa";
+
 const TotalValue = () => {
   const [userName, setUserName] = useState("");
   const [warning, setWarning] = useState(false);
@@ -23,9 +25,15 @@ const TotalValue = () => {
   const generateImage = () => {
     toast.promise(generate, {
       pending: "Generating",
-      success: "Image generated successfully!",
-      error:
-        "Couldn't generate an image.\nPlease stay on the site while it is being generated.",
+      success: `Image generated successfully!\n\nCTRL+V twice on a Discord channel to paste it correctly!`,
+      //success: (
+      //<div>
+      //Image generated successfully!
+      //<br />
+      //CTRL+V twice
+      //</div>
+      //),
+      error: `Couldn't generate an image.\n\nPlease stay on the site while it is being generated.`,
     });
   };
   const generate = () => {
@@ -139,7 +147,10 @@ const TotalValue = () => {
               <P style={warning ? { color: "red" } : {}}>
                 Generate discord message!
               </P>
-              <P2>Remember to CTRL+V twice on Discord!</P2>
+              <div style={{ display: "flex", alignSelf: "flex-end" }}>
+                <FaExclamationTriangle style={iconStyle2} />
+                <P2>Remember to CTRL+V twice on Discord!</P2>
+              </div>
             </div>
           </Generate>
         </div>
@@ -148,6 +159,13 @@ const TotalValue = () => {
   );
 };
 export default TotalValue;
+
+const iconStyle2 = {
+  fill: "#A8DBE3",
+  padding: "0px 10px 0px 0px",
+  width: "18px",
+  height: "18px",
+};
 
 const iconStyle = {
   fill: "#555",

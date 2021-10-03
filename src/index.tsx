@@ -39,7 +39,7 @@ const StyledToastContainer = styled(ToastContainer).attrs({
   progressClassName: "progress",
 })`
   /* .toast-container */
-  width: 15%;
+  width: 20%;
   background-color: none;
 
   /* .toast is passed to toastClassName */
@@ -70,7 +70,7 @@ ReactDOM.render(
         <GlobalFonts />
         <App />
         <StyledToastContainer
-          autoClose={2500}
+          autoClose={5000}
           //hideProgressBar={true}
           pauseOnFocusLoss={false}
           newestOnTop={true}

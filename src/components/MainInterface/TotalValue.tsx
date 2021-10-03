@@ -61,9 +61,14 @@ const TotalValue = () => {
                   .writeText(copyText)
                   .then((x) => {
                     const fileObjectURL = URL.createObjectURL(blob);
+
+                    resolve("Image Generated");
                     window.open(fileObjectURL);
                   })
-                  .catch((e) => console.log(e));
+                  .catch((e) => {
+                    console.log("Error:", e);
+                    reject(new Error("Not generated"));
+                  });
               } else {
                 window.navigator.clipboard
                   .write([

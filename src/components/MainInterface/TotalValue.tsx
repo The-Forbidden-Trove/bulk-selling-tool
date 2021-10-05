@@ -189,7 +189,7 @@ const Input = styled.input`
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 5%;
+  height: 6%;
   padding: 5px 25px 0px 25px;
   grid-column: 1 / -1;
 `;
@@ -225,7 +225,7 @@ const P = styled.p`
 `;
 
 const P2 = styled.p`
-  margin: 3px 0px;
+  padding: 3px 0px;
   opacity: 0.8;
   align-self: flex-end;
   font-size: 10px;

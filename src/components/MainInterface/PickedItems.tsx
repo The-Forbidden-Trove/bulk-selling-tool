@@ -43,8 +43,6 @@ const PickedItems = ({ filter }: any) => {
 const Wrapper = styled.div`
   width: 100%;
   height: 45%;
-  margin: 0px 5px 0px 5px;
-  padding: 0px 25px;
   overflow-y: scroll;
 
   grid-column: 1 / -1;

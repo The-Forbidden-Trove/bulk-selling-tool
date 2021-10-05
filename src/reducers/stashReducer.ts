@@ -92,7 +92,6 @@ export const initStashes = (token: string, league: string) => {
           id: stash.id,
           name: stash.name,
           colour: stash.metadata.colour,
-          // isSpecial: false,
           isHighlited: false,
           isSelected: false,
         };
@@ -152,7 +151,7 @@ export const selectStash = (
       .then((response: any) => {
         const allItems = response.data.stash.items;
 
-        allItems.map((item: any) => {
+        allItems.forEach((item: any) => {
           const name = item.baseType.match(/Blighted [\w\s]+Map/)
             ? `${item.baseType} ${
                 //@ts-ignore

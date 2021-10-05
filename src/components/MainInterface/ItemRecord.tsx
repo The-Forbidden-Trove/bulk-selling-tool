@@ -150,7 +150,6 @@ const Multiplier = styled(Input)`
   margin: 0;
 
   padding: 2px 2px 2px 5px;
-  border-bottom: 1px solid ${(props) => props.theme.colors.accentDark};
   border-radius: 4px;
 `;
 const ChaosValue = styled(Input)`
@@ -160,13 +159,12 @@ const ChaosValue = styled(Input)`
   text-align: center;
   color: ${(props) => props.theme.colors.text};
   padding: 2px 2px 2px 5px;
-  border-bottom: 1px solid ${(props) => props.theme.colors.accentDark};
   border-radius: 4px;
 `;
 
 const ItemRecordWrap = styled(FlexWrap)<{ isSelected?: boolean }>`
   width: 100%;
-  margin: 5px 0px;
+  padding: 5px 0px;
 
   font-family: "Fontin SmallCaps";
   opacity: ${(props) => (props.isSelected ? 1 : 0.4)};

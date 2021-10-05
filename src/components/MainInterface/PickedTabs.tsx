@@ -98,7 +98,6 @@ const MidPart = styled.div`
   color: rgb(255, 192, 119);
   > p {
     color: rgb(59, 44, 27);
-    margin: 3px 0px 0px 0px;
     text-align: center;
     vertical-align: middle;
     padding: 2px 0px 0px 0px;

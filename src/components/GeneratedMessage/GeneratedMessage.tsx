@@ -89,7 +89,7 @@ const GeneratedMessage = () => {
 
         <ItemRecordWrap>
           <div></div>
-          <P2>Currency</P2>
+          <P2 style={{ padding: "0px 0px 0px 35px" }}>Currency</P2>
           <P2>Price per unit</P2>
           <P2>Total chaos</P2>
           <P2>Total exalted</P2>
@@ -123,7 +123,7 @@ const P2 = styled(FlexWrap)`
   color: ${(props) => props.theme.colors.accent2};
 `;
 const Header = styled(FlexWrap)`
-  margin: 5px 0px;
+  padding: 5px 0px;
   width: 100%;
   justify-content: space-between;
 `;
@@ -159,7 +159,7 @@ const Icon = styled.img`
 const P = styled(FlexWrap)`
   font-size: 26px;
   color: ${(props) => props.theme.colors.text};
-  margin: 0px 5px;
+  padding: 0px 5px;
 `;
 const TotalValue = styled(FlexWrap)`
   align-self: flex-end;
@@ -178,7 +178,7 @@ const ItemsWrapper = styled.div`
 `;
 
 const ItemRecordWrap = styled.div`
-  margin: 5px 10px;
+  padding: 5px 10px;
 
   justify-items: start;
   font-size: ${(props) => props.theme.fontM};

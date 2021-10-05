@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Button, FlexWrap, Input } from "../baseStyles";
+import { FlexWrap } from "../baseStyles";
 import AllTabs from "./AllTabs";
 import CurrencyTypePicker from "./CurrencyTypePicker";
 
@@ -16,5 +16,5 @@ export default StashTabPicker;
 
 const Wrapper = styled(FlexWrap)`
   width: 100%;
-  height: 35%;
+  height: 34%;
 `;

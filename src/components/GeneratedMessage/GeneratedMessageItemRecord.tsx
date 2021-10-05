@@ -61,7 +61,7 @@ const ItemRecordWrap = styled.div`
 `;
 
 const NameWrap = styled(FlexWrap)`
-  margin: 0px 5px 0px 0px;
+  padding: 0px 5px 0px 0px;
   background: none;
   outline: none;
   border: none;

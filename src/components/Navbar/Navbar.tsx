@@ -44,7 +44,7 @@ const Navbar = () => {
       <Middle>TFT Bulk Selling Tool</Middle>
 
       <Right>
-        <div style={{ width: "150px", margin: "0px 20px 0px 0px" }}>
+        <div style={{ width: "150px", padding: "0px 20px 0px 0px" }}>
           {!leagues.hasOwnProperty("defaultLeague") && (
             <SelectExtend
               options={[{ label: "", value: "" }]}
@@ -102,7 +102,7 @@ const Wrapper = styled(FlexWrap)`
 
 const Left = styled(FlexWrap)`
   width: 33%;
-  margin: 0px 0px 0px 10px;
+  padding: 0px 0px 0px 10px;
   justify-content: flex-start;
   color: ${(props) => props.theme.colors.text};
   > p {
@@ -119,7 +119,7 @@ const Right = styled(FlexWrap)`
   width: 33%;
   justify-content: flex-end;
   color: ${(props) => props.theme.colors.text};
-  margin: 0px 10px 0px 0px;
+  padding: 0px 10px 0px 0px;
   > p {
     font-size: ${(props) => props.theme.fontM};
   }

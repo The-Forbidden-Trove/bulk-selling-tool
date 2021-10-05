@@ -92,13 +92,12 @@ const Wrapper = styled(FlexWrap)`
   align-content: flex-start;
   width: 60%;
   height: 100%;
-  padding: 10px 0px 0px 0px;
-  margin: 0px 50px 0px 0px;
+  padding: 10px 50px 0px 0px;
 `;
 
 const Header = styled.h3`
   text-align: center;
-  margin: 5px 0px;
+  padding: 5px 0px;
   color: ${(props) => props.theme.colors.text};
   font-size: ${(props) => props.theme.fontM};
 `;
@@ -155,7 +154,7 @@ const TabList = styled(FlexWrap)`
 
 const TabWrap = styled(FlexWrap)<{ scale: number; z: number }>`
   height: 26px;
-  margin: 0px 0px;
+  padding: 0px 0px;
   cursor: pointer;
   transform: scale(${({ scale }) => scale});
   transition: all ease 0.2s;
@@ -178,7 +177,6 @@ const MidPart = styled.div<{ backColor: string; isSelected: boolean }>`
   > p {
     color: ${(props) =>
       props.isSelected ? props.theme.colors.text : props.theme.colors.bg};
-    margin: 3px 0px 0px 0px;
     text-align: center;
     vertical-align: middle;
     padding: 2px 0px 0px 0px;

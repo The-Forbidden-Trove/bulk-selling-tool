@@ -205,8 +205,6 @@ export default MainInterface;
 const Wrap = styled.div`
   width: 100%;
   height: 15%;
-  margin: 0px 5px 0px 5px;
-  padding: 0px 25px;
 `;
 
 const Wrapper = styled(FlexWrap)`
@@ -229,13 +227,13 @@ const Wrapper = styled(FlexWrap)`
 const StackText = styled.h3`
   width: 64px;
   text-align: center;
-  margin: 5px 0px;
+  padding: 5px 0px;
   color: ${(props) => props.theme.colors.text};
   font-size: ${(props) => props.theme.fontS};
 `;
 const Header2 = styled.h3`
   text-align: center;
-  margin: 5px 0px;
+  padding: 5px 0px;
   color: ${(props) => props.theme.colors.text};
   font-size: ${(props) => props.theme.fontM};
 `;
@@ -262,7 +260,6 @@ const Label = styled(FlexWrap)`
 const Filter = styled(Input)`
   font-size: ${(props) => props.theme.fontM};
   height: 12px;
-  border-bottom: 1px solid #555;
 `;
 
 const MinStack = styled(FlexWrap)``;
@@ -271,7 +268,6 @@ const StackInput = styled(Input)`
   font-size: ${(props) => props.theme.fontM};
   height: 12px;
   width: 32px;
-  border-bottom: 1px solid #555;
 `;
 const ExaltedValue = styled(Input)`
   color: ${(props) => props.theme.colors.text};
@@ -289,7 +285,7 @@ const Icon = styled.img`
   width: 32px;
   height: 32px;
   object-fit: contain;
-  margin: 0px 5px;
+  padding: 0px 5px;
 `;
 
 const Placeholder = styled.div`

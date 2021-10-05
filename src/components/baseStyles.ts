@@ -19,6 +19,7 @@ export const FlexWrap = styled.div`
 export const Input = styled.input`
   border: none;
 
+  border-bottom: 1px solid ${(props) => props.theme.colors.accentDark};
   color: ${(props) => props.theme.colors.accent2};
   background: none;
   outline: none;

@@ -9,99 +9,6 @@ import { useAuth } from "../../api/oauth/AuthContext";
 import { selectStash } from "../../reducers/stashReducer";
 import { NinjaItem } from "../../types";
 
-const ButtonWrap = styled(FlexWrap)`
-  padding: 10px 15px 0px 15px;
-
-  justify-content: space-between;
-`;
-const Multiplier = styled(Input)`
-  width: 60px;
-
-  color: ${(props) => props.theme.colors.accent2};
-  padding: 10px 5px;
-
-  text-align: center;
-  border-bottom: 1px solid ${(props) => props.theme.colors.accentDark};
-  font-size: ${(props) => props.theme.fontM};
-`;
-
-const AddTab = styled(Button)`
-  color: ${(props) => props.theme.colors.text};
-  font-size: ${(props) => props.theme.fontM};
-
-  padding: 5px;
-  width: 130px;
-  border: 1px solid ${(props) => props.theme.colors.text};
-  border-radius: 3px;
-`;
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 5px 0px 0px 0px;
-`;
-
-const AllTypes = styled.div`
-  color: ${(props) => props.theme.colors.accent};
-  display: flex;
-  flex-wrap: wrap;
-  height: 138px;
-
-  overflow-y: scroll;
-
-  &::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
-    background-color: #f5f5f5;
-    background: none;
-  }
-
-  &::-webkit-scrollbar {
-    width: 12px;
-    background-color: #f5f5f5;
-
-    background: none;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    background-color: #555;
-  }
-`;
-
-const TypeWrap = styled(FlexWrap)<{ isSelected?: boolean }>`
-  cursor: pointer;
-  max-height: 36px;
-  padding: 5px 3px;
-  > p {
-    color: ${(props) =>
-      props.isSelected ? props.theme.colors.accent : props.theme.colors.text};
-    font-size: ${(props) => props.theme.fontM};
-    padding: 0px 5px;
-  }
-`;
-
-const Icon = styled.img`
-  padding: 0px 5px 0px 0px;
-  width: 36px;
-  height: 36px;
-  object-fit: contain;
-`;
-
-const P = styled.h3`
-  color: ${(props) => props.theme.colors.text};
-  font-size: ${(props) => props.theme.fontM};
-  padding: 0px 5px 0px 0px;
-  width: 170px;
-`;
-
-const Header = styled.h3`
-  text-align: center;
-  margin: 5px 0px;
-  color: ${(props) => props.theme.colors.text};
-  font-size: ${(props) => props.theme.fontM};
-`;
-
 const CurrencyTypePicker = () => {
   const currencyTypes = useAppSelector((store) => store.currencyTypes);
   const dispatch = useAppDispatch();
@@ -169,7 +76,7 @@ const CurrencyTypePicker = () => {
           })}
         </AllTypes>
 
-        <ButtonWrap>
+        <ButtonWrap onClick={() => click()}>
           <FlexWrap>
             <P>3. Set item multiplier</P>
             <Multiplier
@@ -179,7 +86,7 @@ const CurrencyTypePicker = () => {
               onKeyPress={onKeyPress}
             />
           </FlexWrap>
-          <AddTab onClick={() => click()}>Select tab</AddTab>
+          <AddTab>Select tab</AddTab>
         </ButtonWrap>
       </Wrapper>
     </Cont>
@@ -187,8 +94,104 @@ const CurrencyTypePicker = () => {
 };
 
 export default CurrencyTypePicker;
+
 const Cont = styled.div`
   padding: 10px 0px 0px 0px;
   width: 40%;
   height: 100%;
+`;
+
+const ButtonWrap = styled(FlexWrap)`
+  padding: 10px 15px 0px 15px;
+
+  cursor: pointer;
+  justify-content: space-between;
+`;
+const Multiplier = styled(Input)`
+  width: 60px;
+
+  color: ${(props) => props.theme.colors.accent2};
+  padding: 10px 5px;
+
+  text-align: center;
+  font-size: ${(props) => props.theme.fontM};
+`;
+
+const AddTab = styled(Button)`
+  color: ${(props) => props.theme.colors.text};
+  font-size: ${(props) => props.theme.fontM};
+
+  padding: 5px;
+  width: 130px;
+  border: 1px solid ${(props) => props.theme.colors.text};
+  border-radius: 3px;
+`;
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 5px 0px 0px 0px;
+  height: 80%;
+`;
+
+const AllTypes = styled.div`
+  color: ${(props) => props.theme.colors.accent};
+  display: flex;
+  flex-wrap: wrap;
+  height: 138px;
+
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    background-color: #f5f5f5;
+    background: none;
+  }
+
+  &::-webkit-scrollbar {
+    width: 12px;
+    background-color: #f5f5f5;
+
+    background: none;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #555;
+  }
+`;
+
+const TypeWrap = styled(FlexWrap)<{ isSelected?: boolean }>`
+  cursor: pointer;
+  max-height: 36px;
+  padding: 5px 3px;
+  > p {
+    color: ${(props) =>
+      props.isSelected ? props.theme.colors.accent : props.theme.colors.text};
+    font-size: ${(props) => props.theme.fontM};
+    padding: 0px 5px;
+  }
+`;
+
+const Icon = styled.img`
+  padding: 0px 5px 0px 0px;
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+`;
+
+const P = styled.h3`
+  color: ${(props) => props.theme.colors.text};
+  font-size: ${(props) => props.theme.fontM};
+  padding: 0px 5px 0px 0px;
+  width: 170px;
+`;
+
+const Header = styled.h3`
+  text-align: center;
+  padding: 5px 0px;
+  color: ${(props) => props.theme.colors.text};
+  font-size: ${(props) => props.theme.fontM};
+  height: 20%;
 `;

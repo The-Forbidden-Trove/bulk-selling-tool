@@ -4,7 +4,7 @@ import { StashTab } from "../../types";
 import { FlexWrap } from "../baseStyles";
 
 const Wrapper = styled.div`
-  margin: 10px 5px 0px 5px;
+  padding: 10px 5px 0px 5px;
   grid-column: 1 / -1;
 `;
 

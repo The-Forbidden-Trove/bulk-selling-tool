@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { FlexWrap } from "../baseStyles";
 import Guide1 from "../../assets/Guide1.png";
 import Guide2 from "../../assets/Guide2.png";
-import Guide3 from "../../assets/Guide3.png";
 import { useAuth } from "../../api/oauth/AuthContext";
 
 const Guide = () => {
@@ -110,7 +109,7 @@ const Wrapper = styled(FlexWrap)`
   -webkit-box-shadow: 4px 5px 52px rgba(0, 0, 0, 0.8);
   -moz-box-shadow: 4px 5px 52px rgba(0, 0, 0, 0.8);
   padding: 15px 35px;
-  margin: 20px 0px 10px 0px;
+  padding: 20px 0px 10px 0px;
   border-radius: 15px;
   opacity: 0.9;
   border: 3px solid ${(props) => props.theme.colors.fg2};

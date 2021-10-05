@@ -66,8 +66,8 @@ ReactDOM.render(
   <Provider store={store}>
     <AuthProvider authService={authServiceData}>
       <ThemeProvider theme={defaultTheme}>
-        <GlobalStyles />
         <GlobalFonts />
+        <GlobalStyles />
         <App />
         <StyledToastContainer
           autoClose={5000}

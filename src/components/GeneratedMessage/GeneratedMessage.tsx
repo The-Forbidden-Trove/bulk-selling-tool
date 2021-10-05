@@ -131,6 +131,8 @@ const CurrencyTypes = styled(FlexWrap)``;
 const ExPrice = styled(FlexWrap)``;
 const Wrapper = styled(FlexWrap)`
   justify-content: flex-start;
+
+  font-family: "Fontin SmallCaps";
   visibility: visible;
   padding: 20px 20px 10px 20px;
   flex-direction: column;

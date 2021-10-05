@@ -167,6 +167,8 @@ const ChaosValue = styled(Input)`
 const ItemRecordWrap = styled(FlexWrap)<{ isSelected?: boolean }>`
   width: 100%;
   margin: 5px 0px;
+
+  font-family: "Fontin SmallCaps";
   opacity: ${(props) => (props.isSelected ? 1 : 0.4)};
   font-size: ${(props) => props.theme.fontM};
   justify-content: space-between;

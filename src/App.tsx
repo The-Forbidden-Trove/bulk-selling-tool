@@ -51,7 +51,6 @@ const P = styled.p`
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
-  font-family: "Fontin SmallCaps";
   background: linear-gradient(
       0deg,
       rgba(6, 10, 23, 0.9),

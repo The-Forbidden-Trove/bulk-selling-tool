@@ -192,8 +192,6 @@ const Wrapper = styled.div`
   height: 5%;
   padding: 5px 25px 0px 25px;
   grid-column: 1 / -1;
-
-  font-family: "Fontin SmallCaps";
 `;
 const A = styled(FlexWrap)`
   justify-content: space-between;

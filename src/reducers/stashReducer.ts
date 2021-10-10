@@ -247,7 +247,6 @@ export const selectStash = (
 
     if (fragments.length) {
       const fragmentSetsAllItems = fragments.flatMap((x: any) => x.items);
-      console.log("ALLITEMS", fragments, fragmentSetsAllItems);
       for (const [key, value] of Object.entries(items)) {
         if (
           !fragmentSetsAllItems.find((x: any) =>

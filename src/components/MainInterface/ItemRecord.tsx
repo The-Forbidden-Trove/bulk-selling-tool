@@ -19,7 +19,7 @@ const iconStyle = {
 };
 
 const ItemRecord = ({ item }: any) => {
-  const [multiplier, setMultiplier] = useState(`${item.sellMultiplier}%`);
+  const [multiplier, setMultiplier] = useState(`${item.multiplier}%`);
   const [chaosValue, setChaosValue] = useState(
     `${Math.round((item.sellValue + Number.EPSILON) * 100) / 100}`
   );
@@ -68,9 +68,9 @@ const ItemRecord = ({ item }: any) => {
   const exPrice = useAppSelector((store) => store.exaltedPrice).value || 1;
 
   useEffect(() => {
-    setMultiplier(`${item.sellMultiplier}%`);
+    setMultiplier(`${item.multiplier}%`);
     setChaosValue(`${item.sellValue}`);
-  }, [item]);
+  }, [item, item.sellValue, item.multiplier]);
 
   return (
     <ItemRecordWrap isSelected={item.isSelected}>

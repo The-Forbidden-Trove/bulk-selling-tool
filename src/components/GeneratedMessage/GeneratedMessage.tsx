@@ -9,7 +9,8 @@ import chaosOrb from "../../assets/chaosOrb.png";
 import exaltedOrb from "../../assets/exaltedOrb.png";
 
 const GeneratedMessage = () => {
-  let sum = 0;
+  let sellSum = 0;
+  let ninjaSum = 0;
   const items = useAppSelector((store) => store.items);
   const selectedTypes = useAppSelector((store) => store.stashes)
     .filter((stash: StashTab) => {
@@ -30,7 +31,8 @@ const GeneratedMessage = () => {
 
   for (const [key, value] of Object.entries(items)) {
     if (items[key].isSelected) {
-      sum += items[key].totalValue;
+      sellSum += items[key].totalValue;
+      ninjaSum += items[key].chaosEquivalent * items[key].stackSize;
     }
   }
 
@@ -42,15 +44,20 @@ const GeneratedMessage = () => {
     <Wrapper id="generatedMessage">
       <H>Generated with TFT Bulk Selling Tool</H>
       <Header>
-        <CurrencyTypes>
-          <P>Currency types</P>
-          {selectedTypes.map((x: Partial<CurrencyType>) => {
-            if (x.type === "Currency") {
-              return <Icon src={chaosOrb} key={x.type} />;
-            }
-            return <Icon src={x.icon} key={x.type} />;
-          })}
-        </CurrencyTypes>
+        <TotalValue>
+          <P>Ninja price</P>
+          <FlexWrap>
+            <Icon src={chaosOrb} />
+            <P>{Math.round((ninjaSum + Number.EPSILON) * 100) / 100}</P>
+          </FlexWrap>
+
+          <FlexWrap>
+            <Icon src={exaltedOrb} />
+            <P>
+              {Math.round(((ninjaSum + Number.EPSILON) * 100) / exPrice) / 100}
+            </P>
+          </FlexWrap>
+        </TotalValue>
         <ExPrice>
           <P>
             <Icon src={chaosOrb} />
@@ -64,25 +71,39 @@ const GeneratedMessage = () => {
 
       <Header>
         <TotalValue>
-          <P>Total value </P>
-
+          <R>Asking price</R>
           <FlexWrap>
             <Icon src={chaosOrb} />
-            <P>{Math.round((sum + Number.EPSILON) * 100) / 100}</P>
+            <R>{Math.round((sellSum + Number.EPSILON) * 100) / 100}</R>
           </FlexWrap>
 
           <FlexWrap>
             <Icon src={exaltedOrb} />
-            <P>{Math.round(((sum + Number.EPSILON) * 100) / exPrice) / 100}</P>
+            <R>
+              {Math.round(((sellSum + Number.EPSILON) * 100) / exPrice) / 100}
+            </R>
+          </FlexWrap>
+          <FlexWrap>
+            <R>({Math.round((sellSum / ninjaSum) * 100)}% of Ninja price)</R>
           </FlexWrap>
         </TotalValue>
+        <CurrencyTypes>
+          <P>Currency types</P>
+          {selectedTypes.map((x: Partial<CurrencyType>) => {
+            if (x.type === "Currency") {
+              return <Icon src={chaosOrb} key={x.type} />;
+            }
+            return <Icon src={x.icon} key={x.type} />;
+          })}
+        </CurrencyTypes>
       </Header>
 
       <ItemsWrapper>
         <ItemRecordWrap>
           <div></div>
           <P2>Currency</P2>
-          <P2>Price per unit</P2>
+          <P2>Ninja price</P2>
+          <P2>Asking price</P2>
           <P2>Total chaos</P2>
           <P2>Total exalted</P2>
         </ItemRecordWrap>
@@ -90,7 +111,8 @@ const GeneratedMessage = () => {
         <ItemRecordWrap>
           <div></div>
           <P2 style={{ padding: "0px 0px 0px 35px" }}>Currency</P2>
-          <P2>Price per unit</P2>
+          <P2>Ninja price</P2>
+          <P2>Asking price</P2>
           <P2>Total chaos</P2>
           <P2>Total exalted</P2>
         </ItemRecordWrap>
@@ -157,8 +179,14 @@ const Icon = styled.img`
 `;
 
 const P = styled(FlexWrap)`
-  font-size: 26px;
+  font-size: 24px;
   color: ${(props) => props.theme.colors.text};
+  padding: 0px 5px;
+`;
+
+const R = styled(FlexWrap)`
+  font-size: 26px;
+  color: ${(props) => props.theme.colors.accent2};
   padding: 0px 5px;
 `;
 const TotalValue = styled(FlexWrap)`
@@ -182,6 +210,6 @@ const ItemRecordWrap = styled.div`
 
   justify-items: start;
   font-size: ${(props) => props.theme.fontM};
-  grid-template-columns: 1fr 4fr 3fr 3fr 3fr;
+  grid-template-columns: 1fr 4fr 3fr 4fr 3fr 3fr;
   display: grid;
 `;

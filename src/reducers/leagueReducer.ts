@@ -2,6 +2,7 @@ import { getLeagues } from "../api/ggg/ggg";
 import { fetchNinjaData, getAllItemTypePrices } from "../api/poeninja/poeninja";
 import { AppDispatch } from "../store";
 import { setDefaultExaltPrice } from "./exaltPriceReducer";
+import { initItemFilter } from "./itemFilterReducer";
 import { clearAllItems } from "./itemReducer";
 
 const initialState: any | undefined = {};

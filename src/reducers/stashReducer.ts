@@ -3,7 +3,9 @@ import { getAllSTashTabs } from "../api/ggg/ggg";
 import { AppDispatch } from "../store";
 import { CurrencyType, Item, NinjaItem, StashTab } from "../types";
 import { unselectAllCurrencyTypes } from "./currencyTypeReducer";
+import { initItemFilter } from "./itemFilterReducer";
 import { addGlobalItems, removeGlobalItems } from "./itemReducer";
+import { itemFilter } from "../itemFilter";
 
 const initialState: StashTab[] | undefined = [];
 
@@ -97,6 +99,8 @@ export const initStashes = (token: string, league: string) => {
         };
       });
 
+    dispatch(initItemFilter());
+
     dispatch({
       type: "INIT_STASHES",
       data: stashes,
@@ -111,6 +115,8 @@ export const selectStash = (
   ninjaItems: Record<string, NinjaItem>
 ) => {
   return async (dispatch: AppDispatch, getState: any) => {
+    const options = getState().itemOptions;
+
     const highlightStash: StashTab = getState().stashes.find((x: StashTab) => {
       return x.isHighlited === true;
     });
@@ -175,10 +181,17 @@ export const selectStash = (
               chaosEquivalent: ninjaItems[name]
                 ? ninjaItems[name].chaosValue
                 : 0,
-              sellValue: ninjaItems[name] ? ninjaItems[name].chaosValue : 0,
+              sellValue: ninjaItems[name]
+                ? Math.round(
+                    ((ninjaItems[name].chaosValue * multiplier) / 100 +
+                      Number.EPSILON) *
+                      100
+                  ) / 100
+                : 0,
               multiplier: multiplier,
               sellMultiplier: multiplier,
               isSelected: true,
+              group: generateItemGroup(name),
             };
           } else {
             items[name] = {
@@ -193,10 +206,17 @@ export const selectStash = (
               chaosEquivalent: ninjaItems[name]
                 ? ninjaItems[name].chaosValue
                 : 0,
-              sellValue: ninjaItems[name] ? ninjaItems[name].chaosValue : 0,
+              sellValue: ninjaItems[name]
+                ? Math.round(
+                    ((ninjaItems[name].chaosValue * multiplier) / 100 +
+                      Number.EPSILON) *
+                      100
+                  ) / 100
+                : 0,
               multiplier: multiplier,
               sellMultiplier: multiplier,
               isSelected: true,
+              group: generateItemGroup(name),
             };
           }
         });
@@ -218,6 +238,24 @@ export const selectStash = (
         }
       } else if (itemFilters && itemFilters.includes(key)) {
         filteredItems[key] = value as Item;
+      }
+    }
+
+    const fragments = options.fragmentSets.filter((x: any) => {
+      return x.isSelected;
+    });
+
+    if (fragments.length) {
+      const fragmentSetsAllItems = fragments.flatMap((x: any) => x.items);
+      console.log("ALLITEMS", fragments, fragmentSetsAllItems);
+      for (const [key, value] of Object.entries(items)) {
+        if (
+          !fragmentSetsAllItems.find((x: any) =>
+            x.toLocaleLowerCase().includes(items[key].name.toLocaleLowerCase())
+          )
+        ) {
+          items[key].isSelected = false;
+        }
       }
     }
 
@@ -306,4 +344,18 @@ const generateSimpleName = (name: string) => {
     return name.replace(result, "").trim() || "";
   }
   return name;
+};
+
+const generateItemGroup = (name: string) => {
+  let result = "Other";
+  itemFilter.fragments.forEach((x: any) => {
+    if (
+      x.items.find((x: string) => {
+        return x.toLowerCase().includes(name.toLocaleLowerCase());
+      })
+    ) {
+      result = x.name;
+    }
+  });
+  return result;
 };

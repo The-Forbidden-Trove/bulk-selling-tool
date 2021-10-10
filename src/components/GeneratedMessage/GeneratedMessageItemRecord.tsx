@@ -25,7 +25,13 @@ const GeneratedMessageItemRecord = ({ item }: any) => {
 
       <P>
         <Icon src={chaosOrb} />
-        <ChaosValue>{item.sellValue}</ChaosValue>
+        <ChaosValue>{item.chaosEquivalent}</ChaosValue>
+      </P>
+
+      <P>
+        <Icon src={chaosOrb} />
+        <SellValue>{item.sellValue}</SellValue>
+        <P>{item.sellMultiplier}%</P>
       </P>
 
       <P>
@@ -49,13 +55,20 @@ const ChaosValue = styled.p`
   margin: 0;
   padding: 0px;
 `;
+const SellValue = styled.p`
+  width: 55px;
+  font-size: 16px;
+  color: ${(props) => props.theme.colors.accent};
+  margin: 0;
+  padding: 0px;
+`;
 
 const ItemRecordWrap = styled.div`
   margin: 5px 10px;
 
   justify-items: start;
   font-size: ${(props) => props.theme.fontM};
-  grid-template-columns: 1fr 4fr 3fr 3fr 3fr;
+  grid-template-columns: 1fr 4fr 3fr 4fr 3fr 3fr;
   display: grid;
   border: 0.5px solid ${(props) => props.theme.colors.fg2};
 `;

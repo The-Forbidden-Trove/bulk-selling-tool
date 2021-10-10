@@ -12,27 +12,22 @@ import { FaExclamationTriangle } from "react-icons/fa";
 const TotalValue = () => {
   const [userName, setUserName] = useState("");
   const [warning, setWarning] = useState(false);
-  let sum = 0;
+  let sellSum = 0;
+  let ninjaSum = 0;
   const items = useAppSelector((store) => store.items);
   const exPrice = useAppSelector((store) => store.exaltedPrice).value || 1;
   const league = useAppSelector((store) => store.leagues).defaultLeague;
 
   for (const [key, value] of Object.entries(items)) {
     if (items[key].isSelected) {
-      sum += items[key].totalValue;
+      sellSum += items[key].totalValue;
+      ninjaSum += items[key].chaosEquivalent * items[key].stackSize;
     }
   }
   const generateImage = () => {
     toast.promise(generate, {
       pending: "Generating",
       success: `Image generated successfully!\n\nCTRL+V twice on a Discord channel to paste it correctly!`,
-      //success: (
-      //<div>
-      //Image generated successfully!
-      //<br />
-      //CTRL+V twice
-      //</div>
-      //),
       error: `Couldn't generate an image.\n\nPlease stay on the site while it is being generated.`,
     });
   };
@@ -49,17 +44,42 @@ const TotalValue = () => {
         })
           .then((canvas: any) => {
             return canvas.toBlob((blob: any) => {
-              const copyText = `WTS ${league}\nIGN: \`${userName}\`\nPrice: \`${Math.round(
-                Math.round((sum + Number.EPSILON) * 100) / 100
+              const copyText = `WTS ${league}\n${
+                userName ? `IGN: \`${userName}\`\n` : ""
+              }Ninja price: \`${Math.round(
+                Math.round((ninjaSum + Number.EPSILON) * 100) / 100
               )} chaos\` ( \`${Math.floor(
-                Math.round(((sum + Number.EPSILON) * 100) / exPrice) / 100
-              )} ex\` + \`${Math.round(
-                (Math.round(((sum + Number.EPSILON) * 100) / exPrice) / 100 -
+                Math.round(((ninjaSum + Number.EPSILON) * 100) / exPrice) / 100
+              )}\` ex + \`${Math.round(
+                (Math.round(((ninjaSum + Number.EPSILON) * 100) / exPrice) /
+                  100 -
                   Math.floor(
-                    Math.round(((sum + Number.EPSILON) * 100) / exPrice) / 100
+                    Math.round(((ninjaSum + Number.EPSILON) * 100) / exPrice) /
+                      100
                   )) *
                   exPrice
-              )} chaos\` )`;
+              )}\` chaos )\nAsking price: \`${Math.round(
+                Math.round((sellSum + Number.EPSILON) * 100) / 100
+              )}\` chaos \`(${Math.round(
+                (sellSum / ninjaSum) * 100
+              )}%\` Ninja price) ( \`${Math.floor(
+                Math.round(((sellSum + Number.EPSILON) * 100) / exPrice) / 100
+              )}\` ex + \`${Math.round(
+                (Math.round(((sellSum + Number.EPSILON) * 100) / exPrice) /
+                  100 -
+                  Math.floor(
+                    Math.round(((sellSum + Number.EPSILON) * 100) / exPrice) /
+                      100
+                  )) *
+                  exPrice
+              )}\` chaos )\nMost common:${Object.values(items)
+                .filter((x: any) => x.isSelected)
+                .sort((a: any, b: any) => b.totalValue - a.totalValue)
+                .slice(0, 3)
+                .map((x: any) => {
+                  return ` ${x.shortName}`;
+                })}`;
+
               const textBlob: any = new Blob([copyText], {
                 type: "text/plain",
               });
@@ -113,14 +133,14 @@ const TotalValue = () => {
     <Wrapper>
       <A>
         <Total>
-          Total value:
+          Asking price:
           <Price>
             <Icon
               src={
                 "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollRare.png?scale=1&w=1&h=1"
               }
             />
-            {Math.round((sum + Number.EPSILON) * 100) / 100}
+            {Math.round((sellSum + Number.EPSILON) * 100) / 100}
           </Price>
           <Price>
             <Icon
@@ -128,7 +148,7 @@ const TotalValue = () => {
                 "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyAddModToRare.png?scale=1&w=1&h=1"
               }
             />
-            {Math.round(((sum + Number.EPSILON) * 100) / exPrice) / 100}
+            {Math.round(((sellSum + Number.EPSILON) * 100) / exPrice) / 100}
           </Price>
         </Total>
         <div style={{ display: "flex" }}>

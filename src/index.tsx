@@ -13,6 +13,45 @@ import { ToastContainer, toast } from "react-toastify";
 import GlobalFonts from "./fonts/fonts";
 import "react-toastify/dist/ReactToastify.css";
 
+declare global {
+  interface Array<T> {
+    sortByMultiple<T>(
+      this: Array<T>,
+      ...keys: { key: keyof T; order?: "asc" | "desc" }[]
+    ): this;
+  }
+}
+interface Array<T> {
+  sortByMultiple<T>(
+    this: Array<T>,
+    ...keys: { key: keyof T; order?: "asc" | "desc" }[]
+  ): this;
+}
+
+Array.prototype.sortByMultiple = function sortByMultiple<T>(
+  this: [],
+  ...keys: { key: keyof T; order?: "asc" | "desc" }[]
+) {
+  return [...keys].reverse().reduce(
+    (curr, key) =>
+      //@ts-ignore
+      curr.sort((a: any, b: any) =>
+        key.order === "asc"
+          ? a[key.key] < b[key.key]
+            ? -1
+            : a[key.key] == b[key.key]
+            ? 0
+            : 1
+          : a[key.key] > b[key.key]
+          ? -1
+          : a[key.key] == b[key.key]
+          ? 0
+          : 1
+      ),
+    this
+  );
+};
+
 // Use throughout your app instead of plain `useDispatch` and `useSelector`
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

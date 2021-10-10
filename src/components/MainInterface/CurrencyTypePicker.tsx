@@ -76,17 +76,18 @@ const CurrencyTypePicker = () => {
           })}
         </AllTypes>
 
-        <ButtonWrap onClick={() => click()}>
+        <ButtonWrap>
           <FlexWrap>
-            <P>3. Set item multiplier</P>
+            <P>Asking price is</P>
             <Multiplier
               placeholder="Default multiplier 100%"
               value={input}
               onChange={handleMultiplierChange}
               onKeyPress={onKeyPress}
             />
+            <P>of ninja price</P>
           </FlexWrap>
-          <AddTab>Select tab</AddTab>
+          <AddTab onClick={() => click()}>Select tab</AddTab>
         </ButtonWrap>
       </Wrapper>
     </Cont>
@@ -96,23 +97,20 @@ const CurrencyTypePicker = () => {
 export default CurrencyTypePicker;
 
 const Cont = styled.div`
-  padding: 10px 0px 0px 0px;
+  padding: 10px 0px 10px 0px;
   width: 40%;
   height: 100%;
 `;
 
 const ButtonWrap = styled(FlexWrap)`
-  padding: 10px 15px 0px 15px;
+  padding: 0px 15px 0px 15px;
 
-  cursor: pointer;
   justify-content: space-between;
 `;
 const Multiplier = styled(Input)`
-  width: 60px;
+  width: 3em;
 
   color: ${(props) => props.theme.colors.accent2};
-  padding: 10px 5px;
-
   text-align: center;
   font-size: ${(props) => props.theme.fontM};
 `;
@@ -122,7 +120,7 @@ const AddTab = styled(Button)`
   font-size: ${(props) => props.theme.fontM};
 
   padding: 5px;
-  width: 130px;
+  width: 8em;
   border: 1px solid ${(props) => props.theme.colors.text};
   border-radius: 3px;
 `;
@@ -185,7 +183,6 @@ const P = styled.h3`
   color: ${(props) => props.theme.colors.text};
   font-size: ${(props) => props.theme.fontM};
   padding: 0px 5px 0px 0px;
-  width: 170px;
 `;
 
 const Header = styled.h3`

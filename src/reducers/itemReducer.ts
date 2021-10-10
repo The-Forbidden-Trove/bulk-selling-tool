@@ -68,8 +68,16 @@ const itemReducer = (state = initialState, action: any) => {
 
     case "UPDATE_MULTIPLIER_VALUE": {
       const newState = { ...state };
+      console.log(action.data.multiplier);
 
       newState[action.data.name].sellMultiplier = action.data.multiplier;
+      newState[action.data.name].multiplier = action.data.multiplier;
+      newState[action.data.name].sellValue = Math.round(
+        (newState[action.data.name].chaosEquivalent *
+          newState[action.data.name].sellMultiplier) /
+          100
+      );
+
       newState[action.data.name].totalValue =
         ((newState[action.data.name].stackSize *
           newState[action.data.name].sellMultiplier) /
@@ -81,7 +89,11 @@ const itemReducer = (state = initialState, action: any) => {
     case "RESET_MULTIPLIER_VALUE": {
       const newState = { ...state };
 
-      newState[action.data.name].sellMultiplier = action.data.multiplier;
+      newState[action.data.name].sellMultiplier = 100;
+      newState[action.data.name].multiplier = 100;
+
+      newState[action.data.name].sellValue =
+        newState[action.data.name].chaosEquivalent;
 
       newState[action.data.name].totalValue =
         ((newState[action.data.name].stackSize *
@@ -94,6 +106,18 @@ const itemReducer = (state = initialState, action: any) => {
       const newState = { ...state };
 
       newState[action.data.name].sellValue = action.data.chaosValue;
+
+      newState[action.data.name].multiplier = Math.round(
+        (newState[action.data.name].sellValue /
+          newState[action.data.name].chaosEquivalent) *
+          100
+      );
+      newState[action.data.name].sellMultiplier = Math.round(
+        (newState[action.data.name].sellValue /
+          newState[action.data.name].chaosEquivalent) *
+          100
+      );
+
       newState[action.data.name].totalValue =
         ((newState[action.data.name].stackSize *
           newState[action.data.name].sellMultiplier) /
@@ -104,8 +128,9 @@ const itemReducer = (state = initialState, action: any) => {
     case "RESET_CHAOS_VALUE": {
       const newState = { ...state };
 
-      console.log(action.data);
       newState[action.data.name].sellValue = action.data.chaosEquivalent;
+      newState[action.data.name].multiplier = 100;
+      newState[action.data.name].sellMultiplier = 100;
 
       newState[action.data.name].totalValue =
         ((newState[action.data.name].stackSize *
@@ -138,7 +163,6 @@ const itemReducer = (state = initialState, action: any) => {
     }
     case "FILTER_BY_MIN_STACK": {
       const newState = { ...state };
-      console.log(action.data.minStackSize);
 
       for (const [key, value] of Object.entries(state)) {
         if (newState[key].stackSize < action.data.minStackSize) {
@@ -148,6 +172,47 @@ const itemReducer = (state = initialState, action: any) => {
         }
       }
 
+      return newState;
+    }
+
+    case "FILTER_BY_MIN_VALUE": {
+      const newState = { ...state };
+
+      for (const [key, value] of Object.entries(state)) {
+        if (newState[key].sellValue < action.data.minValue) {
+          newState[key].isSelected = false;
+        } else {
+          newState[key].isSelected = true;
+        }
+      }
+
+      return newState;
+    }
+    case "FILTER_BY_MIN_TOTAL_VALUE": {
+      const newState = { ...state };
+
+      for (const [key, value] of Object.entries(state)) {
+        if (newState[key].totalValue < action.data.minTotalValue) {
+          newState[key].isSelected = false;
+        } else {
+          newState[key].isSelected = true;
+        }
+      }
+
+      return newState;
+    }
+    case "SELECT_ITEM": {
+      const newState = { ...state };
+      if (newState[action.data.name]) {
+        newState[action.data.name].isSelected = true;
+      }
+      return newState;
+    }
+    case "UNSELECT_ITEM": {
+      const newState = { ...state };
+      if (newState[action.data.name]) {
+        newState[action.data.name].isSelected = false;
+      }
       return newState;
     }
 
@@ -216,7 +281,19 @@ export const clearAllItems = () => {
     type: "CLEAR_ALL_ITEMS",
   };
 };
+export const selectItem = (name: string) => {
+  return {
+    type: "SELECT_ITEM",
+    data: { name: name },
+  };
+};
 
+export const unselectItem = (name: string) => {
+  return {
+    type: "UNSELECT_ITEM",
+    data: { name: name },
+  };
+};
 export const selectAllItems = () => {
   return {
     type: "SELECT_ALL_ITEMS",
@@ -231,6 +308,19 @@ export const filterByMinStack = (minStackSize: number) => {
   return {
     type: "FILTER_BY_MIN_STACK",
     data: { minStackSize: minStackSize },
+  };
+};
+
+export const filterByMinValue = (minValue: number) => {
+  return {
+    type: "FILTER_BY_MIN_VALUE",
+    data: { minValue: minValue },
+  };
+};
+export const filterByMinTotalValue = (minTotalValue: number) => {
+  return {
+    type: "FILTER_BY_MIN_TOTAL_VALUE",
+    data: { minTotalValue: minTotalValue },
   };
 };
 export default itemReducer;

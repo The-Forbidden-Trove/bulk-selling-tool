@@ -48,10 +48,6 @@ export const StyledCheckbox = styled.div<{ checked: boolean }>`
   background: ${(props) => (props.checked ? "#555" : "papayawhip")};
   border-radius: 3px;
   transition: all 150ms;
-
-  &:hover {
-    box-shadow: 0 0 0 1px ${(props) => props.theme.colors.fg};
-  }
 `;
 
 export const CheckboxContainer = styled.div`

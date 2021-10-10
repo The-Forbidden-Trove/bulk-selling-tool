@@ -68,7 +68,6 @@ const itemReducer = (state = initialState, action: any) => {
 
     case "UPDATE_MULTIPLIER_VALUE": {
       const newState = { ...state };
-      console.log(action.data.multiplier);
 
       newState[action.data.name].sellMultiplier = action.data.multiplier;
       newState[action.data.name].multiplier = action.data.multiplier;

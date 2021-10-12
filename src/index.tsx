@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom";
 import App from "./App";
-import styled, { css, ThemeProvider } from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 import { defaultTheme } from "./defaultTheme";
 import { GlobalStyles } from "./global";
 import AuthProvider from "./api/oauth/AuthProvider";
@@ -9,7 +9,7 @@ import { Provider } from "react-redux";
 import store from "./store";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from "./store";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import GlobalFonts from "./fonts/fonts";
 import "react-toastify/dist/ReactToastify.css";
 

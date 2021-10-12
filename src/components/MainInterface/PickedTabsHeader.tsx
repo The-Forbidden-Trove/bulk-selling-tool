@@ -128,7 +128,7 @@ const PickedTabsHeader = () => {
             }}
           >
             <Stack>
-              <StackText>Min askig price</StackText>
+              <StackText>Min asking price</StackText>
               <StackInput
                 value={minValue}
                 onChange={handleValueChange}

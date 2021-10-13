@@ -182,11 +182,9 @@ export const selectStash = (
                 ? ninjaItems[name].chaosValue
                 : 0,
               sellValue: ninjaItems[name]
-                ? Math.round(
-                    ((ninjaItems[name].chaosValue * multiplier) / 100 +
-                      Number.EPSILON) *
-                      100
-                  ) / 100
+                ? roundToTwo(
+                    (ninjaItems[name].chaosValue * items[name].multiplier) / 100
+                  )
                 : 0,
               multiplier: multiplier,
               sellMultiplier: multiplier,
@@ -207,11 +205,7 @@ export const selectStash = (
                 ? ninjaItems[name].chaosValue
                 : 0,
               sellValue: ninjaItems[name]
-                ? Math.round(
-                    ((ninjaItems[name].chaosValue * multiplier) / 100 +
-                      Number.EPSILON) *
-                      100
-                  ) / 100
+                ? roundToTwo((ninjaItems[name].chaosValue * multiplier) / 100)
                 : 0,
               multiplier: multiplier,
               sellMultiplier: multiplier,
@@ -357,4 +351,7 @@ const generateItemGroup = (name: string) => {
     }
   });
   return result;
+};
+const roundToTwo = (value: number) => {
+  return Math.round((value + Number.EPSILON) * 100) / 100;
 };

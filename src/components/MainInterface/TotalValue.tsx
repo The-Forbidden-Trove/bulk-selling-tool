@@ -62,7 +62,7 @@ const TotalValue = () => {
                 Math.round((sellSum + Number.EPSILON) * 100) / 100
               )}\` chaos \`(${Math.round(
                 (sellSum / ninjaSum) * 100
-              )}%\` Ninja price) ( \`${Math.floor(
+              )}%\` of Ninja price) ( \`${Math.floor(
                 Math.round(((sellSum + Number.EPSILON) * 100) / exPrice) / 100
               )}\` ex + \`${Math.round(
                 (Math.round(((sellSum + Number.EPSILON) * 100) / exPrice) /
@@ -72,7 +72,7 @@ const TotalValue = () => {
                       100
                   )) *
                   exPrice
-              )}\` chaos )\nMost common:${Object.values(items)
+              )}\` chaos )\nMost valuable:${Object.values(items)
                 .filter((x: any) => x.isSelected)
                 .sort((a: any, b: any) => b.totalValue - a.totalValue)
                 .slice(0, 3)

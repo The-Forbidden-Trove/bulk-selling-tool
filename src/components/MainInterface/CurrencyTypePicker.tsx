@@ -15,7 +15,7 @@ const CurrencyTypePicker = () => {
 
   const league = useAppSelector((store) => store.leagues).defaultLeague;
 
-  const [input, setInput] = useState<string>("100%");
+  const [multiplier, setInput] = useState<string>("100%");
 
   const { authService } = useAuth();
 
@@ -28,7 +28,7 @@ const CurrencyTypePicker = () => {
       selectStash(
         authService.getAuthTokens().access_token,
         league,
-        Number(input.substr(0, input.length - 1)) || 0,
+        Number(multiplier.substr(0, multiplier.length - 1)) || 0,
         ninjaItems
       )
     );
@@ -81,7 +81,7 @@ const CurrencyTypePicker = () => {
             <P>Asking price is</P>
             <Multiplier
               placeholder="Default multiplier 100%"
-              value={input}
+              value={multiplier}
               onChange={handleMultiplierChange}
               onKeyPress={onKeyPress}
             />

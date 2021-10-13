@@ -11,15 +11,15 @@ const itemReducer = (state = initialState, action: any) => {
         const temp: any = value;
         if (newState[key]) {
           newState[key].stackSize += temp.stackSize;
-          newState[key].totalValue =
-            ((newState[key].stackSize * newState[key].sellMultiplier) / 100) *
-            newState[key].sellValue;
+          newState[key].totalValue = roundToTwo(
+            newState[key].stackSize * newState[key].sellValue
+          );
         } else {
           newState[key] = value;
 
-          newState[key].totalValue =
-            ((newState[key].stackSize * newState[key].sellMultiplier) / 100) *
-            newState[key].sellValue;
+          newState[key].totalValue = roundToTwo(
+            newState[key].stackSize * newState[key].sellValue
+          );
         }
       }
       return newState;
@@ -32,9 +32,9 @@ const itemReducer = (state = initialState, action: any) => {
           if (newState[key]) {
             newState[key].stackSize -= temp.stackSize;
 
-            newState[key].totalValue =
-              ((newState[key].stackSize * newState[key].sellMultiplier) / 100) *
-              newState[key].sellValue;
+            newState[key].totalValue = roundToTwo(
+              newState[key].stackSize * newState[key].sellValue
+            );
           }
         }
       let result: Record<string, Item> = {};
@@ -55,87 +55,76 @@ const itemReducer = (state = initialState, action: any) => {
     }
     case "UPDATE_ITEM_PROPS": {
       const newState = { ...state };
+      const name = action.data.name;
 
-      newState[action.data.name].sellMultiplier = action.data.multiplier;
-      newState[action.data.name].sellValue = action.data.chaosValue;
-      newState[action.data.name].totalValue =
-        ((newState[action.data.name].stackSize *
-          newState[action.data.name].sellMultiplier) /
-          100) *
-        newState[action.data.name].sellValue;
+      newState[name].sellMultiplier = action.data.multiplier;
+      newState[name].sellValue = action.data.chaosValue;
+      newState[name].totalValue = roundToTwo(
+        newState[name].stackSize * newState[name].sellValue
+      );
       return newState;
     }
 
     case "UPDATE_MULTIPLIER_VALUE": {
       const newState = { ...state };
+      const name = action.data.name;
 
-      newState[action.data.name].sellMultiplier = action.data.multiplier;
-      newState[action.data.name].multiplier = action.data.multiplier;
-      newState[action.data.name].sellValue = Math.round(
-        (newState[action.data.name].chaosEquivalent *
-          newState[action.data.name].sellMultiplier) /
-          100
+      newState[name].sellMultiplier = action.data.multiplier;
+      newState[name].multiplier = action.data.multiplier;
+      newState[name].sellValue =
+        (newState[name].chaosEquivalent * newState[name].sellMultiplier) / 100;
+
+      console.log(newState[name]);
+
+      newState[name].totalValue = roundToTwo(
+        newState[name].stackSize * newState[name].sellValue
       );
-
-      newState[action.data.name].totalValue =
-        ((newState[action.data.name].stackSize *
-          newState[action.data.name].sellMultiplier) /
-          100) *
-        newState[action.data.name].sellValue;
       return newState;
     }
 
     case "RESET_MULTIPLIER_VALUE": {
       const newState = { ...state };
+      const name = action.data.name;
 
-      newState[action.data.name].sellMultiplier = 100;
-      newState[action.data.name].multiplier = 100;
+      newState[name].sellMultiplier = 100;
+      newState[name].multiplier = 100;
 
-      newState[action.data.name].sellValue =
-        newState[action.data.name].chaosEquivalent;
+      newState[name].sellValue = newState[name].chaosEquivalent;
 
-      newState[action.data.name].totalValue =
-        ((newState[action.data.name].stackSize *
-          newState[action.data.name].sellMultiplier) /
-          100) *
-        newState[action.data.name].sellValue;
+      newState[name].totalValue = roundToTwo(
+        newState[name].stackSize * newState[name].sellValue
+      );
       return newState;
     }
     case "UPDATE_CHAOS_VALUE": {
       const newState = { ...state };
+      const name = action.data.name;
 
-      newState[action.data.name].sellValue = action.data.chaosValue;
+      newState[name].sellValue = action.data.chaosValue;
 
-      newState[action.data.name].multiplier = Math.round(
-        (newState[action.data.name].sellValue /
-          newState[action.data.name].chaosEquivalent) *
-          100
+      newState[name].multiplier = Math.round(
+        (newState[name].sellValue / newState[name].chaosEquivalent) * 100
       );
-      newState[action.data.name].sellMultiplier = Math.round(
-        (newState[action.data.name].sellValue /
-          newState[action.data.name].chaosEquivalent) *
-          100
+      newState[name].sellMultiplier = Math.round(
+        (newState[name].sellValue / newState[name].chaosEquivalent) * 100
       );
 
-      newState[action.data.name].totalValue =
-        ((newState[action.data.name].stackSize *
-          newState[action.data.name].sellMultiplier) /
-          100) *
-        newState[action.data.name].sellValue;
+      newState[name].totalValue = roundToTwo(
+        newState[name].stackSize * newState[name].sellValue
+      );
       return newState;
     }
     case "RESET_CHAOS_VALUE": {
       const newState = { ...state };
+      const name = action.data.name;
 
-      newState[action.data.name].sellValue = action.data.chaosEquivalent;
-      newState[action.data.name].multiplier = 100;
-      newState[action.data.name].sellMultiplier = 100;
+      newState[name].sellValue = action.data.chaosEquivalent;
+      newState[name].multiplier = 100;
+      newState[name].sellMultiplier = 100;
 
-      newState[action.data.name].totalValue =
-        ((newState[action.data.name].stackSize *
-          newState[action.data.name].sellMultiplier) /
-          100) *
-        action.data.chaosEquivalent;
+      newState[name].totalValue = roundToTwo(
+        newState[name].stackSize * newState[name].sellValue
+      );
       return newState;
     }
     case "CLEAR_ALL_ITEMS": {
@@ -321,5 +310,8 @@ export const filterByMinTotalValue = (minTotalValue: number) => {
     type: "FILTER_BY_MIN_TOTAL_VALUE",
     data: { minTotalValue: minTotalValue },
   };
+};
+const roundToTwo = (value: number) => {
+  return Math.round((value + Number.EPSILON) * 100) / 100;
 };
 export default itemReducer;

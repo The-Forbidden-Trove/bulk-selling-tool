@@ -27,7 +27,11 @@ const TotalValue = () => {
   const generateImage = () => {
     toast.promise(generate, {
       pending: "Generating",
-      success: `Image generated successfully!\n\nCTRL+V twice on a Discord channel to paste it correctly!`,
+      success: `${
+        isFirefox || isSafari
+          ? "Image generated successfully! You are on Firefox, your image will open in a new tab. CTRL+V twice on a Discord channel to paste it correctly!"
+          : "Image generated successfully!\n\nCTRL+V twice on a Discord channel to paste it correctly!"
+      }`,
       error: `Couldn't generate an image.\n\nPlease stay on the site while it is being generated.`,
     });
   };
@@ -169,7 +173,13 @@ const TotalValue = () => {
               </P>
               <div style={{ display: "flex", alignSelf: "flex-end" }}>
                 <FaExclamationTriangle style={iconStyle2} />
-                <P2>Remember to CTRL+V twice on Discord!</P2>
+                {isFirefox || isSafari ? (
+                  <P2>
+                    Paste text and the image from new tab to discord channel!
+                  </P2>
+                ) : (
+                  <P2>Remember to CTRL+V twice on Discord!</P2>
+                )}
               </div>
             </div>
           </Generate>

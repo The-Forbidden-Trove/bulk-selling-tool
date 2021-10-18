@@ -78,16 +78,58 @@ export const initAppState = () => {
           !x.id.toLowerCase().includes("royale")
         );
       });
+
+      //const res = [
+      //{
+      //id: "Standard",
+      //realm: "pc",
+      //url: "https://www.pathofexile.com/forum/view-thread/71278",
+      //startAt: "2013-01-23T21:00:00Z",
+      //endAt: null,
+      //},
+      //{
+      //id: "Hardcore",
+      //realm: "pc",
+      //url: "https://www.pathofexile.com/forum/view-thread/71276",
+      //startAt: "2013-01-23T21:00:00Z",
+      //endAt: null,
+      //},
+      //];
+
       if (!defaultLeague.hasOwnProperty("defaultLeague")) {
         window.localStorage.setItem(
           "defaultLeague",
-          JSON.stringify({ defaultLeague: res[2] })
+          JSON.stringify({ defaultLeague: res[2] || "Standard" })
         );
-        league = res[2].id;
-        fetchNinjaData(res[2].id);
+        league = res[2] ? res[2].id : "Standard";
+        fetchNinjaData(league);
       } else {
-        league = defaultLeague.defaultLeague.id;
-        fetchNinjaData(defaultLeague?.defaultLeague?.id);
+        if (
+          defaultLeague.defaultLeague.hasOwnProperty("id") &&
+          res.filter((x: any) => {
+            return x.id
+              .toLowerCase()
+              .includes(defaultLeague.defaultLeague.id.toLowerCase());
+          }).length
+        ) {
+          league = defaultLeague.defaultLeague.id;
+        } else if (
+          !defaultLeague.defaultLeague.hasOwnProperty("id") &&
+          res.filter((x: any) => {
+            return x.id
+              .toLowerCase()
+              .includes(defaultLeague.defaultLeague.toLowerCase());
+          }).length
+        ) {
+          league = defaultLeague.defaultLeague;
+        } else {
+          league = "Standard";
+          window.localStorage.setItem(
+            "defaultLeague",
+            JSON.stringify({ defaultLeague: "Standard" })
+          );
+        }
+        fetchNinjaData(league);
       }
 
       let ninjaItems: any = window.localStorage.getItem("ninjaItems");

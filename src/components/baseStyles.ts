@@ -38,6 +38,7 @@ export const HiddenCheckbox = styled.input.attrs({ type: "checkbox" })`
   white-space: nowrap;
   width: 1px;
 
+  visibility: hidden;
   border-radius: 3px;
 `;
 

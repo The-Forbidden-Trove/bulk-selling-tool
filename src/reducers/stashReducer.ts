@@ -305,7 +305,6 @@ const generateSimpleName = (name: string) => {
     "Splinter of",
     "Orb of",
     "Sextant",
-    "Prism",
     "Chisel",
     "Orb",
     "Scarab",
@@ -323,6 +322,7 @@ const generateSimpleName = (name: string) => {
     "Scrap",
     "Whetstone",
     "The",
+    "Prism",
   ];
 
   const result: string | undefined = filters.find((filter: string) => {

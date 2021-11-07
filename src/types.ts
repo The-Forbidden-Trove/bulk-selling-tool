@@ -125,7 +125,7 @@ export const currencies: CurrencyType[] = [
     icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQmVzdGlhcnlPcmJGdWxsIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/3214b44360/BestiaryOrbFull.png",
     ninjaEndpoint: "itemoverview",
     isSelected: false,
-    typeFilter: itemFilter.deliriumOrbFilter.items,
+    typeFilter: itemFilter.beastFilter.items,
   },
 
   {

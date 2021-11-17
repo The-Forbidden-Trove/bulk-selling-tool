@@ -15,6 +15,11 @@ const Img = styled.img`
 const Navbar = () => {
   const dispatch = useAppDispatch();
   const leagues = useAppSelector((store) => store.leagues);
+  const redirectExtension = () => {
+    const link =
+      "https://chrome.google.com/webstore/detail/tft-trade-extension/bikeebdigkompjnpcljicocidefgbhgl?hl=en";
+    window.open(link);
+  };
   const redirectDiscord = () => {
     const link = "https://discord.com/invite/zBpfweq";
     window.open(link);
@@ -39,6 +44,8 @@ const Navbar = () => {
         />
         <p>TheForbiddenTrove</p>
         <Button onClick={redirectDiscord}>join our discord!</Button>
+
+        <Button onClick={redirectExtension}>Browser extension</Button>
       </Left>
 
       <Middle>TFT Bulk Selling Tool</Middle>

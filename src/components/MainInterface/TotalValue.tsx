@@ -25,17 +25,93 @@ const TotalValue = () => {
     }
   }
   const generateImage = () => {
-    toast.promise(generate, {
-      pending: "Generating",
+    toast.promise(generateImg, {
+      pending: "Generating image",
       success: `${
         isFirefox || isSafari
-          ? "Image generated successfully! You are on Firefox, your image will open in a new tab. CTRL+V twice on a Discord channel to paste it correctly!"
-          : "Image generated successfully!\n\nCTRL+V twice on a Discord channel to paste it correctly!"
+          ? "Image generated successfully! You are on Firefox, your image will open in a new tab."
+          : "Image generated successfully! Your image is in the clipboard already!"
       }`,
       error: `Couldn't generate an image.\n\nPlease stay on the site while it is being generated.`,
     });
   };
-  const generate = () => {
+  const generateText = () => {
+    toast.promise(generateTxt, {
+      pending: "Generating text",
+      success: `${
+        isFirefox || isSafari
+          ? "Text generated successfully! It is in Your clipboard!"
+          : "Text generated successfully! It is in Your clipboard!"
+      }`,
+      error: `Couldn't generate text.\n\nPlease stay on the site while it is being generated.`,
+    });
+  };
+  const generateTxt = () => {
+    return new Promise((resolve, reject) => {
+      const copyText = `WTS ${league}\n${
+        userName ? `IGN: \`${userName}\`\n` : ""
+      }Ninja price: \`${Math.round(
+        Math.round((ninjaSum + Number.EPSILON) * 100) / 100
+      )} chaos\` ( \`${Math.floor(
+        Math.round(((ninjaSum + Number.EPSILON) * 100) / exPrice) / 100
+      )}\` ex + \`${Math.round(
+        (Math.round(((ninjaSum + Number.EPSILON) * 100) / exPrice) / 100 -
+          Math.floor(
+            Math.round(((ninjaSum + Number.EPSILON) * 100) / exPrice) / 100
+          )) *
+          exPrice
+      )}\` chaos )\nAsking price: \`${Math.round(
+        Math.round((sellSum + Number.EPSILON) * 100) / 100
+      )}\` chaos \`(${Math.round(
+        (sellSum / ninjaSum) * 100
+      )}%\` of Ninja price) ( \`${Math.floor(
+        Math.round(((sellSum + Number.EPSILON) * 100) / exPrice) / 100
+      )}\` ex + \`${Math.round(
+        (Math.round(((sellSum + Number.EPSILON) * 100) / exPrice) / 100 -
+          Math.floor(
+            Math.round(((sellSum + Number.EPSILON) * 100) / exPrice) / 100
+          )) *
+          exPrice
+      )}\` chaos )\nMost valuable:${Object.values(items)
+        .filter((x: any) => x.isSelected)
+        .sort((a: any, b: any) => b.totalValue - a.totalValue)
+        .slice(0, 3)
+        .map((x: any) => {
+          return ` ${x.shortName}`;
+        })}`;
+
+      const textBlob: any = new Blob([copyText], {
+        type: "text/plain",
+      });
+
+      if (isFirefox || isSafari) {
+        navigator.clipboard
+          .writeText(copyText)
+          .then((x) => {
+            resolve("Text Generated");
+          })
+          .catch((e) => {
+            console.log("Error:", e);
+            reject(new Error("Not generated"));
+          });
+      } else {
+        window.navigator.clipboard
+          .write([
+            new window.ClipboardItem({
+              "text/plain": textBlob,
+            }),
+          ])
+          .then((x) => {
+            resolve("Text Generated");
+          })
+          .catch((e) => {
+            reject(new Error("Not generated"));
+          });
+      }
+    });
+  };
+
+  const generateImg = () => {
     return new Promise((resolve, reject) => {
       let component = document.getElementById("generatedMessage");
 
@@ -155,6 +231,7 @@ const TotalValue = () => {
             {Math.round(((sellSum + Number.EPSILON) * 100) / exPrice) / 100}
           </Price>
         </Total>
+
         <div style={{ display: "flex" }}>
           <UserName>
             <P style={{ padding: "0px 15px 0px 0px", fontSize: "22px" }}>IGN</P>
@@ -166,19 +243,32 @@ const TotalValue = () => {
 
             <FaCheck style={iconStyle} onClick={(e) => updateName()} />
           </UserName>
-          <Generate onClick={generateImage}>
+
+          <Generate>
             <div style={{ display: "flex", flexDirection: "column" }}>
-              <P style={warning ? { color: "red" } : {}}>
-                Generate discord message!
-              </P>
-              <div style={{ display: "flex", alignSelf: "flex-end" }}>
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <P
+                  style={warning ? { color: "red" } : {}}
+                  onClick={() => generateText()}
+                >
+                  Generate text
+                </P>
+
+                <P
+                  style={warning ? { color: "red" } : {}}
+                  onClick={() => generateImage()}
+                >
+                  Generate image
+                </P>
+              </div>
+              <div style={{ display: "flex", alignSelf: "center" }}>
                 <FaExclamationTriangle style={iconStyle2} />
                 {isFirefox || isSafari ? (
                   <P2>
                     Paste text and the image from new tab to discord channel!
                   </P2>
                 ) : (
-                  <P2>Remember to CTRL+V twice on Discord!</P2>
+                  <P2>Paste text and the image to discord channel!</P2>
                 )}
               </div>
             </div>
@@ -249,6 +339,7 @@ const Price = styled(FlexWrap)`
 `;
 const P = styled.p`
   font-size: ${(props) => props.theme.fontL};
+  padding: 0px 15px;
 
   color: ${(props) => props.theme.colors.text};
   color: ${(props) => props.theme.colors.accent};

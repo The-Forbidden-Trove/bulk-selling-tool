@@ -4,6 +4,7 @@ import { useAuth } from "../../api/oauth/AuthContext";
 import Select from "react-select";
 import { useAppDispatch, useAppSelector } from "../..";
 import { changeDefaultLeague } from "../../reducers/leagueReducer";
+import ChromeStore from "../../assets/chrome-web-store.png";
 
 const Img = styled.img`
   width: 64px;
@@ -45,7 +46,12 @@ const Navbar = () => {
         <p>TheForbiddenTrove</p>
         <Button onClick={redirectDiscord}>join our discord!</Button>
 
-        <Button onClick={redirectExtension}>Browser extension</Button>
+        <Button onClick={redirectExtension}>
+          <TextIcon>
+            <Img src={ChromeStore} style={{ height: "24px", width: "24px" }} />
+            <p>TFT Browser extension</p>
+          </TextIcon>
+        </Button>
       </Left>
 
       <Middle>TFT Bulk Selling Tool</Middle>
@@ -121,6 +127,12 @@ const Middle = styled(FlexWrap)`
 
   width: 33%;
   font-size: 32px;
+`;
+const TextIcon = styled(FlexWrap)`
+  > p {
+    color: ${(props) => props.theme.colors.accent};
+    background: none;
+  }
 `;
 const Right = styled(FlexWrap)`
   width: 33%;

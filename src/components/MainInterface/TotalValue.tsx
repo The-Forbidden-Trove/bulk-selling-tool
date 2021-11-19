@@ -124,65 +124,15 @@ const TotalValue = () => {
         })
           .then((canvas: any) => {
             return canvas.toBlob((blob: any) => {
-              const copyText = `WTS ${league}\n${
-                userName ? `IGN: \`${userName}\`\n` : ""
-              }Ninja price: \`${Math.round(
-                Math.round((ninjaSum + Number.EPSILON) * 100) / 100
-              )} chaos\` ( \`${Math.floor(
-                Math.round(((ninjaSum + Number.EPSILON) * 100) / exPrice) / 100
-              )}\` ex + \`${Math.round(
-                (Math.round(((ninjaSum + Number.EPSILON) * 100) / exPrice) /
-                  100 -
-                  Math.floor(
-                    Math.round(((ninjaSum + Number.EPSILON) * 100) / exPrice) /
-                      100
-                  )) *
-                  exPrice
-              )}\` chaos )\nAsking price: \`${Math.round(
-                Math.round((sellSum + Number.EPSILON) * 100) / 100
-              )}\` chaos \`(${Math.round(
-                (sellSum / ninjaSum) * 100
-              )}%\` of Ninja price) ( \`${Math.floor(
-                Math.round(((sellSum + Number.EPSILON) * 100) / exPrice) / 100
-              )}\` ex + \`${Math.round(
-                (Math.round(((sellSum + Number.EPSILON) * 100) / exPrice) /
-                  100 -
-                  Math.floor(
-                    Math.round(((sellSum + Number.EPSILON) * 100) / exPrice) /
-                      100
-                  )) *
-                  exPrice
-              )}\` chaos )\nMost valuable:${Object.values(items)
-                .filter((x: any) => x.isSelected)
-                .sort((a: any, b: any) => b.totalValue - a.totalValue)
-                .slice(0, 3)
-                .map((x: any) => {
-                  return ` ${x.shortName}`;
-                })}`;
-
-              const textBlob: any = new Blob([copyText], {
-                type: "text/plain",
-              });
-
               if (isFirefox || isSafari) {
-                navigator.clipboard
-                  .writeText(copyText)
-                  .then((x) => {
-                    const fileObjectURL = URL.createObjectURL(blob);
-
-                    resolve("Image Generated");
-                    window.open(fileObjectURL);
-                  })
-                  .catch((e) => {
-                    console.log("Error:", e);
-                    reject(new Error("Not generated"));
-                  });
+                const fileObjectURL = URL.createObjectURL(blob);
+                resolve("Image Generated");
+                window.open(fileObjectURL);
               } else {
                 window.navigator.clipboard
                   .write([
                     new window.ClipboardItem({
                       "image/png": blob,
-                      "text/plain": textBlob,
                     }),
                   ])
                   .then((x) => {

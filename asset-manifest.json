@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.js": "/bulk-selling-tool/static/js/main.0b669c1d.chunk.js",
-    "main.js.map": "/bulk-selling-tool/static/js/main.0b669c1d.chunk.js.map",
+    "main.js": "/bulk-selling-tool/static/js/main.5ec12f18.chunk.js",
+    "main.js.map": "/bulk-selling-tool/static/js/main.5ec12f18.chunk.js.map",
     "runtime-main.js": "/bulk-selling-tool/static/js/runtime-main.b9a7b8f9.js",
     "runtime-main.js.map": "/bulk-selling-tool/static/js/runtime-main.b9a7b8f9.js.map",
     "static/css/2.58a45539.chunk.css": "/bulk-selling-tool/static/css/2.58a45539.chunk.css",
-    "static/js/2.86c9173c.chunk.js": "/bulk-selling-tool/static/js/2.86c9173c.chunk.js",
-    "static/js/2.86c9173c.chunk.js.map": "/bulk-selling-tool/static/js/2.86c9173c.chunk.js.map",
+    "static/js/2.87602672.chunk.js": "/bulk-selling-tool/static/js/2.87602672.chunk.js",
+    "static/js/2.87602672.chunk.js.map": "/bulk-selling-tool/static/js/2.87602672.chunk.js.map",
     "index.html": "/bulk-selling-tool/index.html",
     "static/css/2.58a45539.chunk.css.map": "/bulk-selling-tool/static/css/2.58a45539.chunk.css.map",
-    "static/js/2.86c9173c.chunk.js.LICENSE.txt": "/bulk-selling-tool/static/js/2.86c9173c.chunk.js.LICENSE.txt",
+    "static/js/2.87602672.chunk.js.LICENSE.txt": "/bulk-selling-tool/static/js/2.87602672.chunk.js.LICENSE.txt",
     "static/media/Fontin-SmallCaps.7618aa61.ttf": "/bulk-selling-tool/static/media/Fontin-SmallCaps.7618aa61.ttf",
     "static/media/Guide1.94fb55b4.png": "/bulk-selling-tool/static/media/Guide1.94fb55b4.png",
     "static/media/Guide2.e45a625c.png": "/bulk-selling-tool/static/media/Guide2.e45a625c.png"
@@ -17,7 +17,7 @@
   "entrypoints": [
     "static/js/runtime-main.b9a7b8f9.js",
     "static/css/2.58a45539.chunk.css",
-    "static/js/2.86c9173c.chunk.js",
-    "static/js/main.0b669c1d.chunk.js"
+    "static/js/2.87602672.chunk.js",
+    "static/js/main.5ec12f18.chunk.js"
   ]
 }

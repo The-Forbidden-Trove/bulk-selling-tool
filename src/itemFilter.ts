@@ -202,6 +202,36 @@ export const itemFilter = {
       icon: "https://web.poecdn.com/gen/image/WzI4LDE0LHsiZiI6IjJESXRlbXMvTWFwcy9TaXJ1c0ZyYWdtZW50Q29tcGxldGUiLCJzY2FsZSI6MX1d/c585a0ae79/SirusFragmentComplete.png",
     },
   ],
+  sextantFilter: {
+    items: ["Sextant"],
+    name: "Compass",
+    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQ2hhcmdlZENvbXBhc3MiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/ea8fcc3e35/ChargedCompass.png",
+  },
+  contractFilter: {
+    items: [
+      "Contract Agility 81+",
+      "Contract Brute Force 81+",
+      "Contract Counter-Thaumaturgy 81+",
+      "Contract Deception 81+",
+      "Contract Demolition 81+",
+      "Contract Engineering 81+",
+      "Contract Lockpicking 81+",
+      "Contract Perception 81+",
+      "Contract Trap Disarmament 81+",
+
+      "Contract Agility",
+      "Contract Brute Force",
+      "Contract Counter-Thaumaturgy",
+      "Contract Deception",
+      "Contract Demolition",
+      "Contract Engineering",
+      "Contract Lockpicking",
+      "Contract Perception",
+      "Contract Trap Disarmament",
+    ],
+    name: "Contract ",
+    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvSGVpc3QvQ29udHJhY3RJdGVtMiIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/f755c71433/ContractItem2.png",
+  },
   currencyFilter: {
     items: [
       "Mirror of Kalandra",

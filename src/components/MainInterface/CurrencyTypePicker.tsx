@@ -9,6 +9,8 @@ import { useAuth } from "../../api/oauth/AuthContext";
 import { selectStash } from "../../reducers/stashReducer";
 import { NinjaItem } from "../../types";
 
+import { toast } from "react-toastify";
+
 const CurrencyTypePicker = () => {
   const currencyTypes = useAppSelector((store) => store.currencyTypes);
   const dispatch = useAppDispatch();
@@ -32,6 +34,22 @@ const CurrencyTypePicker = () => {
         ninjaItems
       )
     );
+    let isSpecial = false;
+    currencyTypes.forEach((currencyType: CurrencyType) => {
+      if (
+        currencyType.isSelected &&
+        (currencyType.type === "Contract" || currencyType.type === "Sextant")
+      )
+        isSpecial = true;
+    });
+    if (isSpecial) {
+      toast.info(
+        "We ask you to just paste the generated text - no need for the image when selling contracts or sextants."
+      );
+      toast.warn(
+        "You are using an experimental type, please input the prices yourself since they are not supported by poe.ninja."
+      );
+    }
     setInput("100%");
   };
 

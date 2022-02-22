@@ -29,6 +29,13 @@ const GeneratedMessage = () => {
 
   const exPrice = useAppSelector((store) => store.exaltedPrice).value || 1;
 
+  const contracts = Object.values(items)
+    .filter((x: any) => x.isSelected)
+    .filter((x: any) => x.name.includes("Contract"));
+  const sextants = Object.values(items)
+    .filter((x: any) => x.isSelected)
+    .filter((x: any) => x.name.match(/Sextant (\w\s*)*\(\d*\s*uses\)/));
+
   for (const [key, value] of Object.entries(items)) {
     if (items[key].isSelected) {
       sellSum += items[key].totalValue;
@@ -86,6 +93,15 @@ const GeneratedMessage = () => {
           <FlexWrap>
             <R>({Math.round((sellSum / ninjaSum) * 100)}% of Ninja price)</R>
           </FlexWrap>
+
+          <Excluded>
+            {contracts.length > 0 || sextants.length > 0
+              ? "( excluding: " +
+                (contracts.length > 0 ? "contracts " : "") +
+                (sextants.length > 0 ? "sextants " : "") +
+                ")"
+              : ""}
+          </Excluded>
         </TotalValue>
         <CurrencyTypes>
           <P>Currency types</P>
@@ -181,6 +197,16 @@ const Icon = styled.img`
 const P = styled(FlexWrap)`
   font-size: 24px;
   color: ${(props) => props.theme.colors.text};
+  padding: 0px 5px;
+`;
+
+const Excluded = styled(FlexWrap)`
+  font-size: 16px;
+  height: 100%;
+  text-align: center;
+    align-items: center;
+  color: ${(props) => props.theme.colors.text};
+  opacity: 0.5;
   padding: 0px 5px;
 `;
 

@@ -48,6 +48,13 @@ const TotalValue = () => {
   };
   const generateTxt = () => {
     return new Promise((resolve, reject) => {
+      const contracts = Object.values(items)
+        .filter((x: any) => x.isSelected)
+        .filter((x: any) => x.name.includes("Contract"));
+      const sextants = Object.values(items)
+        .filter((x: any) => x.isSelected)
+        .filter((x: any) => x.name.match(/Sextant (\w\s*)*\(\d*\s*uses\)/));
+
       const copyText = `WTS ${league}\n${
         userName ? `IGN: \`${userName}\`\n` : ""
       }Ninja price: \`${Math.round(
@@ -72,13 +79,38 @@ const TotalValue = () => {
             Math.round(((sellSum + Number.EPSILON) * 100) / exPrice) / 100
           )) *
           exPrice
-      )}\` chaos )\nMost valuable:${Object.values(items)
+      )}\` chaos ) ${
+        contracts.length > 0 || sextants.length > 0
+          ? "( excluding: " +
+            (contracts.length > 0 ? "contracts " : "") +
+            (sextants.length > 0 ? "sextants " : "") +
+            ")"
+          : ""
+      }\nMost valuable:${Object.values(items)
         .filter((x: any) => x.isSelected)
         .sort((a: any, b: any) => b.totalValue - a.totalValue)
         .slice(0, 3)
         .map((x: any) => {
           return ` ${x.shortName}`;
-        })}`;
+        })}${
+        contracts.length > 0
+          ? "\n`Contracts are experimental`\n" +
+            contracts
+              .map((x: any) => {
+                return ` ${x.name} ${x.sellValue} chaos`;
+              })
+              .join("\n")
+          : ""
+      }${
+        sextants.length > 0
+          ? "\n`Sextants are experimental`\n" +
+            sextants
+              .map((x: any) => {
+                return ` ${x.name} ${x.sellValue} chaos`;
+              })
+              .join("\n")
+          : ""
+      }`;
 
       const textBlob: any = new Blob([copyText], {
         type: "text/plain",

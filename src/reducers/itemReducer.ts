@@ -74,7 +74,6 @@ const itemReducer = (state = initialState, action: any) => {
       newState[name].sellValue =
         (newState[name].chaosEquivalent * newState[name].sellMultiplier) / 100;
 
-      console.log(newState[name]);
 
       newState[name].totalValue = roundToTwo(
         newState[name].stackSize * newState[name].sellValue
@@ -102,12 +101,17 @@ const itemReducer = (state = initialState, action: any) => {
 
       newState[name].sellValue = action.data.chaosValue;
 
-      newState[name].multiplier = Math.round(
-        (newState[name].sellValue / newState[name].chaosEquivalent) * 100
-      );
-      newState[name].sellMultiplier = Math.round(
-        (newState[name].sellValue / newState[name].chaosEquivalent) * 100
-      );
+      const multiplier = Math.round(
+          (newState[name].sellValue / newState[name].chaosEquivalent) * 100
+        )
+      newState[name].multiplier =
+        multiplier === Infinity ? 100 : multiplier;
+
+      const sellMultiplier = Math.round(
+          (newState[name].sellValue / newState[name].chaosEquivalent) * 100
+        )
+      newState[name].sellMultiplier =
+        sellMultiplier === Infinity ? 100 : sellMultiplier;
 
       newState[name].totalValue = roundToTwo(
         newState[name].stackSize * newState[name].sellValue

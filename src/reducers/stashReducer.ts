@@ -158,13 +158,35 @@ export const selectStash = (
         const allItems = response.data.stash.items;
 
         allItems.forEach((item: any) => {
-          const name = item.baseType.match(/Blighted [\w\s]+Map/)
-            ? `${item.baseType} ${
-                //@ts-ignore
-                item.properties.find((x): any => x.name === "Map Tier")
-                  .values[0][0]
-              }`
-            : item.baseType;
+          let name = item.baseType;
+
+          if (item.baseType.match(/Blighted [\w\s]+Map/)) {
+            name = `${item.baseType} ${
+              //@ts-ignore
+              item.properties.find((x): any => x.name === "Map Tier")
+                .values[0][0]
+            }`;
+          } else if (item.baseType.match(/Blight-ravaged [\w\s]+Map/)) {
+            name = `${item.baseType} ${
+              //@ts-ignore
+              item.properties.find((x): any => x.name === "Map Tier")
+                .values[0][0]
+            }`;
+          } else if (item.baseType.includes("Contract:")) {
+            name = `Contract ${item.properties[3].values[1][0]}${
+              Number(item.ilvl) >= 81 ? " 81+" : ""
+            }`;
+          } else if (
+            item.baseType.includes("Charged Compass") &&
+            item.hasOwnProperty("enchantMods")
+          ) {
+            name = `Sextant ${item.enchantMods[0]} (${item.enchantMods[
+              item.enchantMods.length - 1
+            ]
+              .split(" ")
+              .slice(0, -1)
+              .join(" ")})`;
+          }
 
           if (items[name]) {
             items[name] = {
@@ -228,6 +250,17 @@ export const selectStash = (
           itemFilters &&
           itemFilters.includes(key.split(" ").slice(0, -1).join(" "))
         ) {
+          filteredItems[key] = value as Item;
+        }
+      } else if (key.match(/Blight-ravaged [\w\s]+Map \d+/)) {
+        if (
+          itemFilters &&
+          itemFilters.includes(key.split(" ").slice(0, -1).join(" "))
+        ) {
+          filteredItems[key] = value as Item;
+        }
+      } else if (key.match(/Sextant (\w\s*)*\(\d*\s*uses\)/)) {
+        if (itemFilters && itemFilters.includes("Sextant")) {
           filteredItems[key] = value as Item;
         }
       } else if (itemFilters && itemFilters.includes(key)) {

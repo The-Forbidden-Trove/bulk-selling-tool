@@ -6,7 +6,9 @@ import { provider } from "../../index";
 export const getAllItemTypePrices = async (league: string) => {
   let items: Record<string, NinjaItem> = {};
   await Promise.allSettled(
-    currencies.map((currency: CurrencyType) => {
+    currencies.filter( (currency: CurrencyType)=> {
+      return currency.ninjaEndpoint !== "none"
+      }).map((currency: CurrencyType) => {
       const uri = `${provider}/ninjaItems?endpoint=${currency.ninjaEndpoint}&league=${league}&type=${currency.type}`;
       return axios
         .get(uri, {
@@ -18,9 +20,15 @@ export const getAllItemTypePrices = async (league: string) => {
           const data = response.data.lines;
           currency.ninjaEndpoint === "itemoverview"
             ? data.forEach((item: any) => {
-                const name = item.name.match(/Blighted [\w\s]+Map/)
-                  ? `${item.baseType} ${item.mapTier}`
-                  : item.name;
+                let name = item.name;
+
+                if (item.name.match(/Blighted [\w\s]+Map/)) {
+                  name = `${item.baseType} ${item.mapTier}`;
+                }
+
+                if (item.name.match(/Blight-ravaged [\w\s]+Map/)) {
+                  name = `${item.baseType} ${item.mapTier}`;
+                }
 
                 const x = {
                   name: name,

@@ -168,7 +168,6 @@ const PickedTabsHeader = () => {
                 <SetWrapper
                   isSelected={set.isSelected}
                   key={set.name}
-                  title={set.name}
                   onClick={() => handleSetToggle(set.name)}
                 >
                   <Icon

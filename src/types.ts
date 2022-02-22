@@ -164,19 +164,4 @@ export const currencies: CurrencyType[] = [
     isSelected: false,
     typeFilter: itemFilter.divinationFilter.items,
   },
-
-  {
-    type: "Contract",
-    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvSGVpc3QvQ29udHJhY3RJdGVtMiIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/f755c71433/ContractItem2.png",
-    ninjaEndpoint: "none",
-    isSelected: false,
-    typeFilter: itemFilter.contractFilter.items,
-  },
-  {
-    type: "Sextant",
-    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQ2hhcmdlZENvbXBhc3MiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/ea8fcc3e35/ChargedCompass.png",
-    ninjaEndpoint: "none",
-    isSelected: false,
-    typeFilter: itemFilter.sextantFilter.items,
-  },
 ];

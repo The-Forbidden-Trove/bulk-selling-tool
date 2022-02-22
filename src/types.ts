@@ -106,20 +106,6 @@ export const currencies: CurrencyType[] = [
     typeFilter: itemFilter.incubatorFilter.items,
   },
   {
-    type: "Artifact",
-    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvRXhwZWRpdGlvbi9CYXJ0ZXJSZWZyZXNoQ3VycmVuY3kiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/bf3e6fbe8f/BarterRefreshCurrency.png",
-    ninjaEndpoint: "itemoverview",
-    isSelected: false,
-    typeFilter: itemFilter.artifactFilter.items,
-  },
-  {
-    type: "BlightRavagedMap",
-    icon: "https://web.poecdn.com/gen/image/WzI4LDE0LHsiZiI6IjJESXRlbXMvTWFwcy9BdGxhczJNYXBzL05ldy9EZWZpbGVkQ2F0aGVkcmFsIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsIm1uIjoxMywibXQiOjE2LCJtdWIiOnRydWV9XQ/88b6aa7f13/DefiledCathedral.png",
-    ninjaEndpoint: "itemoverview",
-    isSelected: false,
-    typeFilter: itemFilter.blightRavagedMapFilter.items,
-  },
-  {
     type: "BlightedMap",
     icon: "https://web.poecdn.com/gen/image/WzI4LDE0LHsiZiI6IjJESXRlbXMvTWFwcy9BdGxhczJNYXBzL05ldy9Gb3JraW5nUml2ZXIiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwibW4iOjExLCJtdCI6MTUsIm1iIjp0cnVlfV0/d14b4572d0/ForkingRiver.png",
     ninjaEndpoint: "itemoverview",

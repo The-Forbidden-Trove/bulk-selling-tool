@@ -158,21 +158,13 @@ export const selectStash = (
         const allItems = response.data.stash.items;
 
         allItems.forEach((item: any) => {
-          let name = item.baseType;
-
-          if (item.baseType.match(/Blighted [\w\s]+Map/)) {
-            name = `${item.baseType} ${
-              //@ts-ignore
-              item.properties.find((x): any => x.name === "Map Tier")
-                .values[0][0]
-            }`;
-          } else if (item.baseType.match(/Blight-ravaged [\w\s]+Map/)) {
-            name = `${item.baseType} ${
-              //@ts-ignore
-              item.properties.find((x): any => x.name === "Map Tier")
-                .values[0][0]
-            }`;
-          }
+          const name = item.baseType.match(/Blighted [\w\s]+Map/)
+            ? `${item.baseType} ${
+                //@ts-ignore
+                item.properties.find((x): any => x.name === "Map Tier")
+                  .values[0][0]
+              }`
+            : item.baseType;
 
           if (items[name]) {
             items[name] = {
@@ -232,13 +224,6 @@ export const selectStash = (
 
     for (const [key, value] of Object.entries(items)) {
       if (key.match(/Blighted [\w\s]+Map \d+/)) {
-        if (
-          itemFilters &&
-          itemFilters.includes(key.split(" ").slice(0, -1).join(" "))
-        ) {
-          filteredItems[key] = value as Item;
-        }
-      }else if(key.match(/Blight-ravaged [\w\s]+Map \d+/)){
         if (
           itemFilters &&
           itemFilters.includes(key.split(" ").slice(0, -1).join(" "))

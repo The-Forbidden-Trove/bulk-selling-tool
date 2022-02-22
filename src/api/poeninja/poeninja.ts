@@ -18,15 +18,9 @@ export const getAllItemTypePrices = async (league: string) => {
           const data = response.data.lines;
           currency.ninjaEndpoint === "itemoverview"
             ? data.forEach((item: any) => {
-                let name = item.name;
-
-                if (item.name.match(/Blighted [\w\s]+Map/)) {
-                  name = `${item.baseType} ${item.mapTier}`;
-                }
-
-                if (item.name.match(/Blight-ravaged [\w\s]+Map/)) {
-                  name = `${item.baseType} ${item.mapTier}`;
-                }
+                const name = item.name.match(/Blighted [\w\s]+Map/)
+                  ? `${item.baseType} ${item.mapTier}`
+                  : item.name;
 
                 const x = {
                   name: name,

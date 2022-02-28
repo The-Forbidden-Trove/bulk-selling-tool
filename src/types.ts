@@ -149,14 +149,6 @@ export const currencies: CurrencyType[] = [
     isSelected: false,
     typeFilter: itemFilter.resonatorFilter.items,
   },
-
-  {
-    type: "Prophecy",
-    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvUHJvcGhlY3lPcmJSZWQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/c45e04700d/ProphecyOrbRed.png",
-    ninjaEndpoint: "itemoverview",
-    isSelected: false,
-    typeFilter: itemFilter.prophecyFilter.items,
-  },
   {
     type: "DivinationCard",
     icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvRGl2aW5hdGlvbi9JbnZlbnRvcnlJY29uIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/f34bf8cbb5/InventoryIcon.png",

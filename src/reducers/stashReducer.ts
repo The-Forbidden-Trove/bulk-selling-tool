@@ -180,8 +180,6 @@ export const selectStash = (
             item.baseType.includes("Charged Compass") &&
             item.hasOwnProperty("enchantMods")
           ) {
-            console.log("sextant matched", item);
-
             name = `Sextant ${item.enchantMods
               .slice(0, -1)
               .join(" ")} (${item.enchantMods[item.enchantMods.length - 1]

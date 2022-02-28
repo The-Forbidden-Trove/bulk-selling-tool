@@ -97,7 +97,7 @@ const TotalValue = () => {
           ? "\n`Contracts are experimental`\n" +
             contracts
               .map((x: any) => {
-                return ` ${x.name} ${x.sellValue} chaos`;
+                return ` ${x.name} x${x.stackSize} ${x.sellValue}chaos/each`;
               })
               .join("\n")
           : ""
@@ -106,7 +106,7 @@ const TotalValue = () => {
           ? "\n`Sextants are experimental`\n" +
             sextants
               .map((x: any) => {
-                return ` ${x.name} ${x.sellValue} chaos`;
+                return ` ${x.name} x${x.stackSize} ${x.sellValue}chaos/each`;
               })
               .join("\n")
           : ""

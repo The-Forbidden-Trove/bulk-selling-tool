@@ -259,7 +259,7 @@ export const selectStash = (
         ) {
           filteredItems[key] = value as Item;
         }
-      } else if (key.match(/Sextant (\w\s*)*\(\d*\s*uses\)/)) {
+      } else if (key.match(/Sextant/) && key.match(/\(\d*\s*uses\)/)) {
         if (itemFilters && itemFilters.includes("Sextant")) {
           filteredItems[key] = value as Item;
         }

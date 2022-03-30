@@ -1,12 +1,12 @@
-import styled from "styled-components";
-import { useAppSelector } from "../..";
-import { FlexWrap } from "../baseStyles";
-import { CurrencyType, Item, StashTab } from "../../types";
-import GeneratedMessageItemRecord from "./GeneratedMessageItemRecord";
+import styled from 'styled-components';
+import { useAppSelector } from '../..';
+import { FlexWrap } from '../baseStyles';
+import { CurrencyType, Item, StashTab } from '../../types';
+import GeneratedMessageItemRecord from './GeneratedMessageItemRecord';
 // for some reason I couldn't get these to render on the generated message
 // even tho I added cors and tainted canvas to html2canvas
-import chaosOrb from "../../assets/chaosOrb.png";
-import exaltedOrb from "../../assets/exaltedOrb.png";
+import chaosOrb from '../../assets/chaosOrb.png';
+import exaltedOrb from '../../assets/exaltedOrb.png';
 
 const GeneratedMessage = () => {
   let sellSum = 0;
@@ -23,15 +23,17 @@ const GeneratedMessage = () => {
       (thing: CurrencyType, index: number, self: any) =>
         index ===
         self.findIndex(
-          (t: CurrencyType) => t.type === thing.type && t.icon === thing.icon
-        )
+          (t: CurrencyType) => t.type === thing.type && t.icon === thing.icon,
+        ),
     );
 
   const exPrice = useAppSelector((store) => store.exaltedPrice).value || 1;
+  const exDefaultPrice =
+    useAppSelector((store) => store.exaltedPrice).defaultValue || 1;
 
   const contracts = Object.values(items)
     .filter((x: any) => x.isSelected)
-    .filter((x: any) => x.name.includes("Contract"));
+    .filter((x: any) => x.name.includes('Contract'));
   const sextants = Object.values(items)
     .filter((x: any) => x.isSelected)
     .filter((x: any) => x.name.match(/Sextant (\w\s*)*\(\d*\s*uses\)/));
@@ -67,12 +69,22 @@ const GeneratedMessage = () => {
         </TotalValue>
         <ExPrice>
           <P>
+            <p>Ninja rate</p>
             <Icon src={chaosOrb} />
             <p>/</p>
-
             <Icon src={exaltedOrb} />
+            <P> {exDefaultPrice}</P>
           </P>
-          <P> {exPrice}</P>
+          {exDefaultPrice !== exPrice && <P>|</P>}
+          {exDefaultPrice !== exPrice && (
+            <P >
+              <p style={{ color: '#e49a05' }}>Asking rate</p>
+              <Icon src={chaosOrb} />
+              <p>/</p>
+              <Icon src={exaltedOrb} />
+              <P style={{ color: '#e49a05' }}> {exPrice}</P>
+            </P>
+          )}
         </ExPrice>
       </Header>
 
@@ -96,17 +108,17 @@ const GeneratedMessage = () => {
 
           <Excluded>
             {contracts.length > 0 || sextants.length > 0
-              ? "( excluding: " +
-                (contracts.length > 0 ? "contracts " : "") +
-                (sextants.length > 0 ? "sextants " : "") +
-                ")"
-              : ""}
+              ? '( excluding: ' +
+                (contracts.length > 0 ? 'contracts ' : '') +
+                (sextants.length > 0 ? 'sextants ' : '') +
+                ')'
+              : ''}
           </Excluded>
         </TotalValue>
         <CurrencyTypes>
           <P>Currency types</P>
           {selectedTypes.map((x: Partial<CurrencyType>) => {
-            if (x.type === "Currency") {
+            if (x.type === 'Currency') {
               return <Icon src={chaosOrb} key={x.type} />;
             }
             return <Icon src={x.icon} key={x.type} />;
@@ -126,7 +138,7 @@ const GeneratedMessage = () => {
 
         <ItemRecordWrap>
           <div></div>
-          <P2 style={{ padding: "0px 0px 0px 35px" }}>Currency</P2>
+          <P2 style={{ padding: '0px 0px 0px 35px' }}>Currency</P2>
           <P2>Ninja price</P2>
           <P2>Asking price</P2>
           <P2>Total chaos</P2>
@@ -188,7 +200,7 @@ const Wrapper = styled(FlexWrap)`
 `;
 
 const Icon = styled.img`
-  padding: 0px 5px;
+  padding: 0px 3px;
   width: 42px;
   height: 42px;
   object-fit: contain;
@@ -204,7 +216,7 @@ const Excluded = styled(FlexWrap)`
   font-size: 16px;
   height: 100%;
   text-align: center;
-    align-items: center;
+  align-items: center;
   color: ${(props) => props.theme.colors.text};
   opacity: 0.5;
   padding: 0px 5px;

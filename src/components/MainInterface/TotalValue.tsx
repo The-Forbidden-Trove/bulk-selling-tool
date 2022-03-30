@@ -1,21 +1,23 @@
-import html2canvas from "html2canvas";
-import styled from "styled-components";
-import { isFirefox, isSafari } from "react-device-detect";
-import { FaCheck } from "react-icons/fa";
-import { useAppSelector } from "../..";
-import { Button, FlexWrap } from "../baseStyles";
-import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
+import html2canvas from 'html2canvas';
+import styled from 'styled-components';
+import { isFirefox, isSafari } from 'react-device-detect';
+import { FaCheck } from 'react-icons/fa';
+import { useAppSelector } from '../..';
+import { Button, FlexWrap } from '../baseStyles';
+import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
-import { FaExclamationTriangle } from "react-icons/fa";
+import { FaExclamationTriangle } from 'react-icons/fa';
 
 const TotalValue = () => {
-  const [userName, setUserName] = useState("");
+  const [userName, setUserName] = useState('');
   const [warning, setWarning] = useState(false);
   let sellSum = 0;
   let ninjaSum = 0;
   const items = useAppSelector((store) => store.items);
   const exPrice = useAppSelector((store) => store.exaltedPrice).value || 1;
+  const exDefaultPrice =
+    useAppSelector((store) => store.exaltedPrice).defaultValue || 1;
   const league = useAppSelector((store) => store.leagues).defaultLeague;
 
   for (const [key, value] of Object.entries(items)) {
@@ -26,22 +28,22 @@ const TotalValue = () => {
   }
   const generateImage = () => {
     toast.promise(generateImg, {
-      pending: "Generating image",
+      pending: 'Generating image',
       success: `${
         isFirefox || isSafari
-          ? "Image generated successfully! You are on Firefox, your image will open in a new tab."
-          : "Image generated successfully! Your image is in the clipboard already!"
+          ? 'Image generated successfully! You are on Firefox, your image will open in a new tab.'
+          : 'Image generated successfully! Your image is in the clipboard already!'
       }`,
       error: `Couldn't generate an image.\n\nPlease stay on the site while it is being generated.`,
     });
   };
   const generateText = () => {
     toast.promise(generateTxt, {
-      pending: "Generating text",
+      pending: 'Generating text',
       success: `${
         isFirefox || isSafari
-          ? "Text generated successfully! It is in Your clipboard!"
-          : "Text generated successfully! It is in Your clipboard!"
+          ? 'Text generated successfully! It is in Your clipboard!'
+          : 'Text generated successfully! It is in Your clipboard!'
       }`,
       error: `Couldn't generate text.\n\nPlease stay on the site while it is being generated.`,
     });
@@ -50,94 +52,102 @@ const TotalValue = () => {
     return new Promise((resolve, reject) => {
       const contracts = Object.values(items)
         .filter((x: any) => x.isSelected)
-        .filter((x: any) => x.name.includes("Contract"));
+        .filter((x: any) => x.name.includes('Contract'));
       const sextants = Object.values(items)
         .filter((x: any) => x.isSelected)
         .filter((x: any) => x.name.match(/Sextant (\w\s*)*\(\d*\s*uses\)/));
 
-      const copyText = `WTS ${league}\n${
-        userName ? `IGN: \`${userName}\`\n` : ""
-      }Ninja price: \`${Math.round(
-        Math.round((ninjaSum + Number.EPSILON) * 100) / 100
-      )} chaos\` ( \`${Math.floor(
-        Math.round(((ninjaSum + Number.EPSILON) * 100) / exPrice) / 100
-      )}\` ex + \`${Math.round(
-        (Math.round(((ninjaSum + Number.EPSILON) * 100) / exPrice) / 100 -
-          Math.floor(
-            Math.round(((ninjaSum + Number.EPSILON) * 100) / exPrice) / 100
-          )) *
-          exPrice
-      )}\` chaos )\nAsking price: \`${Math.round(
-        Math.round((sellSum + Number.EPSILON) * 100) / 100
-      )}\` chaos \`(${Math.round(
-        (sellSum / ninjaSum) * 100
-      )}%\` of Ninja price) ( \`${Math.floor(
-        Math.round(((sellSum + Number.EPSILON) * 100) / exPrice) / 100
-      )}\` ex + \`${Math.round(
-        (Math.round(((sellSum + Number.EPSILON) * 100) / exPrice) / 100 -
-          Math.floor(
-            Math.round(((sellSum + Number.EPSILON) * 100) / exPrice) / 100
-          )) *
-          exPrice
-      )}\` chaos ) ${
-        contracts.length > 0 || sextants.length > 0
-          ? "( excluding: " +
-            (contracts.length > 0 ? "contracts " : "") +
-            (sextants.length > 0 ? "sextants " : "") +
-            ")"
-          : ""
-      }\nMost valuable:${Object.values(items)
+      const ninjaPrice = Math.round(
+        Math.round((ninjaSum + Number.EPSILON) * 100) / 100,
+      );
+
+      const ninjaPriceEx = Math.floor(
+        (ninjaPrice * 100) / exDefaultPrice / 100,
+      );
+
+      const ninjaPriceChaos = Math.round(
+        ((ninjaPrice * 100) / exDefaultPrice / 100 -
+          Math.floor((ninjaPrice * 100) / exDefaultPrice / 100)) *
+          exDefaultPrice,
+      );
+
+      const askingPrice = Math.round(
+        Math.round((sellSum + Number.EPSILON) * 100) / 100,
+      );
+
+      const askingPriceEx = Math.floor((askingPrice * 100) / exPrice / 100);
+
+      const askingPriceChaos = Math.round(
+        ((askingPrice * 100) / exPrice / 100 -
+          Math.floor((askingPrice * 100) / exPrice / 100)) *
+          exPrice,
+      );
+
+      const mostValuable = Object.values(items)
         .filter((x: any) => x.isSelected)
         .sort((a: any, b: any) => b.totalValue - a.totalValue)
         .slice(0, 3)
         .map((x: any) => {
           return ` ${x.shortName}`;
-        })}${
+        });
+
+      const copyText = `WTS ${league}\n${
+        userName ? `IGN: \`${userName}\`\n` : ''
+      }Ninja price: \`${ninjaPrice}\` :chaos: ( \`${ninjaPriceEx}\` :ex: + \`${ninjaPriceChaos}\` :chaos: ) at ratio [\`${exDefaultPrice}\`:chaos:/\`1\`:ex:]\nAsking price: \`${askingPrice}\` :chaos: (\`${Math.round(
+        (sellSum / ninjaSum) * 100,
+      )}%\` of Ninja price) ( \`${askingPriceEx}\` :ex: + \`${askingPriceChaos}\` :chaos: ) at ratio [\`${exPrice}\`:chaos:/\`1\`:ex:] ${
+        contracts.length > 0 || sextants.length > 0
+          ? '( excluding: ' +
+            (contracts.length > 0 ? 'contracts ' : '') +
+            (sextants.length > 0 ? 'sextants ' : '') +
+            ')'
+          : ''
+      }\nMost valuable:${mostValuable}${
         contracts.length > 0
-          ? "\n`Contracts are experimental`\n" +
+          ? '\n`Contracts are experimental`\n' +
             contracts
               .map((x: any) => {
-                return ` ${x.name} x${x.stackSize} ${x.sellValue}chaos/each`;
+                return ` ${x.name} x${x.stackSize} ${x.sellValue}:chaos:/each`;
               })
-              .join("\n")
-          : ""
+              .join('\n')
+          : ''
       }${
         sextants.length > 0
-          ? "\n`Sextants are experimental`\n" +
+          ? '\n`Sextants are experimental`\n' +
             sextants
               .map((x: any) => {
-                return ` ${x.name} x${x.stackSize} ${x.sellValue}chaos/each`;
+                return ` ${x.name} x${x.stackSize} ${x.sellValue}:chaos:/each`;
               })
-              .join("\n")
-          : ""
+              .join('\n')
+          : ''
       }`;
 
       const textBlob: any = new Blob([copyText], {
-        type: "text/plain",
+        type: 'text/plain',
       });
 
       if (isFirefox || isSafari) {
         navigator.clipboard
           .writeText(copyText)
           .then((x) => {
-            resolve("Text Generated");
+            resolve('Text Generated');
           })
           .catch((e) => {
-            console.log("Error:", e);
-            reject(new Error("Not generated"));
+            console.log('Error:', e);
+            reject(new Error('Not generated'));
           });
       } else {
         window.navigator.clipboard
           .write([
             new window.ClipboardItem({
-              "text/plain": textBlob,
+              'text/plain': textBlob,
             }),
           ])
           .then((x) => {
-            resolve("Text Generated");
+            resolve('Text Generated');
           })
           .catch((e) => {
-            reject(new Error("Not generated"));
+            reject(new Error('Not generated'));
           });
       }
     });
@@ -145,33 +155,33 @@ const TotalValue = () => {
 
   const generateImg = () => {
     return new Promise((resolve, reject) => {
-      let component = document.getElementById("generatedMessage");
+      let component = document.getElementById('generatedMessage');
 
       if (component) {
         component.focus();
         return html2canvas(component, {
           useCORS: true,
           allowTaint: true,
-          backgroundColor: "none",
+          backgroundColor: 'none',
         })
           .then((canvas: any) => {
             return canvas.toBlob((blob: any) => {
               if (isFirefox || isSafari) {
                 const fileObjectURL = URL.createObjectURL(blob);
-                resolve("Image Generated");
+                resolve('Image Generated');
                 window.open(fileObjectURL);
               } else {
                 window.navigator.clipboard
                   .write([
                     new window.ClipboardItem({
-                      "image/png": blob,
+                      'image/png': blob,
                     }),
                   ])
                   .then((x) => {
-                    resolve("Image Generated");
+                    resolve('Image Generated');
                   })
                   .catch((e) => {
-                    reject(new Error("Not generated"));
+                    reject(new Error('Not generated'));
                   });
               }
             });
@@ -182,13 +192,13 @@ const TotalValue = () => {
   };
 
   useEffect(() => {
-    const data = window.localStorage.getItem("userName");
+    const data = window.localStorage.getItem('userName');
     if (data) {
       setUserName(data);
     }
   }, []);
   const updateName = () => {
-    window.localStorage.setItem("userName", userName);
+    window.localStorage.setItem('userName', userName);
   };
 
   return (
@@ -199,7 +209,7 @@ const TotalValue = () => {
           <Price>
             <Icon
               src={
-                "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollRare.png?scale=1&w=1&h=1"
+                'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollRare.png?scale=1&w=1&h=1'
               }
             />
             {Math.round((sellSum + Number.EPSILON) * 100) / 100}
@@ -207,16 +217,16 @@ const TotalValue = () => {
           <Price>
             <Icon
               src={
-                "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyAddModToRare.png?scale=1&w=1&h=1"
+                'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyAddModToRare.png?scale=1&w=1&h=1'
               }
             />
             {Math.round(((sellSum + Number.EPSILON) * 100) / exPrice) / 100}
           </Price>
         </Total>
 
-        <div style={{ display: "flex" }}>
+        <div style={{ display: 'flex' }}>
           <UserName>
-            <P style={{ padding: "0px 15px 0px 0px", fontSize: "22px" }}>IGN</P>
+            <P style={{ padding: '0px 15px 0px 0px', fontSize: '22px' }}>IGN</P>
             <Input
               placeholder="Put your in game name here..."
               value={userName}
@@ -227,23 +237,23 @@ const TotalValue = () => {
           </UserName>
 
           <Generate>
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <P
-                  style={warning ? { color: "red" } : {}}
+                  style={warning ? { color: 'red' } : {}}
                   onClick={() => generateText()}
                 >
                   Generate text
                 </P>
 
                 <P
-                  style={warning ? { color: "red" } : {}}
+                  style={warning ? { color: 'red' } : {}}
                   onClick={() => generateImage()}
                 >
                   Generate image
                 </P>
               </div>
-              <div style={{ display: "flex", alignSelf: "center" }}>
+              <div style={{ display: 'flex', alignSelf: 'center' }}>
                 <FaExclamationTriangle style={iconStyle2} />
                 {isFirefox || isSafari ? (
                   <P2>
@@ -263,16 +273,16 @@ const TotalValue = () => {
 export default TotalValue;
 
 const iconStyle2 = {
-  fill: "#A8DBE3",
-  padding: "0px 10px 0px 0px",
-  width: "18px",
-  height: "18px",
+  fill: '#A8DBE3',
+  padding: '0px 10px 0px 0px',
+  width: '18px',
+  height: '18px',
 };
 
 const iconStyle = {
-  fill: "#555",
-  padding: "5px 15px 5px 5px",
-  cursor: "pointer",
+  fill: '#555',
+  padding: '5px 15px 5px 5px',
+  cursor: 'pointer',
 };
 
 const UserName = styled(FlexWrap)`

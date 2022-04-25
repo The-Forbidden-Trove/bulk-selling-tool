@@ -8398,6 +8398,11 @@ pnp-webpack-plugin@1.6.4:
   dependencies:
     ts-pnp "^1.1.6"
 
+poe-text-to-item@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/poe-text-to-item/-/poe-text-to-item-1.0.6.tgz#8949e9311d776cd43ca77a9ba7c1e52fb657643c"
+  integrity sha512-ZV8bBwLLq0qqIKJE+BywL3ywCG0VIg8nzUvJIGK/PwHEU0D4ggc1oxzYQj1QrU4icUP6pHrYbkptA+CsqXU2oQ==
+
 portfinder@^1.0.26:
   version "1.0.28"
   resolved "https://registry.yarnpkg.com/portfinder/-/portfinder-1.0.28.tgz#67c4622852bd5374dd1dd900f779f53462fac778"

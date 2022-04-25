@@ -6,6 +6,17 @@ export interface ItemFilter {
   icon: string;
 }
 
+export interface BulkItem {
+  id: string;
+  itemText: string;
+  name: string;
+  chaosValue: number;
+  exValue: number;
+  isMirrorService: boolean;
+  isSelected: boolean;
+  item:any;
+}
+
 export interface Item {
   id: string;
   icon: string;

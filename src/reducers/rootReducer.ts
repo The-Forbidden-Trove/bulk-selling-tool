@@ -5,6 +5,7 @@ import itemReducer from "./itemReducer";
 import exaltPriceReducer from "./exaltPriceReducer";
 import leagueReducer from "./leagueReducer";
 import itemOptionsReducer from "./itemOptionsReducer";
+import bulkItemReducer from "./bulkItemReducer";
 
 const reducer = combineReducers({
   stashes: stashReducer,
@@ -13,6 +14,7 @@ const reducer = combineReducers({
   exaltedPrice: exaltPriceReducer,
   leagues: leagueReducer,
   itemOptions: itemOptionsReducer,
+  bulkItems: bulkItemReducer
 });
 
 export default reducer;

@@ -10,50 +10,50 @@ import BulkItemIcon from "./BulkItemIconUnique";
 const BulkItems = () => {
   const dispatch = useAppDispatch();
   const bulkItems = useAppSelector((store) => store.bulkItems);
-  const [textValue, setTextValue] = useState(`Item Class: Body Armours
+  const [textValue, setTextValue] = useState(`Item Class: Bows
 Rarity: Rare
-Onslaught Shell
-Golden Mantle
+Tempest Horn
+Synthesised Ivory Bow
 --------
+Bow
 Quality: +30% (augmented)
-Armour: 75
-Evasion Rating: 75
-Energy Shield: 17
+Physical Damage: 29-86
+Elemental Damage: 8-14 (augmented)
+Critical Strike Chance: 8.71% (augmented)
+Attacks per Second: 1.71 (augmented)
 --------
 Requirements:
-Level: 76
+Level: 64
+Dex: 152
 --------
-Sockets: R-W-W-W-W-W
+Sockets: W-W-W-R-G-G
 --------
-Item Level: 100
+Item Level: 82
 --------
-Quality does not increase Defences (enchant)
-(Armour, Evasion Rating and Energy Shield are the standard Defences) (enchant)
-Grants +1 to Maximum Life per 2% Quality (enchant)
+Quality does not increase Physical Damage (enchant)
+1% increased Attack Speed per 8% Quality (enchant)
 --------
-{ Implicit Modifier — Elemental, Resistance }
-+25(15-25)% to all Elemental Resistances (implicit)
+{ Implicit Modifier — Gem }
++1 to Level of Socketed Gems (implicit)
+{ Implicit Modifier — Damage, Elemental, Fire, Attack }
+Adds 8(4-8) to 14(9-15) Fire Damage (implicit)
 --------
-{ Prefix Modifier "Elevated Crusader's" — Damage, Physical }
-12(8-12)% increased Area of Effect
-Enemies you Kill Explode, dealing 5% of their Life as Physical Damage
-{ Prefix Modifier "Prime" (Tier: 1) — Life }
-+129(120-129) to maximum Life
-{ Prefix Modifier "Hunter's" (Tier: 1) — Caster, Curse }
-You can apply an additional Curse
-{ Suffix Modifier "of the Elevated Hunt" — Attack, Critical }
-Attacks have +2(1.6-2)% to Critical Strike Chance
-{ Suffix Modifier "of the Elevated Hunt" — Caster, Critical }
-+2(1.6-2)% to Spell Critical Strike Chance
-{ Suffix Modifier "of the Crusade" (Tier: 1) — Critical }
-15% chance to gain a Power Charge on Critical Strike
+{ Prefix Modifier "Subterranean" (Tier: 1) — Damage, Caster, Gem }
+Socketed Skills deal 20% more Spell Damage — Unscalable Value
+{ Prefix Modifier "Paragon's" (Tier: 1) — Gem }
++1 to Level of Socketed Gems
+{ Master Crafted Prefix Modifier "Catarina's" — Gem }
++2 to Level of Socketed Support Gems (crafted)
+{ Suffix Modifier "of Acclaim" (Tier: 2) — Attack, Speed }
+19(17-19)% increased Attack Speed
+{ Suffix Modifier "of Destruction" (Tier: 1) — Damage, Critical }
++38(35-38)% to Global Critical Strike Multiplier
+{ Suffix Modifier "of Penetrating" (Tier: 2) — Attack, Critical }
+34(30-34)% increased Critical Strike Chance
 --------
-Crusader Item
-Hunter Item
+Synthesised Item
 --------
-Has Atziri's Splendour Skin. You can reclaim this by shift-clicking this item.
---------
-Note: ~price 1 mirror`);
+Note: ~b/o 1 mirror`);
   const [nameValue, setNameValue] = useState("");
   const [chaosValue, setChaosValue] = useState("");
   const [exValue, setExValue] = useState("");

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { Button, FlexWrap, Input } from "../baseStyles";
 import { addBulkItem } from "../../reducers/bulkItemReducer";
@@ -7,9 +7,13 @@ import { useAppDispatch, useAppSelector } from "../..";
 import BulkItemSavedRecord from "./BulkItemSavedRecord";
 import BulkItemIcon from "./BulkItemIconUnique";
 
+import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
+import Masonry from "@mui/lab/Masonry";
+
 const BulkItems = () => {
   const dispatch = useAppDispatch();
-  const bulkItems = useAppSelector((store) => store.bulkItems);
+  const bulkItems = useAppSelector((store) => store.bulkItems) || [];
   const [textValue, setTextValue] = useState(`Item Class: Bows
 Rarity: Rare
 Tempest Horn
@@ -93,6 +97,16 @@ Note: ~b/o 1 mirror`);
     setIsMirrorService(false);
   };
 
+  const heights = [
+    150, 30, 90, 70, 110, 150, 130, 80, 50, 90, 100, 150, 30, 50, 80,
+  ];
+
+  const Item = styled("div")<{ height: number }>`
+background: white;
+    width: ${(props) => props.height};
+    height: ${(props) => props.height};
+  `;
+
   return (
     <Wrapper>
       <Left>
@@ -147,14 +161,13 @@ Note: ~b/o 1 mirror`);
         </ItemListWrap>
       </Left>
       <Right>
-        {bulkItems &&
-          bulkItems.map((bulkItem) => {
-            return bulkItem.isSelected ? (
-              <BulkItemIcon item={bulkItem.item} />
-            ) : (
-              <></>
-            );
-          })}
+        <Box sx={{ width: 500, minHeight: 393 }}>
+          <Masonry columns={5} spacing={2}>
+            {heights.map((height, index) => {
+              return <Item height={height}>{index + 1}</Item>;
+            })}
+          </Masonry>
+        </Box>
       </Right>
     </Wrapper>
   );
@@ -202,7 +215,8 @@ const TopLeft = styled(FlexWrap)`
 `;
 
 const Right = styled(FlexWrap)`
-  flex-direction: column;
+  overflow-y: scroll;
+  padding: 10px 0px;
   width: 60%;
   height: 100%;
 `;

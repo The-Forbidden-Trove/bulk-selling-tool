@@ -42,18 +42,8 @@ const BulkItemIcon = ({ item }: any) => {
 export default BulkItemIcon;
 
 const Wrapper = styled(FlexWrap)`
-  width: 80%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.8);
+  width: 500px;
+  transform: scale(0.6);
+  background: rgba(0, 0, 0, 0.6);
   flex-direction: column;
-`;
-
-const IconBase = styled.img``;
-
-const Separator = styled(FlexWrap)`
-  background: url("https://web.poecdn.com/image/item/popup/seperator-unique.png?1648706966521")
-    center no-repeat;
-  height: 7.91075px;
-  width: 100%;
-  padding: 2px 0px;
 `;

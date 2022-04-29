@@ -8,21 +8,21 @@ export const Defences = ({ item }: any) => {
     <>
       {item.defences && (
         <>
-            {item.defences.armour && (
+          {item.defences.armour > 0 && (
           <Property>
                 <PropertySpan>Armour</PropertySpan>
                 <PropertySpanColor>{item.defences.armour}</PropertySpanColor>
           </Property>
             )}
 
-            {item.defences.evasion && (
+          {item.defences.evasion > 0 && (
           <Property>
                 <PropertySpan>Evasion Rating</PropertySpan>
                 <PropertySpanColor>{item.defences.evasion}</PropertySpanColor>
           </Property>
             )}
 
-            {item.defences.energyShield && (
+          {item.defences.energyShield > 0 && (
           <Property>
                 <PropertySpan>Energy Shield</PropertySpan>
                 <PropertySpanColor>

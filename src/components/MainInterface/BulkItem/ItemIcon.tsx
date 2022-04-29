@@ -8,8 +8,8 @@ export const ItemIcon = ({ item }: any) => {
   const [secondaryBackground, setBackgroundSecondary] = useState("");
 
   const decideBackground = () => {
-    const elderIcon = `https://web.poecdn.com/image/inventory/ElderBackground.png?w=${item.w}&h=${item.h}`;
-    const shaperIcon = `https://web.poecdn.com/image/inventory/ShaperBackground.png?w=${item.w}&h=${item.h}&x=0&y=0`;
+    const elderIcon = `https://web.poecdn.com/image/inventory/ElderBackground.png?w=${item.base.w}&h=${item.base.h}`;
+    const shaperIcon = `https://web.poecdn.com/image/inventory/ShaperBackground.png?w=${item.base.w}&h=${item.base.h}&x=0&y=0`;
     const influences = item.flags.influence;
     let isLeftSet = false;
 
@@ -29,7 +29,6 @@ export const ItemIcon = ({ item }: any) => {
 
       isLeftSet = true;
     }
-
   };
 
   useEffect(() => {
@@ -50,13 +49,13 @@ export const ItemIcon = ({ item }: any) => {
 };
 
 const Wrapper = styled(FlexWrap)`
-  position: relative;
+  margin-top: 6px;
 `;
+
 const IconBackground = styled.img`
   position: absolute;
 `;
 
 const IconBase = styled.img<{ isMirrored: boolean }>`
-  position: absolute;
   transform: ${(props) => (props.isMirrored ? "scaleX(-1)" : "scaleX(1)")};
 `;

@@ -10,14 +10,20 @@ export const Affixes = ({ item }: any) => {
           return affix.type !== "enchant" && affix.type !== "implicit" ? (
             <ExplicitWrap>
               <ExplicitLeft>
-                {affix.type}
-                {affix.tier ? affix.tier : ""}
+                {affix.affixType === "prefix" ? "P" : ""}
+                {affix.affixType === "suffix" ? "S" : ""}
+                {affix.tier > 0 ? affix.tier : ""}
+                {"    "}
                 {affix.modRange}
               </ExplicitLeft>
               {affix.type === "fractured" ? (
                 <ExplicitMidFractured>
                   {affix.modFormattedNoParentheses}
                 </ExplicitMidFractured>
+              ) : affix.type === "crafted" ? (
+                <ExplicitMidCrafted>
+                  {affix.modFormattedNoParentheses}
+                </ExplicitMidCrafted>
               ) : (
                 <ExplicitMid>{affix.modFormattedNoParentheses}</ExplicitMid>
               )}
@@ -27,7 +33,8 @@ export const Affixes = ({ item }: any) => {
             <></>
           );
         })}
-      {item.flags.corrupted && <Corrupted></Corrupted>}
+      {item.flags.corrupted && <Corrupted>Corrupted</Corrupted>}
+      {item.flags.mirrored && <ExplicitMid>Mirrored</ExplicitMid>}
     </>
   );
 };
@@ -36,7 +43,6 @@ const ExplicitWrap = styled(FlexWrap)`
   width: 100%;
   justify-content: space-between;
   color: #88f;
-  text-align: center;
 `;
 
 const ExplicitLeft = styled(FlexWrap)`
@@ -49,10 +55,16 @@ const ExplicitLeft = styled(FlexWrap)`
 const ExplicitMid = styled(FlexWrap)`
   color: #88f;
   width: 60%;
+  text-align: center;
 `;
 
 const ExplicitMidFractured = styled(FlexWrap)`
   color: #a29162;
+  width: 60%;
+`;
+
+const ExplicitMidCrafted = styled(FlexWrap)`
+  color: #b4b4ff;
   width: 60%;
 `;
 
@@ -65,4 +77,6 @@ const ExplicitRight = styled(FlexWrap)`
   color: #ec7676;
   width: 20%;
   opacity: 0.8;
+  text-align: right;
+  justify-content: flex-end;
 `;

@@ -45,6 +45,5 @@ const Wrapper = styled(FlexWrap)`
   min-width: 450px;
   background: rgba(0, 0, 0, 0.6);
   justify-content: flex-start;
-  transform: scale(0.5);
   flex-direction: column;
 `;

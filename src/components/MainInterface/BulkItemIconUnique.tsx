@@ -42,8 +42,9 @@ const BulkItemIcon = ({ item }: any) => {
 export default BulkItemIcon;
 
 const Wrapper = styled(FlexWrap)`
-  width: 500px;
-  transform: scale(0.6);
+  min-width: 450px;
   background: rgba(0, 0, 0, 0.6);
+  justify-content: flex-start;
+  transform: scale(0.5);
   flex-direction: column;
 `;

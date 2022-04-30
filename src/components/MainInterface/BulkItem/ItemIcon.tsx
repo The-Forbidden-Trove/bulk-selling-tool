@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FlexWrap } from "../../baseStyles";
-import { Divider } from "./Divider";
 
 export const ItemIcon = ({ item }: any) => {
   const [background, setBackground] = useState("");

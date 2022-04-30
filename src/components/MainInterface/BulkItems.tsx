@@ -10,6 +10,7 @@ import BulkItemIcon from "./BulkItemIconUnique";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Masonry from "@mui/lab/Masonry";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 const BulkItems = () => {
   const dispatch = useAppDispatch();
@@ -62,6 +63,7 @@ Note: ~b/o 1 mirror`);
   const [chaosValue, setChaosValue] = useState("");
   const [exValue, setExValue] = useState("");
   const [isMirrorService, setIsMirrorService] = useState(false);
+  const [allItems, setAllItems] = useLocalStorage("bulkItems", []);
 
   const handleTextChange = (e: any) => {
     setTextValue(e.target.value);
@@ -96,16 +98,6 @@ Note: ~b/o 1 mirror`);
     setExValue("");
     setIsMirrorService(false);
   };
-
-  const heights = [
-    150, 30, 90, 70, 110, 150, 130, 80, 50, 90, 100, 150, 30, 50, 80,
-  ];
-
-  const Item = styled("div")<{ height: number }>`
-background: white;
-    width: ${(props) => props.height};
-    height: ${(props) => props.height};
-  `;
 
   return (
     <Wrapper>
@@ -160,15 +152,13 @@ background: white;
             })}
         </ItemListWrap>
       </Left>
-      <Right>
-        <Box sx={{ width: 500, minHeight: 393 }}>
-          <Masonry columns={5} spacing={2}>
-            {heights.map((height, index) => {
-              return <Item height={height}>{index + 1}</Item>;
-            })}
-          </Masonry>
-        </Box>
-      </Right>
+      <Box sx={{ width: "60%", height: "95%", overflowY: "scroll" }}>
+        <Masonry columns={2} spacing={2}>
+          {bulkItems.map((x: any) => {
+            return <BulkItemIcon item={x.item} />;
+          })}
+        </Masonry>
+      </Box>
     </Wrapper>
   );
 };
@@ -176,9 +166,13 @@ background: white;
 export default BulkItems;
 
 const ItemListWrap = styled(FlexWrap)`
-  height: 50%;
+  height: 60%;
   width: 100%;
+  flex-direction: column;
+  overflow-x: hidden;
   overflow-y: scroll;
+  align-items: flex-start;
+  justify-content: flex-start;
 `;
 
 const InputWrapper = styled(FlexWrap)`
@@ -216,7 +210,6 @@ const TopLeft = styled(FlexWrap)`
 
 const Right = styled(FlexWrap)`
   overflow-y: scroll;
-  padding: 10px 0px;
   width: 60%;
   height: 100%;
 `;

@@ -4,7 +4,10 @@ import { useAuth } from "../../api/oauth/AuthContext";
 import Select from "react-select";
 import { useAppDispatch, useAppSelector } from "../..";
 import { changeDefaultLeague } from "../../reducers/leagueReducer";
+
+import { isFirefox, isSafari } from "react-device-detect";
 import ChromeStore from "../../assets/chrome-web-store.png";
+import FirefoxStore from "../../assets/firefox-web-store.png";
 
 const Img = styled.img`
   width: 64px;
@@ -19,6 +22,12 @@ const Navbar = () => {
   const redirectExtension = () => {
     const link =
       "https://chrome.google.com/webstore/detail/tft-trade-extension/bikeebdigkompjnpcljicocidefgbhgl?hl=en";
+    window.open(link);
+  };
+
+  const redirectExtensionFirefox = () => {
+    const link =
+      "https://addons.mozilla.org/en-US/firefox/addon/tft-trade-extension/";
     window.open(link);
   };
   const redirectDiscord = () => {
@@ -46,12 +55,27 @@ const Navbar = () => {
         <p>TheForbiddenTrove</p>
         <Button onClick={redirectDiscord}>join our discord!</Button>
 
-        <Button onClick={redirectExtension}>
-          <TextIcon>
-            <Img src={ChromeStore} style={{ height: "24px", width: "24px" }} />
-            <p>TFT Browser extension</p>
-          </TextIcon>
-        </Button>
+        {isFirefox ? (
+          <Button onClick={redirectExtensionFirefox}>
+            <TextIcon>
+              <Img
+                src={FirefoxStore}
+                style={{ height: "24px", width: "24px" }}
+              />
+              <p>TFT Browser extension</p>
+            </TextIcon>
+          </Button>
+        ) : (
+          <Button onClick={redirectExtension}>
+            <TextIcon>
+              <Img
+                src={ChromeStore}
+                style={{ height: "24px", width: "24px" }}
+              />
+              <p>TFT Browser extension</p>
+            </TextIcon>
+          </Button>
+        )}
       </Left>
 
       <Middle>TFT Bulk Selling Tool</Middle>

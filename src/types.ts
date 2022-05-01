@@ -84,6 +84,13 @@ export const currencies: CurrencyType[] = [
     typeFilter: itemFilter.scarabFilter.items,
   },
   {
+    type: "High Scarab",
+    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9HcmVhdGVyU2NhcmFiSGFyYmluZ2VycyIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/ce393cfd58/GreaterScarabHarbingers.png",
+    ninjaEndpoint: "none",
+    isSelected: false,
+    typeFilter: itemFilter.highScarabFilter.items,
+  },
+  {
     type: "Fossil",
     icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvRGVsdmUvRmFjZXRlZEZvc3NpbCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/db0aba6238/FacetedFossil.png",
     ninjaEndpoint: "itemoverview",
@@ -96,6 +103,13 @@ export const currencies: CurrencyType[] = [
     ninjaEndpoint: "itemoverview",
     isSelected: false,
     typeFilter: itemFilter.essenceFilter.items,
+  },
+  {
+    type: "High Essence",
+    icon: "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Woe7.png?scale=1&w=1&h=1",
+    ninjaEndpoint: "none",
+    isSelected: false,
+    typeFilter: itemFilter.highEssenceFilter.items,
   },
 
   {

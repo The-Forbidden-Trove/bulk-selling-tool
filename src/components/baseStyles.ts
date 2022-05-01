@@ -7,6 +7,10 @@ export const Button = styled.button`
   outline: none;
   border: none;
   cursor: pointer;
+  transition: 0.3s ease;
+  &:hover {
+    opacity: 0.8;
+  }
 `;
 
 export const FlexWrap = styled.div`
@@ -25,6 +29,11 @@ export const Input = styled.input`
   outline: none;
   padding: 10px;
   box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
+
+  transition: 0.3s ease;
+  &:hover,focus {
+    opacity: 0.8;
+  }
 `;
 
 export const HiddenCheckbox = styled.input.attrs({ type: "checkbox" })`

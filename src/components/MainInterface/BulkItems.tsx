@@ -250,7 +250,7 @@ Note: ~b/o 1 mirror`);
           </Masonry>
         </Box>
 
-        <GenerateBulkItemMessage />
+        <GenerateBulkItemMessage  selectedItems={selectedItems}/>
       </Right>
 
       <GeneratedBulkItemMessage selectedItems={selectedItems} />

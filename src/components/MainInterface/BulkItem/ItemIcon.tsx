@@ -40,7 +40,10 @@ export const ItemIcon = ({ item }: any) => {
         <Wrapper>
           <IconBackground src={background} />
           <IconBackground src={secondaryBackground} />
-          <IconBase src={item.icon} isMirrored={item.flags.mirrored} />
+          <IconBase
+            src={item.icon + "&scale=1/2"}
+            isMirrored={item.flags.mirrored}
+          />
         </Wrapper>
       )}
     </>
@@ -49,6 +52,7 @@ export const ItemIcon = ({ item }: any) => {
 
 const Wrapper = styled(FlexWrap)`
   margin-top: 6px;
+  width: 650px;
 `;
 
 const IconBackground = styled.img`

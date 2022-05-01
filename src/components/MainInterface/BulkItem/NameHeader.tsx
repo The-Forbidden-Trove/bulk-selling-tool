@@ -178,61 +178,63 @@ const P = styled("div")`
 
 const IconLeft = styled("img")`
   position: absolute;
+
+  max-height: 18px;
   left: 0;
 `;
 
 const IconRight = styled("img")`
   position: absolute;
+  max-height: 16px;
   right: 0;
 `;
 
-const UniqueItemHeader = styled(FlexWrap)`
+const Header = styled(FlexWrap)`
   position: relative;
+  width: 100%;
+  height: 28px;
+  flex-direction: column;
+`;
+
+const UniqueItemHeader = styled(Header)`
   background: url("https://web.poecdn.com/image/item/popup/header-double-unique-left.png?1648706966513")
       top left no-repeat,
     url("https://web.poecdn.com/image/item/popup/header-double-unique-right.png?1648706966517")
       top right no-repeat,
     url("https://web.poecdn.com/image/item/popup/header-double-unique-middle.png?1648706966513")
       top center repeat-x;
-  width: 100%;
-  height: 53px;
   color: #af6025;
-  flex-direction: column;
+
+  background-size: contain;
 `;
 
-const RareItemHeader = styled(FlexWrap)`
-  position: relative;
+const RareItemHeader = styled(Header)`
   background: url("https://web.poecdn.com/image/item/popup/header-double-rare-left.png?1648706966513")
       top left no-repeat,
     url("https://web.poecdn.com/image/item/popup/header-double-rare-right.png?1648706966513")
       top right no-repeat,
     url("https://web.poecdn.com/image/item/popup/header-double-rare-middle.png?1648706966513")
       top center repeat-x;
-  width: 100%;
-  height: 53px;
   color: #ff7;
-  flex-direction: column;
+
+  background-size: contain;
 `;
 
-const MagicItemHeader = styled(FlexWrap)`
-  position: relative;
+const MagicItemHeader = styled(Header)`
   background: url('https://web.poecdn.com/image/item/popup/header-magic-left.png?1648706966517') top left no-repeat,url('https://web.poecdn.com/image/item/popup/header-magic-right.png?1648706966517') top right no-repeat,url('https://web.poecdn.com/image/item/popup/header-magic-middle.png?1648706966517') top center repeat-x  width: 100%;
-  width: 100%;
-  height: 53px;
   color: #88f;
-  flex-direction: column;
+
+  background-size: contain;
 `;
 
-const NormalItemHeader = styled(FlexWrap)`
-  position: relative;
+const NormalItemHeader = styled(Header)`
   background: url("https://web.poecdn.com/image/image/item/popup/header-normal-left.png?1648706966517")
       top left no-repeat,
     url("https://web.poecdn.com/image/image/item/popup/header-normal-right.png?1648706966517")
       top right no-repeat,
     url("https://web.poecdn.com/image/image/item/popup/header-normal-middle.png?1648706966517")
       top center repeat-x;
-  width: 100%;
-  height: 53px;
   color: #c8c8c8;
-  flex-direction: column;
+
+  background-size: contain;
 `;

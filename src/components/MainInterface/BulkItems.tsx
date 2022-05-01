@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { Button, FlexWrap, Input } from "../baseStyles";
-import { addBulkItem } from "../../reducers/bulkItemReducer";
+import { addBulkItem, appendBulkItem } from "../../reducers/bulkItemReducer";
 import { useAppDispatch, useAppSelector } from "../..";
 import BulkItemSavedRecord from "./BulkItemSavedRecord";
 import BulkItemIcon from "./BulkItemIconUnique";
@@ -11,6 +11,8 @@ import Masonry from "@mui/lab/Masonry";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { BulkItemHeader } from "./BulkItem/BulkItemHeader";
 import { BulkItemNote } from "./BulkItem/BulkItemNote";
+import GenerateBulkItemMessage from "./GenerateBulkItemMessage";
+import GeneratedBulkItemMessage from "../GeneratedMessage/GeneratedBulkItemMessage";
 
 const BulkItems = () => {
   const dispatch = useAppDispatch();
@@ -125,6 +127,15 @@ Note: ~b/o 1 mirror`);
     setSelectedItems(newSelectedItems);
   }, [dispatch, bulkItems]);
 
+  useEffect(() => {
+    console.log("ALL", allItems);
+    if (allItems.length > 0) {
+      allItems.forEach((item) => {
+        dispatch(appendBulkItem(item));
+      });
+    }
+  }, []);
+
   const onKeyPress = (event: any) => {
     const keyCode = event.keyCode || event.which;
     const keyValue = String.fromCharCode(keyCode);
@@ -135,7 +146,11 @@ Note: ~b/o 1 mirror`);
     <Wrapper>
       <Left>
         <TopLeft>
-          <TextArea value={textValue} onChange={handleTextChange} />
+          <TextArea
+            value={textValue}
+            onChange={handleTextChange}
+            placeholder={"ALT+CTRL+C Item text..."}
+          />
           <Options>
             <InputWrapper
               onClick={handleIsMirrorChange}
@@ -192,8 +207,8 @@ Note: ~b/o 1 mirror`);
               />
             </InputWrapper>
             <InputWrapper>
-              <SvgIcon xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                <path d="M511.1 63.1v287.1c0 35.25-28.75 63.1-64 63.1h-144l-124.9 93.68c-7.875 5.75-19.12 .0497-19.12-9.7v-83.98h-96c-35.25 0-64-28.75-64-63.1V63.1c0-35.25 28.75-63.1 64-63.1h384C483.2 0 511.1 28.75 511.1 63.1z" />
+              <SvgIcon xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                <path d="M400 32h-352C21.49 32 0 53.49 0 80v352C0 458.5 21.49 480 48 480h245.5c16.97 0 33.25-6.744 45.26-18.75l90.51-90.51C441.3 358.7 448 342.5 448 325.5V80C448 53.49 426.5 32 400 32zM64 96h320l-.001 224H320c-17.67 0-32 14.33-32 32v64H64V96z" />
               </SvgIcon>
               <NameField
                 value={noteValue}
@@ -204,7 +219,7 @@ Note: ~b/o 1 mirror`);
             <ConfirmButton onClick={handleAddItem}>Add Item</ConfirmButton>
           </Options>
         </TopLeft>
-          <Header>Saved items</Header>
+        <Header>Saved items</Header>
         <ItemListWrap>
           {bulkItems &&
             bulkItems.map((bulkItem) => {
@@ -216,17 +231,13 @@ Note: ~b/o 1 mirror`);
         <Header style={{ justifyContent: "center" }}>Selected items</Header>
         <Box
           sx={{
-            width: "100%",
-            height: "95%",
+            width: "96%",
+            height: "90%",
             overflowY: "scroll",
             overflowX: "hidden",
           }}
         >
-          <Masonry
-            columns={1}
-            spacing={2}
-            style={{ margin: "0px 40px", width: "100%" }}
-          >
+          <Masonry columns={2} spacing={2}>
             {selectedItems.map((x: any) => {
               return (
                 <BulkItemWrapper>
@@ -238,7 +249,11 @@ Note: ~b/o 1 mirror`);
             })}
           </Masonry>
         </Box>
+
+        <GenerateBulkItemMessage />
       </Right>
+
+      <GeneratedBulkItemMessage selectedItems={selectedItems} />
     </Wrapper>
   );
 };
@@ -247,6 +262,9 @@ export default BulkItems;
 
 const BulkItemWrapper = styled(FlexWrap)`
   flex-direction: column;
+  background: #0b1a3a;
+  padding: 5px 5px;
+  border-radius: 0.5em;
 `;
 
 const ItemListWrap = styled(FlexWrap)`
@@ -300,9 +318,13 @@ const Right = styled(FlexWrap)`
 const TextArea = styled("textarea")`
   width: 60%;
   height: 90%;
+  padding: 5px;
   outline: none;
   resize: none;
-  color: ${(props) => props.theme.colors.text};
+  border: solid 2px #0b1a3a;
+  color: #f8f5ff;
+  background: #25262a;
+  opacity: 0.9;
 `;
 
 const Options = styled(FlexWrap)`

@@ -17,50 +17,7 @@ import GeneratedBulkItemMessage from "../GeneratedMessage/GeneratedBulkItemMessa
 const BulkItems = () => {
   const dispatch = useAppDispatch();
   const bulkItems = useAppSelector((store) => store.bulkItems) || [];
-  const [textValue, setTextValue] = useState(`Item Class: Bows
-Rarity: Rare
-Tempest Horn
-Synthesised Ivory Bow
---------
-Bow
-Quality: +30% (augmented)
-Physical Damage: 29-86
-Elemental Damage: 8-14 (augmented)
-Critical Strike Chance: 8.71% (augmented)
-Attacks per Second: 1.71 (augmented)
---------
-Requirements:
-Level: 64
-Dex: 152
---------
-Sockets: W-W-W-R-G-G
---------
-Item Level: 82
---------
-Quality does not increase Physical Damage (enchant)
-1% increased Attack Speed per 8% Quality (enchant)
---------
-{ Implicit Modifier — Gem }
-+1 to Level of Socketed Gems (implicit)
-{ Implicit Modifier — Damage, Elemental, Fire, Attack }
-Adds 8(4-8) to 14(9-15) Fire Damage (implicit)
---------
-{ Prefix Modifier "Subterranean" (Tier: 1) — Damage, Caster, Gem }
-Socketed Skills deal 20% more Spell Damage — Unscalable Value
-{ Prefix Modifier "Paragon's" (Tier: 1) — Gem }
-+1 to Level of Socketed Gems
-{ Master Crafted Prefix Modifier "Catarina's" — Gem }
-+2 to Level of Socketed Support Gems (crafted)
-{ Suffix Modifier "of Acclaim" (Tier: 2) — Attack, Speed }
-19(17-19)% increased Attack Speed
-{ Suffix Modifier "of Destruction" (Tier: 1) — Damage, Critical }
-+38(35-38)% to Global Critical Strike Multiplier
-{ Suffix Modifier "of Penetrating" (Tier: 2) — Attack, Critical }
-34(30-34)% increased Critical Strike Chance
---------
-Synthesised Item
---------
-Note: ~b/o 1 mirror`);
+  const [textValue, setTextValue] = useState("");
   const [nameValue, setNameValue] = useState("");
   const [chaosValue, setChaosValue] = useState("");
   const [noteValue, setNoteValue] = useState("");
@@ -128,7 +85,6 @@ Note: ~b/o 1 mirror`);
   }, [dispatch, bulkItems]);
 
   useEffect(() => {
-    console.log("ALL", allItems);
     if (allItems.length > 0) {
       allItems.forEach((item) => {
         dispatch(appendBulkItem(item));
@@ -222,7 +178,7 @@ Note: ~b/o 1 mirror`);
         <Header>Saved items</Header>
         <ItemListWrap>
           {bulkItems &&
-            bulkItems.map((bulkItem) => {
+            bulkItems.map((bulkItem:any) => {
               return <BulkItemSavedRecord item={bulkItem} />;
             })}
         </ItemListWrap>
@@ -250,7 +206,7 @@ Note: ~b/o 1 mirror`);
           </Masonry>
         </Box>
 
-        <GenerateBulkItemMessage  selectedItems={selectedItems}/>
+        <GenerateBulkItemMessage selectedItems={selectedItems} />
       </Right>
 
       <GeneratedBulkItemMessage selectedItems={selectedItems} />

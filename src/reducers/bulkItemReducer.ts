@@ -42,8 +42,8 @@ const bulkItemReducer = (state = initialState, action: any) => {
     }
 
     case "APPEND_BULK_ITEM": {
-      const newState = [...state];
-      return [...newState, action.data.newItem];
+      const newState: BulkItem[] = [...state, action.data.newItem];
+      return uniqueArrayOfObject(newState, "id");
     }
 
     case "REMOVE_BULK_ITEM": {
@@ -175,6 +175,16 @@ export const addBulkItem = (
     },
   };
 };
+
+function uniqueArrayOfObject(array: any, keyToBeUnique: any) {
+  // Filter by looking at the next objects if the key is present a second time
+  return array.filter(
+    (x: any, xi: any) =>
+      !array
+        .slice(xi + 1)
+        .some((y: any) => y[keyToBeUnique] === x[keyToBeUnique]),
+  );
+}
 
 export const appendBulkItem = (newItem: BulkItem) => {
   return {

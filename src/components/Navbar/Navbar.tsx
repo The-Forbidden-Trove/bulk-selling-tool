@@ -56,7 +56,7 @@ const Navbar = () => {
         <Button onClick={redirectDiscord}>join our discord!</Button>
 
         {isFirefox ? (
-          <Button onClick={redirectExtensionFirefox}>
+          <Button onClick={redirectExtensionFirefox} onAuxClick={redirectExtensionFirefox}>
             <TextIcon>
               <Img
                 src={FirefoxStore}
@@ -66,7 +66,7 @@ const Navbar = () => {
             </TextIcon>
           </Button>
         ) : (
-          <Button onClick={redirectExtension}>
+          <Button onClick={redirectExtension} onAuxClick={redirectExtensionFirefox}>
             <TextIcon>
               <Img
                 src={ChromeStore}

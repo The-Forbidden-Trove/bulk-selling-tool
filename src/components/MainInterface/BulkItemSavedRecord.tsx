@@ -3,28 +3,60 @@ import { Checkbox } from "../Checkbox";
 import styled from "styled-components";
 import { Button, FlexWrap, Input } from "../baseStyles";
 import { useAppDispatch } from "../..";
-import { FaCheck } from "react-icons/fa";
-import { updateBulkItemName } from "../../reducers/bulkItemReducer";
+import {
+  updateBulkItemChaosValue,
+  updateBulkItemExValue,
+  updateBulkItemIsMirrorService,
+  updateBulkItemName,
+  updateBulkItemNote,
+  updateBulkItemSelect,
+} from "../../reducers/bulkItemReducer";
 
 const BulkItemSavedRecord = ({ item }: any) => {
   const dispatch = useAppDispatch();
   const [nameValue, setNameValue] = useState("");
   const [chaosValue, setChaosValue] = useState("");
   const [exValue, setExValue] = useState("");
+  const [itemNote, setItemNote] = useState("");
   const [isMirrorService, setIsMirrorService] = useState(false);
   const [isSelected, setIsSelected] = useState(false);
   const [isDetails, setIsDetails] = useState(false);
 
   const handleNameChange = (e: any) => {
     setNameValue(e.target.value);
+    dispatch(updateBulkItemName(item.id, e.target.value));
   };
 
   const handleChaosChange = (e: any) => {
-    setChaosValue(e.target.value);
+    const val = e.target.value;
+    if (/^\d*.?\d*/.test(val)) {
+      setChaosValue(e.target.value);
+      dispatch(updateBulkItemChaosValue(item.id, e.target.value));
+    }
   };
 
   const handleExChange = (e: any) => {
-    setExValue(e.target.value);
+    const val = e.target.value;
+    if (/^\d*.?\d*/.test(val)) {
+      setExValue(e.target.value);
+      dispatch(updateBulkItemExValue(item.id, e.target.value));
+    }
+  };
+
+  const handleIsMirrorChange = () => {
+    setIsMirrorService(!isMirrorService);
+    dispatch(updateBulkItemIsMirrorService(item.id, !isMirrorService));
+  };
+
+  const handleSelect = () => {
+    setIsSelected(!isSelected);
+    dispatch(updateBulkItemSelect(item.id, !isSelected));
+  };
+
+  const handleNoteChange = (e: any) => {
+    const val = e.target.value;
+    setItemNote(val);
+    dispatch(updateBulkItemNote(item.id, val));
   };
 
   useEffect(() => {
@@ -33,16 +65,20 @@ const BulkItemSavedRecord = ({ item }: any) => {
     setExValue(item.exValue);
     setIsMirrorService(item.isMirrorService);
     setIsSelected(item.isSelected);
+    setItemNote(item.itemNote);
   }, [
     item.chaosValue,
     item.exValue,
     item.isMirrorService,
     item.isSelected,
     item.name,
+    item.itemNote,
   ]);
 
-  const updateItem = () => {
-    dispatch(updateBulkItemName("ewe", nameValue));
+  const onKeyPress = (event: any) => {
+    const keyCode = event.keyCode || event.which;
+    const keyValue = String.fromCharCode(keyCode);
+    if (!/^[0-9\b.]+$/.test(keyValue)) event.preventDefault();
   };
 
   return (
@@ -66,27 +102,37 @@ const BulkItemSavedRecord = ({ item }: any) => {
               </ArrowIcon>
             )}
           </FoldButton>
-          <InputWrapper onClick={() => setIsDetails(!isDetails)}>
+          <InputWrapper
+            onClick={() => setIsDetails(!isDetails)}
+            style={{
+              width: "95%",
+              display: "fles",
+              justifyContent: "flex-start",
+            }}
+          >
             <ItemName
               value={nameValue}
-              onChange={handleNameChange}
               placeholder="Item name..."
+              style={{
+                width: "100%",
+              }}
               readOnly={true}
             />
           </InputWrapper>
         </Left>
-        <Right>
-          <Checkbox checked={isSelected} onChange={setIsSelected} />
+        <Right onClick={handleSelect}>
+          <Checkbox checked={isSelected} />
         </Right>
       </Header>
       {isDetails && (
         <Details>
-          <Icon
+          <Mirror
+            isMirrorService={isMirrorService}
+            onClick={handleIsMirrorChange}
             src={
               "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyDuplicate.png?scale=1&w=1&h=1"
             }
           />
-          <Checkbox checked={isMirrorService} onChange={setIsMirrorService} />
           <InputWrapper>
             <NameField
               value={nameValue}
@@ -103,6 +149,7 @@ const BulkItemSavedRecord = ({ item }: any) => {
             <PriceField
               value={chaosValue}
               onChange={handleChaosChange}
+              onKeyPress={onKeyPress}
               placeholder="Chaos Value..."
             />
           </InputWrapper>
@@ -115,10 +162,18 @@ const BulkItemSavedRecord = ({ item }: any) => {
             <PriceField
               value={exValue}
               onChange={handleExChange}
+              onKeyPress={onKeyPress}
               placeholder="Exalted Value..."
             />
           </InputWrapper>
-          <FaCheck style={iconStyle} onClick={updateItem} />
+
+          <InputWrapper>
+            <NameField
+              value={itemNote}
+              onChange={handleNoteChange}
+              placeholder="Item note..."
+            />
+          </InputWrapper>
         </Details>
       )}
     </Wrapper>
@@ -157,6 +212,7 @@ const Wrapper = styled(FlexWrap)`
 const NameField = styled(Input)``;
 
 const PriceField = styled(Input)`
+  text-align: center;
   width: 14px;
 `;
 
@@ -198,4 +254,19 @@ const Left = styled(FlexWrap)`
 const Right = styled(FlexWrap)`
   width: 5%;
   padding: 0px 10px;
+`;
+const Mirror = styled.img<{ isMirrorService: boolean }>`
+  padding: 0px 5px 0px 0px;
+  cursor: pointer;
+  opacity: ${(props) => (props.isMirrorService ? 1 : 0.6)};
+  filter: ${(props) =>
+    props.isMirrorService
+      ? ""
+      : "hue-rotate(90deg) brightness(60%) grayscale(60%)"};
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  &:hover {
+    opacity: 1;
+  }
 `;

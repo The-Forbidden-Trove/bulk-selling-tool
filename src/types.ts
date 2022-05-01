@@ -13,6 +13,7 @@ export interface BulkItem {
   chaosValue: number;
   exValue: number;
   isMirrorService: boolean;
+  itemNote: string;
   isSelected: boolean;
   item:any;
 }

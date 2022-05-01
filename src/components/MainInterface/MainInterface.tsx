@@ -5,12 +5,9 @@ import { useAuth } from "../../api/oauth/AuthContext";
 import { initCurrencies } from "../../reducers/currencyTypeReducer";
 import { initStashes } from "../../reducers/stashReducer";
 import { currencies } from "../../types";
-import { FlexWrap } from "../baseStyles";
+import { Button, FlexWrap } from "../baseStyles";
 import BulkCurrency from "./BulkCurrency";
 
-import StashTabL from "../../assets/StashTabL.png";
-import StashTabM from "../../assets/StashTabM.png";
-import StashTabR from "../../assets/StashTabR.png";
 import BulkItems from "./BulkItems";
 
 //<FaCog
@@ -44,29 +41,16 @@ const MainInterface = () => {
       {isBulkCurrency && <BulkCurrency />}
       {isBulkItems && <BulkItems />}
       <SelectionWrap>
-        <TabWrap
+        <SwapSectionButton
           onClick={() => bulkCurrency()}
-          scale={isBulkCurrency ? 1.1 : 1}
-          z={isBulkCurrency ? 99 : 1}
+          isSelected={isBulkCurrency}
         >
-          <LeftPart />
-          <MidPart isSelected={isBulkCurrency}>
-            <p>Bulk Currency</p>
-          </MidPart>
-          <RightPart />
-        </TabWrap>
+          Bulk Currency
+        </SwapSectionButton>
 
-        <TabWrap
-          onClick={() => bulkItems()}
-          scale={isBulkItems ? 1.1 : 1}
-          z={isBulkItems ? 99 : 1}
-        >
-          <LeftPart />
-          <MidPart isSelected={isBulkItems}>
-            <p>Bulk Items</p>
-          </MidPart>
-          <RightPart />
-        </TabWrap>
+        <SwapSectionButton onClick={() => bulkItems()} isSelected={isBulkItems}>
+          Bulk Items
+        </SwapSectionButton>
       </SelectionWrap>
     </Wrapper>
   );
@@ -81,43 +65,13 @@ const SelectionWrap = styled(FlexWrap)`
   position: absolute;
 `;
 
-const TabWrap = styled(FlexWrap)<{ scale: number; z: number }>`
+const SwapSectionButton = styled(Button)<{ isSelected: boolean }>`
+  border-bottom: ${(props) =>
+    props.isSelected ? "solid 2px rgb(214, 197, 255)" : ""};
+  font-size: 16px;
+  margin: 5px;
   height: 26px;
-  padding: 0px 0px;
   cursor: pointer;
-  transform: scale(${({ scale }) => scale});
-  transition: all ease 0.2s;
-
-  z-index: ${({ z }) => z};
-
-  z-index: 999;
-  outline: none;
-  border: none;
-`;
-
-const LeftPart = styled.div`
-  background-image: url(${StashTabL});
-  height: 26px;
-  width: 19px;
-  color: rgb(255, 192, 119);
-`;
-const MidPart = styled.div<{ isSelected: boolean }>`
-  background-image: url(${StashTabM});
-  height: 26px;
-  color: rgb(255, 192, 119);
-  > p {
-    color: ${(props) =>
-      props.isSelected ? props.theme.colors.text : props.theme.colors.bg};
-    text-align: center;
-    vertical-align: middle;
-    padding: 2px 0px 0px 0px;
-  }
-`;
-const RightPart = styled.div`
-  background-image: url(${StashTabR});
-  color: rgb(255, 192, 119);
-  height: 26px;
-  width: 19px;
 `;
 
 const Wrapper = styled(FlexWrap)`

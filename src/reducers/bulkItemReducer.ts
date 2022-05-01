@@ -1,4 +1,5 @@
 import { generateItem } from "poe-text-to-item";
+import { v4 as uuidv4 } from "uuid";
 import { BulkItem } from "../types";
 
 const initialState: BulkItem[] = [];
@@ -19,7 +20,7 @@ const bulkItemReducer = (state = initialState, action: any) => {
       }
 
       const newItem: BulkItem = {
-        id: "ewe",
+        id: uuidv4(),
         itemText: action.data.itemString,
         name: name,
         chaosValue: action.data.chaosValue,
@@ -30,11 +31,27 @@ const bulkItemReducer = (state = initialState, action: any) => {
         item: item,
       };
       console.log(newItem);
+      const LS = localStorage.getItem("bulkItems");
+      let savedItems = [];
+      if (LS) savedItems = JSON.parse(LS);
+
+      savedItems.push(newItem);
+      localStorage.setItem("bulkItems", JSON.stringify(savedItems));
+
       return [...newState, newItem];
     }
 
-    case "REMOVE_ITEMS": {
-      break;
+    case "APPEND_BULK_ITEM": {
+      const newState = [...state];
+      return [...newState, action.data.newItem];
+    }
+
+    case "REMOVE_BULK_ITEM": {
+      const newState = state.filter((item) => {
+        return item.id !== action.data.itemId;
+      });
+      localStorage.setItem("bulkItems", JSON.stringify(newState));
+      return newState;
     }
 
     case "SELECT_ITEM": {
@@ -45,66 +62,77 @@ const bulkItemReducer = (state = initialState, action: any) => {
     }
 
     case "TOGGLE_ITEM_SELECT": {
-      const newState = [...state];
-      return newState.map((item) => {
+      const newState = state.map((item) => {
         return item.id === action.data.itemId
           ? { ...item, isSelected: action.data.newChaosValue }
           : { ...item };
       });
+      localStorage.setItem("bulkItems", JSON.stringify(newState));
+      return newState;
     }
 
     case "UPDATE_BULK_ITEM_NAME": {
-      const newState = [...state];
-      return newState.map((item) => {
+      const newState = state.map((item) => {
         return item.id === action.data.itemId
           ? { ...item, name: action.data.newName }
           : { ...item };
       });
+
+      localStorage.setItem("bulkItems", JSON.stringify(newState));
+      return newState;
     }
 
     case "UPDATE_BULK_ITEM_CHAOS": {
-      const newState = [...state];
-      return newState.map((item) => {
+      const newState = state.map((item) => {
         return item.id === action.data.itemId
           ? { ...item, chaosValue: action.data.newChaosValue }
           : { ...item };
       });
+
+      localStorage.setItem("bulkItems", JSON.stringify(newState));
+      return newState;
     }
 
     case "UPDATE_BULK_ITEM_EX": {
-      const newState = [...state];
-      return newState.map((item) => {
+      const newState = state.map((item) => {
         return item.id === action.data.itemId
           ? { ...item, exValue: action.data.newExValue }
           : { ...item };
       });
+
+      localStorage.setItem("bulkItems", JSON.stringify(newState));
+      return newState;
     }
 
     case "UPDATE_BULK_ITEM_MIRROR": {
-      const newState = [...state];
-      return newState.map((item) => {
+      const newState = state.map((item) => {
         return item.id === action.data.itemId
           ? { ...item, isMirrorService: action.data.newIsMirrorService }
           : { ...item };
       });
+
+      localStorage.setItem("bulkItems", JSON.stringify(newState));
+      return newState;
     }
 
     case "UPDATE_BULK_ITEM_NOTE": {
-      const newState = [...state];
-      return newState.map((item) => {
+      const newState = state.map((item) => {
         return item.id === action.data.itemId
           ? { ...item, itemNote: action.data.newNote }
           : { ...item };
       });
+      localStorage.setItem("bulkItems", JSON.stringify(newState));
+      return newState;
     }
 
     case "UPDATE_BULK_ITEM_SELECT": {
-      const newState = [...state];
-      return newState.map((item) => {
+      const newState = state.map((item) => {
         return item.id === action.data.itemId
           ? { ...item, isSelected: action.data.newSelect }
           : { ...item };
       });
+      localStorage.setItem("bulkItems", JSON.stringify(newState));
+      return newState;
     }
 
     case "CLEAR_ALL_ITEMS": {
@@ -148,9 +176,16 @@ export const addBulkItem = (
   };
 };
 
+export const appendBulkItem = (newItem: BulkItem) => {
+  return {
+    type: "APPEND_BULK_ITEM",
+    data: { newItem: newItem },
+  };
+};
+
 export const removeBulkItem = (itemId: string) => {
   return {
-    type: "REMOVE_ITEM",
+    type: "REMOVE_BULK_ITEM",
     data: { itemId: itemId },
   };
 };
@@ -202,10 +237,7 @@ export const updateBulkItemChaosValue = (
   };
 };
 
-export const updateBulkItemNote = (
-  itemId: string,
-  newNote: string,
-) => {
+export const updateBulkItemNote = (itemId: string, newNote: string) => {
   return {
     type: "UPDATE_BULK_ITEM_NOTE",
     data: { itemId: itemId, newNote: newNote },

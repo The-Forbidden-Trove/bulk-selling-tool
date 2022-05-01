@@ -17,15 +17,14 @@ export const BulkItemHeader = ({ item }: any) => {
       {(item.exValue > 0 || item.chaosValue > 0) && item.isMirrorService ? (
         <Price>Mirror Fee: </Price>
       ) : (
-          <></>
+        <></>
       )}
 
       {(item.exValue > 0 || item.chaosValue > 0) && !item.isMirrorService ? (
         <Price>Estimated Value</Price>
       ) : (
-          <></>
+        <></>
       )}
-
 
       {item.chaosValue > 0 && (
         <PriceWrapper>
@@ -54,6 +53,8 @@ export const BulkItemHeader = ({ item }: any) => {
 
 const Wrapper = styled(FlexWrap)`
   width: 100%;
+
+  background: #0b1a3a;
 `;
 
 const PriceWrapper = styled(FlexWrap)``;

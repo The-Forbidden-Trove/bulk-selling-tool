@@ -49,7 +49,7 @@ const MainInterface = () => {
         </SwapSectionButton>
 
         <SwapSectionButton onClick={() => bulkItems()} isSelected={isBulkItems}>
-          Bulk Items
+          Listing Manager
         </SwapSectionButton>
       </SelectionWrap>
     </Wrapper>

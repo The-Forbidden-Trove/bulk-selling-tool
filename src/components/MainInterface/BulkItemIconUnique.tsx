@@ -1,9 +1,7 @@
-import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FlexWrap } from "../baseStyles";
 import { Affixes } from "./BulkItem/Affixes";
 import { Defences } from "./BulkItem/Defences";
-import { Divider } from "./BulkItem/Divider";
 import { Enchant } from "./BulkItem/Enchant";
 import { Implicit } from "./BulkItem/Implicit";
 import { ItemIcon } from "./BulkItem/ItemIcon";
@@ -42,7 +40,8 @@ const BulkItemIcon = ({ item }: any) => {
 export default BulkItemIcon;
 
 const Wrapper = styled(FlexWrap)`
-  min-width: 650px;
+  width: 100%;
+  font-size: 0.7em;
   background: rgba(0, 0, 0, 0.6);
   justify-content: flex-start;
   flex-direction: column;

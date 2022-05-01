@@ -1,9 +1,7 @@
 import styled from "styled-components";
 import { useAppSelector } from "../..";
 import { FlexWrap } from "../baseStyles";
-import { CurrencyType, Item, StashTab } from "../../types";
 
-import BulkItemSavedRecord from "../MainInterface/BulkItemSavedRecord";
 import BulkItemIcon from "../MainInterface/BulkItemIconUnique";
 import { BulkItemHeader } from "../MainInterface/BulkItem/BulkItemHeader";
 import { BulkItemNote } from "../MainInterface/BulkItem/BulkItemNote";
@@ -69,6 +67,7 @@ const GeneratedBulkItemMessage = ({ selectedItems }: any) => {
             </FlexWrap>
           )}
         </TotalValue>
+
         <ExPrice>
           <P>
             <p>Ninja rate</p>

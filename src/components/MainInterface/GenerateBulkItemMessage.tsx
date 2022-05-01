@@ -7,26 +7,23 @@ import { Button, FlexWrap } from "../baseStyles";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
+import chaosOrb from "../../assets/chaosOrb.png";
+import exaltedOrb from "../../assets/exaltedOrb.png";
 
 import { FaExclamationTriangle } from "react-icons/fa";
 
-const GenerateBulkItemMessage = () => {
+const GenerateBulkItemMessage = ({ selectedItems }: any) => {
   const [userName, setUserName] = useState("");
   const [warning, setWarning] = useState(false);
-  let sellSum = 0;
-  let ninjaSum = 0;
-  const items = useAppSelector((store) => store.items);
+
+  const [sellEx, setSellEx] = useState(0);
+  const [sellChaos, setSellChaos] = useState(0);
+
   const exPrice = useAppSelector((store) => store.exaltedPrice).value || 1;
   const exDefaultPrice =
     useAppSelector((store) => store.exaltedPrice).defaultValue || 1;
   const league = useAppSelector((store) => store.leagues).defaultLeague;
 
-  for (const [key, value] of Object.entries(items)) {
-    if (items[key].isSelected) {
-      sellSum += items[key].totalValue;
-      ninjaSum += items[key].chaosEquivalent * items[key].stackSize;
-    }
-  }
   const generateImage = () => {
     toast.promise(generateImg, {
       pending: "Generating image",
@@ -51,76 +48,8 @@ const GenerateBulkItemMessage = () => {
   };
   const generateTxt = () => {
     return new Promise((resolve, reject) => {
-      const contracts = Object.values(items)
-        .filter((x: any) => x.isSelected)
-        .filter((x: any) => x.name.includes("Contract"));
-      const sextants = Object.values(items)
-        .filter((x: any) => x.isSelected)
-        .filter((x: any) => x.name.match(/Sextant (\w\s*)*\(\d*\s*uses\)/));
-
-      const ninjaPrice = Math.round(
-        Math.round((ninjaSum + Number.EPSILON) * 100) / 100,
-      );
-
-      const ninjaPriceEx = Math.floor(
-        (ninjaPrice * 100) / exDefaultPrice / 100,
-      );
-
-      const ninjaPriceChaos = Math.round(
-        ((ninjaPrice * 100) / exDefaultPrice / 100 -
-          Math.floor((ninjaPrice * 100) / exDefaultPrice / 100)) *
-          exDefaultPrice,
-      );
-
-      const askingPrice = Math.round(
-        Math.round((sellSum + Number.EPSILON) * 100) / 100,
-      );
-
-      const askingPriceEx = Math.floor((askingPrice * 100) / exPrice / 100);
-
-      const askingPriceChaos = Math.round(
-        ((askingPrice * 100) / exPrice / 100 -
-          Math.floor((askingPrice * 100) / exPrice / 100)) *
-          exPrice,
-      );
-
-      const mostValuable = Object.values(items)
-        .filter((x: any) => x.isSelected)
-        .sort((a: any, b: any) => b.totalValue - a.totalValue)
-        .slice(0, 3)
-        .map((x: any) => {
-          return ` ${x.shortName}`;
-        });
-
       const copyText = `WTS ${league}\n${
         userName ? `IGN: \`${userName}\`\n` : ""
-      }Ninja price: \`${ninjaPrice}\` :chaos: ( \`${ninjaPriceEx}\` :ex: + \`${ninjaPriceChaos}\` :chaos: ) at ratio [\`${exDefaultPrice}\`:chaos:/\`1\`:ex:]\nAsking price: \`${askingPrice}\` :chaos: (\`${Math.round(
-        (sellSum / ninjaSum) * 100,
-      )}%\` of Ninja price) ( \`${askingPriceEx}\` :ex: + \`${askingPriceChaos}\` :chaos: ) at ratio [\`${exPrice}\`:chaos:/\`1\`:ex:] ${
-        contracts.length > 0 || sextants.length > 0
-          ? "( excluding: " +
-            (contracts.length > 0 ? "contracts " : "") +
-            (sextants.length > 0 ? "sextants " : "") +
-            ")"
-          : ""
-      }\nMost valuable:${mostValuable}${
-        contracts.length > 0
-          ? "\n`Contracts are experimental`\n" +
-            contracts
-              .map((x: any) => {
-                return `${x.stackSize}x ${x.name} ${x.sellValue} :chaos:/each`;
-              })
-              .join("\n")
-          : ""
-      }${
-        sextants.length > 0
-          ? "\n`Sextants are experimental`\n" +
-            sextants
-              .map((x: any) => {
-                return `${x.stackSize}x ${x.name} ${x.sellValue} :chaos:/each`;
-              })
-              .join("\n")
-          : ""
       }`;
 
       const textBlob: any = new Blob([copyText], {
@@ -192,6 +121,21 @@ const GenerateBulkItemMessage = () => {
     });
   };
 
+  const makeChaosPrice = (askingPrice: number) => {
+    const askingPriceChaos = Math.round(
+      ((askingPrice * 100) / exPrice / 100 -
+        Math.floor((askingPrice * 100) / exPrice / 100)) *
+        exPrice,
+    );
+    return askingPriceChaos;
+  };
+
+  const makeExPrice = (askingPrice: number) => {
+    const askingPriceEx = Math.floor((askingPrice * 100) / exPrice / 100);
+
+    return askingPriceEx;
+  };
+
   useEffect(() => {
     const data = window.localStorage.getItem("userName");
     if (data) {
@@ -202,72 +146,76 @@ const GenerateBulkItemMessage = () => {
     window.localStorage.setItem("userName", userName);
   };
 
+  useEffect(() => {
+    let totalChaos = 0;
+    selectedItems.forEach((item: any) => {
+      totalChaos += Number(item.chaosValue);
+      totalChaos += Number(item.exValue) * exPrice;
+    });
+    setSellEx(makeExPrice(totalChaos));
+    setSellChaos(makeChaosPrice(totalChaos));
+  }, [selectedItems]);
+
   return (
     <Wrapper>
-      <A>
-        <Total>
-          Asking price:
-          <Price>
-            <Icon
-              src={
-                "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollRare.png?scale=1&w=1&h=1"
-              }
-            />
-            {Math.round((sellSum + Number.EPSILON) * 100) / 100}
-          </Price>
-          <Price>
-            <Icon
-              src={
-                "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyAddModToRare.png?scale=1&w=1&h=1"
-              }
-            />
-            {Math.round(((sellSum + Number.EPSILON) * 100) / exPrice) / 100}
-          </Price>
-        </Total>
+      <FlexWrap>
+        <P>Asking Price</P>
 
-        <div style={{ display: "flex" }}>
-          <UserName>
-            <P style={{ padding: "0px 15px 0px 0px", fontSize: "22px" }}>IGN</P>
-            <Input
-              placeholder="Put your in game name here..."
-              value={userName}
-              onChange={(e: any) => setUserName(e.target.value)}
-            />
+        {sellChaos > 0 && (
+          <>
+            <Icon src={chaosOrb} />
+            <P>{Math.round((sellChaos + Number.EPSILON) * 100) / 100}</P>
+          </>
+        )}
 
-            <FaCheck style={iconStyle} onClick={(e) => updateName()} />
-          </UserName>
+        {sellEx > 0 && (
+          <>
+            <Icon src={exaltedOrb} />
+            <P>
+              {Math.round(
+                sellEx + ((sellChaos + Number.EPSILON) * 100) / exPrice / 100,
+              )}
+            </P>
+          </>
+        )}
+      </FlexWrap>
 
-          <Generate>
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <P
-                  style={warning ? { color: "red" } : {}}
-                  onClick={() => generateText()}
-                >
-                  Generate text
-                </P>
+      <FlexWrap>
+        <P>IGN</P>
+        <Input
+          placeholder="Put your in game name here..."
+          value={userName}
+          onChange={(e: any) => setUserName(e.target.value)}
+        />
+        <FaCheck style={iconStyle} onClick={(e) => updateName()} />
+      </FlexWrap>
 
-                <P
-                  style={warning ? { color: "red" } : {}}
-                  onClick={() => generateImage()}
-                >
-                  Generate image
-                </P>
-              </div>
-              <div style={{ display: "flex", alignSelf: "center" }}>
-                <FaExclamationTriangle style={iconStyle2} />
-                {isFirefox || isSafari ? (
-                  <P2>
-                    Paste text and the image from new tab to discord channel!
-                  </P2>
-                ) : (
-                  <P2>Paste text and the image to discord channel!</P2>
-                )}
-              </div>
-            </div>
-          </Generate>
-        </div>
-      </A>
+      <FlexWrap style={{ flexDirection: "column" }}>
+        <FlexWrap style={{ width: "100%", justifyContent: "space-evenly" }}>
+          <P
+            style={warning ? { color: "red" } : {}}
+            onClick={() => generateText()}
+          >
+            Generate text
+          </P>
+
+          <P
+            style={warning ? { color: "red" } : {}}
+            onClick={() => generateImage()}
+          >
+            Generate image
+          </P>
+        </FlexWrap>
+
+        <FlexWrap>
+          <FaExclamationTriangle style={iconStyle2} />
+          {isFirefox || isSafari ? (
+            <P2>Paste text and the image from new tab to discord channel!</P2>
+          ) : (
+            <P2>Paste text and the image to discord channel!</P2>
+          )}
+        </FlexWrap>
+      </FlexWrap>
     </Wrapper>
   );
 };
@@ -286,10 +234,6 @@ const iconStyle = {
   cursor: "pointer",
 };
 
-const UserName = styled(FlexWrap)`
-  padding: 5px 25px 5px 0px;
-`;
-
 const Input = styled.input`
   border: none;
   color: ${(props) => props.theme.colors.accent2};
@@ -297,27 +241,12 @@ const Input = styled.input`
   outline: none;
   padding: 5px 3px;
   border-bottom: 1px solid ${(props) => props.theme.colors.accentDark};
-  font-size: ${(props) => props.theme.fontM};
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled(FlexWrap)`
   width: 100%;
-  height: 6%;
-  padding: 5px 25px 0px 25px;
-  grid-column: 1 / -1;
-`;
-const A = styled(FlexWrap)`
-  justify-content: space-between;
-  align-items: center;
-`;
-const Generate = styled(Button)`
-  padding: 3px 0px 0px 0px;
-  font-size: ${(props) => props.theme.fontL};
-`;
-
-const Total = styled(FlexWrap)`
-  font-size: ${(props) => props.theme.fontL};
-  align-self: flex-end;
+  height: 5%;
+  justify-content: space-evenly;
 `;
 
 const Icon = styled.img`
@@ -326,15 +255,9 @@ const Icon = styled.img`
   height: 36px;
   object-fit: contain;
 `;
-const Price = styled(FlexWrap)`
-  padding: 5px;
-  color: ${(props) => props.theme.colors.accent2};
-`;
-const P = styled.p`
-  font-size: ${(props) => props.theme.fontL};
-  padding: 0px 15px;
 
-  color: ${(props) => props.theme.colors.text};
+const P = styled(Button)`
+  font-size: 20px;
   color: ${(props) => props.theme.colors.accent};
 `;
 

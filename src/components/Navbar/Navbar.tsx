@@ -56,23 +56,35 @@ const Navbar = () => {
         <Button onClick={redirectDiscord}>join our discord!</Button>
 
         {isFirefox ? (
-          <Button onClick={redirectExtensionFirefox} onAuxClick={redirectExtensionFirefox}>
+          <Button
+            onClick={redirectExtensionFirefox}
+            onAuxClick={redirectExtensionFirefox}
+          >
             <TextIcon>
               <Img
                 src={FirefoxStore}
                 style={{ height: "24px", width: "24px" }}
               />
-              <p>TFT Browser extension</p>
+              <Text>
+                <p>TFT Browser extension</p>
+                <Red>New version out!</Red>
+              </Text>
             </TextIcon>
           </Button>
         ) : (
-          <Button onClick={redirectExtension} onAuxClick={redirectExtensionFirefox}>
+          <Button
+            onClick={redirectExtension}
+            onAuxClick={redirectExtensionFirefox}
+          >
             <TextIcon>
               <Img
                 src={ChromeStore}
                 style={{ height: "24px", width: "24px" }}
               />
-              <p>TFT Browser extension</p>
+              <Text>
+                <p>TFT Browser extension</p>
+                <Red>New version out!</Red>
+              </Text>
             </TextIcon>
           </Button>
         )}
@@ -157,6 +169,18 @@ const TextIcon = styled(FlexWrap)`
     color: ${(props) => props.theme.colors.accent};
     background: none;
   }
+`;
+
+const Red = styled(FlexWrap)`
+  width: 100%;
+  text-align: left;
+  color: ${(props) => props.theme.colors.accent2};
+  font-size: ${(props) => props.theme.fontS};
+`;
+
+const Text = styled(FlexWrap)`
+  flex-direction: column;
+  justify-content: flex-start;
 `;
 const Right = styled(FlexWrap)`
   width: 33%;

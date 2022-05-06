@@ -29,6 +29,17 @@ export const NameHeader = ({ item }: any) => {
       );
       return;
     }
+
+    if (item.flags.replica) {
+      setIconLeft(
+        "https://web.poecdn.com/image/item/popup/experimented-symbol.png?1648706966513",
+      );
+      setIconRight(
+        "https://web.poecdn.com/image/item/popup/experimented-symbol.png?1648706966513",
+      );
+      return;
+    }
+
     const influences = item.flags.influence;
     let isLeftSet = false;
 

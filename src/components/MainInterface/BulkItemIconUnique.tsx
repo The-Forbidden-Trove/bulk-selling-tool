@@ -10,6 +10,8 @@ import { Note } from "./BulkItem/Note";
 import { Offense } from "./BulkItem/Offense";
 import { Quality } from "./BulkItem/Quality";
 import { Requirements } from "./BulkItem/Requirements";
+import { Scourge } from "./BulkItem/Scourge";
+import { ScourgeBottom } from "./BulkItem/ScourgeBottom";
 
 const BulkItemIcon = ({ item }: any) => {
   return (
@@ -26,11 +28,15 @@ const BulkItemIcon = ({ item }: any) => {
 
       <Enchant item={item} />
 
+      <Scourge item={item} />
+
       <Implicit item={item} />
 
       <Affixes item={item} />
 
       <Note item={item} />
+
+      <ScourgeBottom item={item} />
 
       <ItemIcon item={item} />
     </Wrapper>

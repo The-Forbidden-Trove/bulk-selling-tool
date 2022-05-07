@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.js": "/bulk-selling-tool/static/js/main.aeda23e1.chunk.js",
-    "main.js.map": "/bulk-selling-tool/static/js/main.aeda23e1.chunk.js.map",
-    "runtime-main.js": "/bulk-selling-tool/static/js/runtime-main.c196ebbd.js",
-    "runtime-main.js.map": "/bulk-selling-tool/static/js/runtime-main.c196ebbd.js.map",
-    "static/css/2.f4c56af9.chunk.css": "/bulk-selling-tool/static/css/2.f4c56af9.chunk.css",
-    "static/js/2.887d7853.chunk.js": "/bulk-selling-tool/static/js/2.887d7853.chunk.js",
-    "static/js/2.887d7853.chunk.js.map": "/bulk-selling-tool/static/js/2.887d7853.chunk.js.map",
-    "index.html": "/bulk-selling-tool/index.html",
-    "static/css/2.f4c56af9.chunk.css.map": "/bulk-selling-tool/static/css/2.f4c56af9.chunk.css.map",
-    "static/js/2.887d7853.chunk.js.LICENSE.txt": "/bulk-selling-tool/static/js/2.887d7853.chunk.js.LICENSE.txt",
-    "static/media/Fontin-SmallCaps.7618aa61.ttf": "/bulk-selling-tool/static/media/Fontin-SmallCaps.7618aa61.ttf",
-    "static/media/Guide1.94fb55b4.png": "/bulk-selling-tool/static/media/Guide1.94fb55b4.png",
-    "static/media/Guide2.e45a625c.png": "/bulk-selling-tool/static/media/Guide2.e45a625c.png",
-    "static/media/firefox-web-store.2ea4cef4.png": "/bulk-selling-tool/static/media/firefox-web-store.2ea4cef4.png"
+    "main.js": "/bulk.tftrove.com/static/js/main.c9f0f383.chunk.js",
+    "main.js.map": "/bulk.tftrove.com/static/js/main.c9f0f383.chunk.js.map",
+    "runtime-main.js": "/bulk.tftrove.com/static/js/runtime-main.598f0750.js",
+    "runtime-main.js.map": "/bulk.tftrove.com/static/js/runtime-main.598f0750.js.map",
+    "static/css/2.f4c56af9.chunk.css": "/bulk.tftrove.com/static/css/2.f4c56af9.chunk.css",
+    "static/js/2.4ffe5c8a.chunk.js": "/bulk.tftrove.com/static/js/2.4ffe5c8a.chunk.js",
+    "static/js/2.4ffe5c8a.chunk.js.map": "/bulk.tftrove.com/static/js/2.4ffe5c8a.chunk.js.map",
+    "index.html": "/bulk.tftrove.com/index.html",
+    "static/css/2.f4c56af9.chunk.css.map": "/bulk.tftrove.com/static/css/2.f4c56af9.chunk.css.map",
+    "static/js/2.4ffe5c8a.chunk.js.LICENSE.txt": "/bulk.tftrove.com/static/js/2.4ffe5c8a.chunk.js.LICENSE.txt",
+    "static/media/Fontin-SmallCaps.7618aa61.ttf": "/bulk.tftrove.com/static/media/Fontin-SmallCaps.7618aa61.ttf",
+    "static/media/Guide1.94fb55b4.png": "/bulk.tftrove.com/static/media/Guide1.94fb55b4.png",
+    "static/media/Guide2.e45a625c.png": "/bulk.tftrove.com/static/media/Guide2.e45a625c.png",
+    "static/media/firefox-web-store.2ea4cef4.png": "/bulk.tftrove.com/static/media/firefox-web-store.2ea4cef4.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.c196ebbd.js",
+    "static/js/runtime-main.598f0750.js",
     "static/css/2.f4c56af9.chunk.css",
-    "static/js/2.887d7853.chunk.js",
-    "static/js/main.aeda23e1.chunk.js"
+    "static/js/2.4ffe5c8a.chunk.js",
+    "static/js/main.c9f0f383.chunk.js"
   ]
 }

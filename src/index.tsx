@@ -46,9 +46,9 @@ Array.prototype.sortByMultiple = function sortByMultiple<T>(
           ? -1
           : a[key.key] == b[key.key]
           ? 0
-          : 1,
+          : 1
       ),
-    this,
+    this
   );
 };
 
@@ -65,7 +65,7 @@ const authServiceData = new AuthService({
   provider: provider,
   tokenEndpoint: tokenEndpoint,
   authorizeEndpoint: "https://www.pathofexile.com/oauth/authorize",
-  redirectUri: "https://bulk.tftrove.com",
+  redirectUri: "https://the-forbidden-trove.github.io/bulk-selling-tool/",
   location: window.location,
   scopes: ["account:stashes", "account:profile"],
   state: "fd3a90ef-ce50-4361-86ae-985d6d8a26aa",
@@ -118,5 +118,5 @@ ReactDOM.render(
       </ThemeProvider>
     </AuthProvider>
   </Provider>,
-  document.getElementById("root"),
+  document.getElementById("root")
 );

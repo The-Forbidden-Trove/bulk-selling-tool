@@ -25,6 +25,7 @@ const bulkItemReducer = (state = initialState, action: any) => {
         name: name,
         chaosValue: action.data.chaosValue,
         exValue: action.data.exValue,
+        mirrorValue: action.data.mirrorValue,
         isMirrorService: action.data.isMirrorService,
         itemNote: action.data.itemNote,
         isSelected: true,
@@ -104,6 +105,17 @@ const bulkItemReducer = (state = initialState, action: any) => {
       return newState;
     }
 
+    case "UPDATE_BULK_ITEM_MIRROR_VALUE": {
+      const newState = state.map((item) => {
+        return item.id === action.data.itemId
+          ? { ...item, mirrorValue: action.data.newMirrorValue }
+          : { ...item };
+      });
+
+      localStorage.setItem("bulkItems", JSON.stringify(newState));
+      return newState;
+    }
+
     case "UPDATE_BULK_ITEM_MIRROR": {
       const newState = state.map((item) => {
         return item.id === action.data.itemId
@@ -160,6 +172,7 @@ export const addBulkItem = (
   name: string,
   chaosValue: number,
   exValue: number,
+  mirrorValue: number,
   isMirrorService: boolean,
   itemNote: string,
 ) => {
@@ -170,6 +183,7 @@ export const addBulkItem = (
       name: name,
       chaosValue: chaosValue,
       exValue: exValue,
+      mirrorValue: mirrorValue,
       isMirrorService: isMirrorService,
       itemNote: itemNote,
     },
@@ -258,6 +272,16 @@ export const updateBulkItemExValue = (itemId: string, newExValue: number) => {
   return {
     type: "UPDATE_BULK_ITEM_EX",
     data: { itemId: itemId, newExValue: newExValue },
+  };
+};
+
+export const updateBulkItemMirrorValue = (
+  itemId: string,
+  newMirrorValue: number,
+) => {
+  return {
+    type: "UPDATE_BULK_ITEM_MIRROR_VALUE",
+    data: { itemId: itemId, newMirrorValue: newMirrorValue },
   };
 };
 

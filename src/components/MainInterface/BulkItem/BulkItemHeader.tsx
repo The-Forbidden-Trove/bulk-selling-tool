@@ -4,7 +4,7 @@ import { FlexWrap } from "../../baseStyles";
 export const BulkItemHeader = ({ item }: any) => {
   return (
     <Wrapper>
-      {(item.exValue > 0 || item.chaosValue > 0) && item.isMirrorService && (
+      {(item.exValue > 0 || item.chaosValue > 0 || item.mirrorValue > 0) && item.isMirrorService && (
         <PriceWrapper>
           <Icon
             src={
@@ -14,13 +14,13 @@ export const BulkItemHeader = ({ item }: any) => {
         </PriceWrapper>
       )}
 
-      {(item.exValue > 0 || item.chaosValue > 0) && item.isMirrorService ? (
+      {(item.exValue > 0 || item.chaosValue > 0 || item.mirrorValue > 0) && item.isMirrorService ? (
         <Price>Mirror Fee: </Price>
       ) : (
         <></>
       )}
 
-      {(item.exValue > 0 || item.chaosValue > 0) && !item.isMirrorService ? (
+      {(item.exValue > 0 || item.chaosValue > 0 || item.mirrorValue > 0)&& !item.isMirrorService ? (
         <Price>Estimated Value</Price>
       ) : (
         <></>
@@ -45,6 +45,17 @@ export const BulkItemHeader = ({ item }: any) => {
             }
           />
           <Price>{item.exValue}</Price>
+        </PriceWrapper>
+      )}
+
+      {item.mirrorValue > 0 && (
+        <PriceWrapper>
+          <Icon
+            src={
+              "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyDuplicate.png?scale=1&w=1&h=1"
+            }
+          />
+          <Price>{item.mirrorValue}</Price>
         </PriceWrapper>
       )}
     </Wrapper>

@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 const GeneratedBulkItemMessage = ({ selectedItems }: any) => {
   const [sellEx, setSellEx] = useState(0);
   const [sellChaos, setSellChaos] = useState(0);
+  const [columns, setColumns] = useState(1);
 
   const exPrice = useAppSelector((store) => store.exaltedPrice).value || 1;
   const exDefaultPrice =
@@ -41,6 +42,11 @@ const GeneratedBulkItemMessage = ({ selectedItems }: any) => {
     });
     setSellEx(makeExPrice(totalChaos));
     setSellChaos(makeChaosPrice(totalChaos));
+
+    const len = selectedItems.length;
+    if (len === 1) setColumns(2);
+    if (len === 2) setColumns(2);
+    if (len >= 3) setColumns(3);
   }, [selectedItems]);
 
   return (
@@ -89,7 +95,7 @@ const GeneratedBulkItemMessage = ({ selectedItems }: any) => {
         </ExPrice>
       </Header>
 
-      <Masonry columns={3} spacing={2}>
+      <Masonry columns={columns} spacing={2}>
         {selectedItems.map((x: any) => {
           return (
             <BulkItemWrapper>

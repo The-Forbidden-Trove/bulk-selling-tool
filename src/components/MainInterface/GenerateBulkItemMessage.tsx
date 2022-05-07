@@ -161,24 +161,22 @@ const GenerateBulkItemMessage = ({ selectedItems }: any) => {
       <FlexWrap>
         <P>Asking Price</P>
 
-        {sellChaos > 0 && (
-          <>
-            <Icon src={chaosOrb} />
-            <P>{Math.round((sellChaos + Number.EPSILON) * 100) / 100}</P>
-          </>
-        )}
+        <>
+          <Icon src={chaosOrb} />
+          <P>{Math.round((sellChaos + Number.EPSILON) * 100) / 100}</P>
+        </>
 
-        {sellEx > 0 && (
-          <>
-            <Icon src={exaltedOrb} />
-            <P>
-              {Math.round(
-                sellEx + ((sellChaos + Number.EPSILON) * 100) / exPrice / 100,
-              )}
-            </P>
-          </>
-        )}
+        <>
+          <Icon src={exaltedOrb} />
+          <P>
+            {Math.round(
+              sellEx + ((sellChaos + Number.EPSILON) * 100) / exPrice / 100,
+            )}
+          </P>
+        </>
       </FlexWrap>
+
+      <FlexWrap>
 
       <FlexWrap>
         <P>IGN</P>
@@ -215,6 +213,9 @@ const GenerateBulkItemMessage = ({ selectedItems }: any) => {
             <P2>Paste text and the image to discord channel!</P2>
           )}
         </FlexWrap>
+
+      </FlexWrap>
+
       </FlexWrap>
     </Wrapper>
   );
@@ -246,7 +247,7 @@ const Input = styled.input`
 const Wrapper = styled(FlexWrap)`
   width: 100%;
   height: 5%;
-  justify-content: space-evenly;
+  justify-content: space-between;
 `;
 
 const Icon = styled.img`
@@ -257,7 +258,7 @@ const Icon = styled.img`
 `;
 
 const P = styled(Button)`
-  font-size: 20px;
+  font-size: 1.5em;
   color: ${(props) => props.theme.colors.accent};
 `;
 

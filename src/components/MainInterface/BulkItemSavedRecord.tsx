@@ -8,6 +8,7 @@ import {
   updateBulkItemChaosValue,
   updateBulkItemExValue,
   updateBulkItemIsMirrorService,
+  updateBulkItemMirrorValue,
   updateBulkItemName,
   updateBulkItemNote,
   updateBulkItemSelect,
@@ -18,6 +19,7 @@ const BulkItemSavedRecord = ({ item }: any) => {
   const [nameValue, setNameValue] = useState("");
   const [chaosValue, setChaosValue] = useState("");
   const [exValue, setExValue] = useState("");
+  const [mirrorValue, setMirrorValue] = useState("");
   const [itemNote, setItemNote] = useState("");
   const [isMirrorService, setIsMirrorService] = useState(false);
   const [isSelected, setIsSelected] = useState(false);
@@ -41,6 +43,14 @@ const BulkItemSavedRecord = ({ item }: any) => {
     if (/^\d*.?\d*/.test(val)) {
       setExValue(e.target.value);
       dispatch(updateBulkItemExValue(item.id, e.target.value));
+    }
+  };
+
+  const handleMirrorChange = (e: any) => {
+    const val = e.target.value;
+    if (/^\d*.?\d*/.test(val)) {
+      setMirrorValue(e.target.value);
+      dispatch(updateBulkItemMirrorValue(item.id, e.target.value));
     }
   };
 
@@ -68,12 +78,14 @@ const BulkItemSavedRecord = ({ item }: any) => {
     setNameValue(item.name);
     setChaosValue(item.chaosValue);
     setExValue(item.exValue);
+    setMirrorValue(item.mirrorValue);
     setIsMirrorService(item.isMirrorService);
     setIsSelected(item.isSelected);
     setItemNote(item.itemNote);
   }, [
     item.chaosValue,
     item.exValue,
+    item.mirrorValue,
     item.isMirrorService,
     item.isSelected,
     item.name,
@@ -146,6 +158,7 @@ const BulkItemSavedRecord = ({ item }: any) => {
       </Header>
       {isDetails && (
         <Details>
+        <DetailSection>
           <Mirror
             isMirrorService={isMirrorService}
             onClick={handleIsMirrorChange}
@@ -160,6 +173,17 @@ const BulkItemSavedRecord = ({ item }: any) => {
               placeholder="Item name..."
             />
           </InputWrapper>
+
+          <InputWrapper>
+            <NameField
+              value={itemNote}
+              onChange={handleNoteChange}
+              placeholder="Item note..."
+            />
+          </InputWrapper>
+          </DetailSection>
+
+        <DetailSection>
           <InputWrapper>
             <Icon
               src={
@@ -170,7 +194,7 @@ const BulkItemSavedRecord = ({ item }: any) => {
               value={chaosValue}
               onChange={handleChaosChange}
               onKeyPress={onKeyPress}
-              placeholder="Chaos Value..."
+              placeholder="Chaos Price..."
             />
           </InputWrapper>
           <InputWrapper>
@@ -183,17 +207,24 @@ const BulkItemSavedRecord = ({ item }: any) => {
               value={exValue}
               onChange={handleExChange}
               onKeyPress={onKeyPress}
-              placeholder="Exalted Value..."
+              placeholder="Exalted Price..."
             />
           </InputWrapper>
 
           <InputWrapper>
-            <NameField
-              value={itemNote}
-              onChange={handleNoteChange}
-              placeholder="Item note..."
+            <Icon
+              src={
+              "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyDuplicate.png?scale=1&w=1&h=1"
+              }
+            />
+            <PriceField
+              value={mirrorValue}
+              onChange={handleMirrorChange}
+              onKeyPress={onKeyPress}
+              placeholder="Mirror Price..."
             />
           </InputWrapper>
+        </DetailSection>
         </Details>
       )}
     </Wrapper>
@@ -206,6 +237,9 @@ const SelectWrap = styled(FlexWrap)`
   padding: 10px 12px;
 `;
 
+const DetailSection = styled(FlexWrap)`
+`;
+
 const Header = styled(FlexWrap)`
   background: #0b1a3a;
   cursor: pointer;
@@ -215,14 +249,10 @@ const Header = styled(FlexWrap)`
 `;
 const Details = styled(FlexWrap)`
   background: rgb(0, 0, 0, 0.2);
-  width: 90%;
-  justify-content: flex-end;
+  align-items: flex-end;
+  width: 100%;
+  flex-direction: column;
 `;
-const iconStyle = {
-  fill: "#555",
-  padding: "0px 5px",
-  cursor: "pointer",
-};
 
 const InputWrapper = styled(FlexWrap)`
   padding: 10px;
@@ -235,17 +265,17 @@ const Wrapper = styled(FlexWrap)`
 `;
 
 const NameField = styled(Input)`
-  width: 125px;
+  width: 165px;
 `;
 
 const PriceField = styled(Input)`
   text-align: center;
-  width: 22px;
+  width: 28px;
 `;
 
 const Icon = styled.img`
-  padding: 0px 5px 0px 0px;
   width: 36px;
+  padding: 0px 5px 0px 0px;
   height: 36px;
   object-fit: contain;
 `;

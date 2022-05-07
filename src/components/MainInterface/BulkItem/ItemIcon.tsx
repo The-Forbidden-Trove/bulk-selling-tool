@@ -6,43 +6,42 @@ export const ItemIcon = ({ item }: any) => {
   const [background, setBackground] = useState("");
   const [secondaryBackground, setBackgroundSecondary] = useState("");
 
-  const decideBackground = () => {
-    const elderIcon = `https://web.poecdn.com/image/inventory/ElderBackground.png?w=${item.base.w}&h=${item.base.h}`;
-    const shaperIcon = `https://web.poecdn.com/image/inventory/ShaperBackground.png?w=${item.base.w}&h=${item.base.h}&x=0&y=0`;
-    const influences = item.flags.influence;
-    let isLeftSet = false;
+  //const decideBackground = () => {
+  //  const elderIcon = `https://web.poecdn.com/image/inventory/ElderBackground.png?w=${item.base.w}&h=${item.base.h}`;
+  //  const shaperIcon = `https://web.poecdn.com/image/inventory/ShaperBackground.png?w=${item.base.w}&h=${item.base.h}&x=0&y=0`;
+  //  const influences = item.flags.influence;
+  //  let isLeftSet = false;
 
-    if (influences.shaper) {
-      setBackground(shaperIcon);
-      if (!isLeftSet) {
-        setBackgroundSecondary(shaperIcon);
-      }
+  //  if (influences.shaper) {
+  //    setBackground(shaperIcon);
+  //    if (!isLeftSet) {
+  //      setBackgroundSecondary(shaperIcon);
+  //    }
 
-      isLeftSet = true;
-    }
-    if (influences.elder) {
-      setBackground(elderIcon);
-      if (!isLeftSet) {
-        setBackgroundSecondary(elderIcon);
-      }
+  //    isLeftSet = true;
+  //  }
+  //  if (influences.elder) {
+  //    setBackground(elderIcon);
+  //    if (!isLeftSet) {
+  //      setBackgroundSecondary(elderIcon);
+  //    }
 
-      isLeftSet = true;
-    }
-  };
+  //    isLeftSet = true;
+  //  }
+  //};
 
-  useEffect(() => {
-    decideBackground();
-  }, []);
+  //useEffect(() => {
+  //  decideBackground();
+  //}, []);
 
   return (
     <>
       {item.icon && (
         <Wrapper>
-          <IconBackground src={background} />
-          <IconBackground src={secondaryBackground} />
           <IconBase
-            src={item.icon + "&scale=1/2"}
+            src={item.icon + (item.base.rarity === "Unique" ? "" : "&scale=1")}
             isMirrored={item.flags.mirrored}
+            isUnique={item.base.rarity === "Unique"}
           />
         </Wrapper>
       )}
@@ -59,6 +58,7 @@ const IconBackground = styled.img`
   position: absolute;
 `;
 
-const IconBase = styled.img<{ isMirrored: boolean }>`
+const IconBase = styled.img<{ isMirrored: boolean; isUnique: boolean }>`
   transform: ${(props) => (props.isMirrored ? "scaleX(-1)" : "scaleX(1)")};
+  transform: ${(props) => (props.isUnique ? "scale(0.7)" : "scale(1)")};
 `;

@@ -22,9 +22,24 @@ const BulkItems = () => {
   const [chaosValue, setChaosValue] = useState("");
   const [noteValue, setNoteValue] = useState("");
   const [exValue, setExValue] = useState("");
+  const [mirrorValue, setMirrorValue] = useState("");
   const [isMirrorService, setIsMirrorService] = useState(false);
   const [allItems, setAllItems] = useLocalStorage("bulkItems", []);
   const [selectedItems, setSelectedItems] = useState([]);
+  const [columns, setColumns] = useState(2);
+
+  useEffect(()=>{
+    window.addEventListener("resize", ()=>{
+    let newColumns = 1
+    const win = window.innerWidth
+
+    if(win > 1200) newColumns = 2
+    if(win > 1800) newColumns = 3
+    if(win > 2500) newColumns = 4
+
+    setColumns(newColumns)
+    }, false);
+  },[])
 
   const handleTextChange = (e: any) => {
     setTextValue(e.target.value);
@@ -48,6 +63,13 @@ const BulkItems = () => {
     }
   };
 
+  const handleMirrorChange = (e: any) => {
+    const val = e.target.value;
+    if (/^\d*.?\d*/.test(val)) {
+      setMirrorValue(val);
+    }
+  };
+
   const handleIsMirrorChange = () => {
     setIsMirrorService(!isMirrorService);
   };
@@ -63,6 +85,7 @@ const BulkItems = () => {
         nameValue,
         Number(chaosValue),
         Number(exValue),
+        Number(mirrorValue),
         isMirrorService,
         noteValue,
       ),
@@ -72,6 +95,7 @@ const BulkItems = () => {
     setNameValue("");
     setChaosValue("");
     setExValue("");
+    setMirrorValue("");
     setIsMirrorService(false);
     setNoteValue("");
   };
@@ -100,6 +124,11 @@ const BulkItems = () => {
 
   return (
     <Wrapper>
+
+
+  <FlexWrap style={{flexDirection:"column", width:"100%",height:"100%", justifyContent: "flex-start"}}>
+
+  <FlexWrap style={{width:"100%",height:"95%"}}>
       <Left>
         <TopLeft>
           <TextArea
@@ -145,7 +174,7 @@ const BulkItems = () => {
               <NameField
                 value={chaosValue}
                 onChange={handleChaosChange}
-                placeholder="Chaos Value..."
+                placeholder="Chaos Price..."
                 onKeyPress={onKeyPress}
               />
             </InputWrapper>
@@ -158,7 +187,20 @@ const BulkItems = () => {
               <NameField
                 value={exValue}
                 onChange={handleExChange}
-                placeholder="Exalted Value..."
+                placeholder="Exalted Price..."
+                onKeyPress={onKeyPress}
+              />
+            </InputWrapper>
+            <InputWrapper>
+              <Icon
+                src={
+                  "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyDuplicate.png?scale=1&w=1&h=1"
+                }
+              />
+              <NameField
+                value={mirrorValue}
+                onChange={handleMirrorChange}
+                placeholder="Mirror Price..."
                 onKeyPress={onKeyPress}
               />
             </InputWrapper>
@@ -193,7 +235,7 @@ const BulkItems = () => {
             overflowX: "hidden",
           }}
         >
-          <Masonry columns={2} spacing={2}>
+              <Masonry columns={columns} spacing={2}>
             {selectedItems.map((x: any) => {
               return (
                 <BulkItemWrapper>
@@ -206,8 +248,14 @@ const BulkItems = () => {
           </Masonry>
         </Box>
 
-        <GenerateBulkItemMessage selectedItems={selectedItems} />
       </Right>
+    </FlexWrap>
+
+  <FlexWrap style={{width:"100%",height:"5%"}}>
+        <GenerateBulkItemMessage selectedItems={selectedItems} />
+    </FlexWrap>
+
+    </FlexWrap>
 
       <GeneratedBulkItemMessage selectedItems={selectedItems} />
     </Wrapper>
@@ -267,7 +315,7 @@ const TopLeft = styled(FlexWrap)`
 
 const Right = styled(FlexWrap)`
   width: 60%;
-  height: 95%;
+  height: 100%;
   flex-direction: column;
 `;
 

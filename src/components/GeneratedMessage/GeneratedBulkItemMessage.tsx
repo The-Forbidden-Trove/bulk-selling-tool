@@ -59,10 +59,15 @@ const GeneratedBulkItemMessage = ({ selectedItems,msg }: any) => {
       <Header>
         <TotalValue>
           <P>Asking Price</P>
-          {sellChaos > 0 && (
+
+          {sellMirror > 0 && (
             <FlexWrap>
-              <Icon src={chaosOrb} />
-              <P>{Math.round((sellChaos + Number.EPSILON) * 100) / 100}</P>
+              <Icon
+                src={
+                  "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyDuplicate.png?scale=1&w=1&h=1"
+                }
+              />
+              <P>{sellMirror}</P>
             </FlexWrap>
           )}
 
@@ -77,14 +82,10 @@ const GeneratedBulkItemMessage = ({ selectedItems,msg }: any) => {
             </FlexWrap>
           )}
 
-          {sellMirror > 0 && (
+          {sellChaos > 0 && (
             <FlexWrap>
-              <Icon
-                src={
-                  "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyDuplicate.png?scale=1&w=1&h=1"
-                }
-              />
-              <P>{sellMirror}</P>
+              <Icon src={chaosOrb} />
+              <P>{Math.round((sellChaos + Number.EPSILON) * 100) / 100}</P>
             </FlexWrap>
           )}
         </TotalValue>

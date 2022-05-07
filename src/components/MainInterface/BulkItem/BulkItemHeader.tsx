@@ -4,36 +4,39 @@ import { FlexWrap } from "../../baseStyles";
 export const BulkItemHeader = ({ item }: any) => {
   return (
     <Wrapper>
-      {(item.exValue > 0 || item.chaosValue > 0 || item.mirrorValue > 0) && item.isMirrorService && (
+      {(item.exValue > 0 || item.chaosValue > 0 || item.mirrorValue > 0) &&
+        item.isMirrorService && (
+          <PriceWrapper>
+            <Icon
+              src={
+                "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyDuplicate.png?scale=1&w=1&h=1"
+              }
+            />
+          </PriceWrapper>
+        )}
+
+      {(item.exValue > 0 || item.chaosValue > 0 || item.mirrorValue > 0) &&
+      item.isMirrorService ? (
+        <Price>Mirror Fee: </Price>
+      ) : (
+        <></>
+      )}
+
+      {(item.exValue > 0 || item.chaosValue > 0 || item.mirrorValue > 0) &&
+      !item.isMirrorService ? (
+        <Price>Estimated Price</Price>
+      ) : (
+        <></>
+      )}
+
+      {item.mirrorValue > 0 && (
         <PriceWrapper>
           <Icon
             src={
               "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyDuplicate.png?scale=1&w=1&h=1"
             }
           />
-        </PriceWrapper>
-      )}
-
-      {(item.exValue > 0 || item.chaosValue > 0 || item.mirrorValue > 0) && item.isMirrorService ? (
-        <Price>Mirror Fee: </Price>
-      ) : (
-        <></>
-      )}
-
-      {(item.exValue > 0 || item.chaosValue > 0 || item.mirrorValue > 0)&& !item.isMirrorService ? (
-        <Price>Estimated Price</Price>
-      ) : (
-        <></>
-      )}
-
-      {item.chaosValue > 0 && (
-        <PriceWrapper>
-          <Icon
-            src={
-              "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollRare.png?scale=1&w=1&h=1"
-            }
-          />
-          <Price>{item.chaosValue}</Price>
+          <Price>{item.mirrorValue}</Price>
         </PriceWrapper>
       )}
 
@@ -48,14 +51,14 @@ export const BulkItemHeader = ({ item }: any) => {
         </PriceWrapper>
       )}
 
-      {item.mirrorValue > 0 && (
+      {item.chaosValue > 0 && (
         <PriceWrapper>
           <Icon
             src={
-              "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyDuplicate.png?scale=1&w=1&h=1"
+              "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollRare.png?scale=1&w=1&h=1"
             }
           />
-          <Price>{item.mirrorValue}</Price>
+          <Price>{item.chaosValue}</Price>
         </PriceWrapper>
       )}
     </Wrapper>

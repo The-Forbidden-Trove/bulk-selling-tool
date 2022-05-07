@@ -18,6 +18,7 @@ const GenerateBulkItemMessage = ({ selectedItems, msg, setMsg }: any) => {
 
   const [sellEx, setSellEx] = useState(0);
   const [sellChaos, setSellChaos] = useState(0);
+  const [sellMirror, setSellMirror] = useState(0);
 
   const exPrice = useAppSelector((store) => store.exaltedPrice).value || 1;
   const exDefaultPrice =
@@ -148,12 +149,15 @@ const GenerateBulkItemMessage = ({ selectedItems, msg, setMsg }: any) => {
 
   useEffect(() => {
     let totalChaos = 0;
+    let totalMirror = 0;
     selectedItems.forEach((item: any) => {
       totalChaos += Number(item.chaosValue);
       totalChaos += Number(item.exValue) * exPrice;
+      totalMirror += Number(item.mirrorValue);
     });
     setSellEx(makeExPrice(totalChaos));
     setSellChaos(makeChaosPrice(totalChaos));
+    setSellMirror(totalMirror);
   }, [selectedItems]);
 
   return (
@@ -162,8 +166,10 @@ const GenerateBulkItemMessage = ({ selectedItems, msg, setMsg }: any) => {
         <P>Asking Price</P>
 
         <>
-          <Icon src={chaosOrb} />
-          <P>{Math.round((sellChaos + Number.EPSILON) * 100) / 100}</P>
+          <Icon src={
+                      "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyDuplicate.png?scale=1&w=1&h=1"
+          } />
+          <P>{sellMirror}</P>
         </>
 
         <>
@@ -173,6 +179,11 @@ const GenerateBulkItemMessage = ({ selectedItems, msg, setMsg }: any) => {
               sellEx + ((sellChaos + Number.EPSILON) * 100) / exPrice / 100,
             )}
           </P>
+        </>
+
+        <>
+          <Icon src={chaosOrb} />
+          <P>{Math.round((sellChaos + Number.EPSILON) * 100) / 100}</P>
         </>
       </FlexWrap>
 

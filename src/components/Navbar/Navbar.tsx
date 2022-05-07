@@ -25,6 +25,16 @@ const Navbar = () => {
     window.open(link);
   };
 
+  const redirectMirrorShop = () => {
+    const link = "http://forbiddentrove.com/";
+    window.open(link);
+  };
+
+  const redirectBlacklistTool = () => {
+    const link = "https://github.com/The-Forbidden-Trove/blacklist-tool";
+    window.open(link);
+  };
+
   const redirectExtensionFirefox = () => {
     const link =
       "https://addons.mozilla.org/en-US/firefox/addon/tft-trade-extension/";
@@ -52,33 +62,66 @@ const Navbar = () => {
         <Img
           src={"https://avatars.githubusercontent.com/u/74618880?s=200&v=4"}
         />
-        <p>TheForbiddenTrove</p>
+        <p>TFT Bulk Selling Tool</p>
         <Button onClick={redirectDiscord}>join our discord!</Button>
+      </Left>
 
+      <Middle>
         {isFirefox ? (
-          <Button onClick={redirectExtensionFirefox} onAuxClick={redirectExtensionFirefox}>
+          <Button
+            onClick={redirectExtensionFirefox}
+            onAuxClick={redirectExtensionFirefox}
+          >
             <TextIcon>
               <Img
                 src={FirefoxStore}
                 style={{ height: "24px", width: "24px" }}
               />
-              <p>TFT Browser extension</p>
+              <Text>
+                <p>TFT Browser extension</p>
+                <Red>New version out!</Red>
+              </Text>
             </TextIcon>
           </Button>
         ) : (
-          <Button onClick={redirectExtension} onAuxClick={redirectExtensionFirefox}>
+          <Button onClick={redirectExtension} onAuxClick={redirectExtension}>
             <TextIcon>
               <Img
                 src={ChromeStore}
                 style={{ height: "24px", width: "24px" }}
               />
-              <p>TFT Browser extension</p>
+              <Text>
+                <p>TFT Browser extension</p>
+                <Red>New version out!</Red>
+              </Text>
             </TextIcon>
           </Button>
         )}
-      </Left>
 
-      <Middle>TFT Bulk Selling Tool</Middle>
+        <Button onClick={redirectMirrorShop} onAuxClick={redirectMirrorShop}>
+          <TextIcon>
+            <Img
+              src={
+                "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyDuplicate.png?scale=1&w=1&h=1"
+              }
+              style={{ height: "26px", width: "26px" }}
+            />
+            <p>TFT Mirror Shop</p>
+          </TextIcon>
+        </Button>
+
+        <Button
+          onClick={redirectBlacklistTool}
+          onAuxClick={redirectBlacklistTool}
+        >
+          <TextIcon>
+            <SvgIcon xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+              <path d="M512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256zM99.5 144.8C77.15 176.1 64 214.5 64 256C64 362 149.1 448 256 448C297.5 448 335.9 434.9 367.2 412.5L99.5 144.8zM448 256C448 149.1 362 64 256 64C214.5 64 176.1 77.15 144.8 99.5L412.5 367.2C434.9 335.9 448 297.5 448 256V256z" />
+            </SvgIcon>
+            <p>TFT Blacklist Tool</p>
+          </TextIcon>
+        </Button>
+      </Middle>
 
       <Right>
         <div style={{ width: "150px", padding: "0px 20px 0px 0px" }}>
@@ -224,4 +267,23 @@ const SelectExtend = styled(Select).attrs((props) => ({}))`
       }
     }
   }
+`;
+
+const SvgIcon = styled.svg`
+  fill: #b51808;
+  padding: 0px 5px 0px 0px;
+  height: 26px;
+  width: 26px;
+`;
+
+const Red = styled(FlexWrap)`
+  width: 100%;
+  text-align: left;
+  color: ${(props) => props.theme.colors.accent2};
+  font-size: ${(props) => props.theme.fontS};
+`;
+
+const Text = styled(FlexWrap)`
+  flex-direction: column;
+  justify-content: flex-start;
 `;

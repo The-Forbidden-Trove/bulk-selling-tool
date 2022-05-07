@@ -21,7 +21,7 @@ export const BulkItemHeader = ({ item }: any) => {
       )}
 
       {(item.exValue > 0 || item.chaosValue > 0 || item.mirrorValue > 0)&& !item.isMirrorService ? (
-        <Price>Estimated Value</Price>
+        <Price>Estimated Price</Price>
       ) : (
         <></>
       )}

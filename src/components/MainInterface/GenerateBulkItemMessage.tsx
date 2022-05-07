@@ -12,7 +12,7 @@ import exaltedOrb from "../../assets/exaltedOrb.png";
 
 import { FaExclamationTriangle } from "react-icons/fa";
 
-const GenerateBulkItemMessage = ({ selectedItems }: any) => {
+const GenerateBulkItemMessage = ({ selectedItems, msg, setMsg }: any) => {
   const [userName, setUserName] = useState("");
   const [warning, setWarning] = useState(false);
 
@@ -177,45 +177,50 @@ const GenerateBulkItemMessage = ({ selectedItems }: any) => {
       </FlexWrap>
 
       <FlexWrap>
-
-      <FlexWrap>
-        <P>IGN</P>
-        <Input
-          placeholder="Put your in game name here..."
-          value={userName}
-          onChange={(e: any) => setUserName(e.target.value)}
-        />
-        <FaCheck style={iconStyle} onClick={(e) => updateName()} />
-      </FlexWrap>
-
-      <FlexWrap style={{ flexDirection: "column" }}>
-        <FlexWrap style={{ width: "100%", justifyContent: "space-evenly" }}>
-          <P
-            style={warning ? { color: "red" } : {}}
-            onClick={() => generateText()}
-          >
-            Generate text
-          </P>
-
-          <P
-            style={warning ? { color: "red" } : {}}
-            onClick={() => generateImage()}
-          >
-            Generate image
-          </P>
-        </FlexWrap>
-
         <FlexWrap>
-          <FaExclamationTriangle style={iconStyle2} />
-          {isFirefox || isSafari ? (
-            <P2>Paste text and the image from new tab to discord channel!</P2>
-          ) : (
-            <P2>Paste text and the image to discord channel!</P2>
-          )}
+          <P>Note</P>
+          <Input
+            placeholder="Put your lisint note here..."
+            value={msg}
+            onChange={(e: any) => setMsg(e.target.value)}
+          />
+        </FlexWrap>
+        <FlexWrap>
+          <P>IGN</P>
+          <Input
+            placeholder="Put your in game name here..."
+            value={userName}
+            onChange={(e: any) => setUserName(e.target.value)}
+          />
+          <FaCheck style={iconStyle} onClick={(e) => updateName()} />
         </FlexWrap>
 
-      </FlexWrap>
+        <FlexWrap style={{ flexDirection: "column" }}>
+          <FlexWrap style={{ width: "100%", justifyContent: "space-evenly" }}>
+            <P
+              style={warning ? { color: "red" } : {}}
+              onClick={() => generateText()}
+            >
+              Generate text
+            </P>
 
+            <P
+              style={warning ? { color: "red" } : {}}
+              onClick={() => generateImage()}
+            >
+              Generate image
+            </P>
+          </FlexWrap>
+
+          <FlexWrap>
+            <FaExclamationTriangle style={iconStyle2} />
+            {isFirefox || isSafari ? (
+              <P2>Paste text and the image from new tab to discord channel!</P2>
+            ) : (
+              <P2>Paste text and the image to discord channel!</P2>
+            )}
+          </FlexWrap>
+        </FlexWrap>
       </FlexWrap>
     </Wrapper>
   );

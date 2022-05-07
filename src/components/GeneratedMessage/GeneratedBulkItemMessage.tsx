@@ -11,9 +11,10 @@ import chaosOrb from "../../assets/chaosOrb.png";
 import exaltedOrb from "../../assets/exaltedOrb.png";
 import { useEffect, useState } from "react";
 
-const GeneratedBulkItemMessage = ({ selectedItems }: any) => {
+const GeneratedBulkItemMessage = ({ selectedItems,msg }: any) => {
   const [sellEx, setSellEx] = useState(0);
   const [sellChaos, setSellChaos] = useState(0);
+  const [sellMirror, setSellMirror] = useState(0);
   const [columns, setColumns] = useState(1);
 
   const exPrice = useAppSelector((store) => store.exaltedPrice).value || 1;
@@ -36,12 +37,15 @@ const GeneratedBulkItemMessage = ({ selectedItems }: any) => {
   };
   useEffect(() => {
     let totalChaos = 0;
+    let totalMirror = 0;
     selectedItems.forEach((item: any) => {
       totalChaos += Number(item.chaosValue);
       totalChaos += Number(item.exValue) * exPrice;
+      totalMirror += Number(item.mirrorValue);
     });
     setSellEx(makeExPrice(totalChaos));
     setSellChaos(makeChaosPrice(totalChaos));
+    setSellMirror(totalMirror);
 
     const len = selectedItems.length;
     if (len === 1) setColumns(2);
@@ -70,6 +74,17 @@ const GeneratedBulkItemMessage = ({ selectedItems }: any) => {
                   sellEx + ((sellChaos + Number.EPSILON) * 100) / exPrice / 100,
                 )}
               </P>
+            </FlexWrap>
+          )}
+
+          {sellMirror > 0 && (
+            <FlexWrap>
+              <Icon
+                src={
+                  "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyDuplicate.png?scale=1&w=1&h=1"
+                }
+              />
+              <P>{sellMirror}</P>
             </FlexWrap>
           )}
         </TotalValue>
@@ -106,6 +121,7 @@ const GeneratedBulkItemMessage = ({ selectedItems }: any) => {
           );
         })}
       </Masonry>
+      <P>{msg}</P>
     </Wrapper>
   );
 };

@@ -27,14 +27,23 @@ const BulkItems = () => {
   const [allItems, setAllItems] = useLocalStorage("bulkItems", []);
   const [selectedItems, setSelectedItems] = useState([]);
   const [columns, setColumns] = useState(2);
+  const [msg, setMsg] = useState("");
 
   useEffect(()=>{
+    let newColumns = 1
+    const win = window.innerWidth
+
+    if(win > 1500) newColumns = 2
+    if(win > 2000) newColumns = 3
+    if(win > 2500) newColumns = 4
+
+    setColumns(newColumns)
     window.addEventListener("resize", ()=>{
     let newColumns = 1
     const win = window.innerWidth
 
-    if(win > 1200) newColumns = 2
-    if(win > 1800) newColumns = 3
+    if(win > 1500) newColumns = 2
+    if(win > 2000) newColumns = 3
     if(win > 2500) newColumns = 4
 
     setColumns(newColumns)
@@ -252,12 +261,12 @@ const BulkItems = () => {
     </FlexWrap>
 
   <FlexWrap style={{width:"100%",height:"5%"}}>
-        <GenerateBulkItemMessage selectedItems={selectedItems} />
+      <GenerateBulkItemMessage selectedItems={selectedItems} msg={msg} setMsg={setMsg}/>
     </FlexWrap>
 
     </FlexWrap>
 
-      <GeneratedBulkItemMessage selectedItems={selectedItems} />
+      <GeneratedBulkItemMessage selectedItems={selectedItems} msg={msg} />
     </Wrapper>
   );
 };

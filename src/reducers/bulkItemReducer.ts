@@ -19,13 +19,32 @@ const bulkItemReducer = (state = initialState, action: any) => {
         name = (itemName ? itemName : "") + " " + (itemBase ? itemBase : "");
       }
 
+      const note = item.note || "";
+
+      let chaosValue = action.data.chaosValue;
+      let exValue = action.data.exValue;
+      let mirrorValue = action.data.mirrorValue;
+
+      const regex = /^~price (\d*) (chaos|exalted|mirror)$/m;
+      const match = note.match(regex);
+
+      if (match) {
+        if (match[2] === "mirror" && action.data.mirrorValue === 0)
+          mirrorValue = match[1];
+        if (match[2] === "exalted" && action.data.exValue === 0)
+          exValue = match[1];
+        if (match[2] === "chaos" && action.data.chaosValue === 0)
+          chaosValue = match[1];
+      }
+
+
       const newItem: BulkItem = {
         id: uuidv4(),
         itemText: action.data.itemString,
         name: name,
-        chaosValue: action.data.chaosValue,
-        exValue: action.data.exValue,
-        mirrorValue: action.data.mirrorValue,
+        chaosValue: chaosValue,
+        exValue: exValue,
+        mirrorValue: mirrorValue,
         isMirrorService: action.data.isMirrorService,
         itemNote: action.data.itemNote,
         isSelected: true,

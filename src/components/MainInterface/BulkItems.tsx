@@ -29,26 +29,30 @@ const BulkItems = () => {
   const [columns, setColumns] = useState(2);
   const [msg, setMsg] = useState("");
 
-  useEffect(()=>{
-    let newColumns = 1
-    const win = window.innerWidth
+  useEffect(() => {
+    let newColumns = 1;
+    const win = window.innerWidth;
 
-    if(win > 1500) newColumns = 2
-    if(win > 2000) newColumns = 3
-    if(win > 2500) newColumns = 4
+    if (win > 1500) newColumns = 2;
+    if (win > 2000) newColumns = 3;
+    if (win > 2500) newColumns = 4;
 
-    setColumns(newColumns)
-    window.addEventListener("resize", ()=>{
-    let newColumns = 1
-    const win = window.innerWidth
+    setColumns(newColumns);
+    window.addEventListener(
+      "resize",
+      () => {
+        let newColumns = 1;
+        const win = window.innerWidth;
 
-    if(win > 1500) newColumns = 2
-    if(win > 2000) newColumns = 3
-    if(win > 2500) newColumns = 4
+        if (win > 1500) newColumns = 2;
+        if (win > 2000) newColumns = 3;
+        if (win > 2500) newColumns = 4;
 
-    setColumns(newColumns)
-    }, false);
-  },[])
+        setColumns(newColumns);
+      },
+      false,
+    );
+  }, []);
 
   const handleTextChange = (e: any) => {
     setTextValue(e.target.value);
@@ -133,138 +137,147 @@ const BulkItems = () => {
 
   return (
     <Wrapper>
-
-
-  <FlexWrap style={{flexDirection:"column", width:"100%",height:"100%", justifyContent: "flex-start"}}>
-
-  <FlexWrap style={{width:"100%",height:"95%"}}>
-      <Left>
-        <TopLeft>
-          <TextArea
-            value={textValue}
-            onChange={handleTextChange}
-            placeholder={"ALT+CTRL+C Item text..."}
-          />
-          <Options>
-            <InputWrapper
-              onClick={handleIsMirrorChange}
-              style={{ cursor: "pointer" }}
+      <FlexWrap
+        style={{
+          flexDirection: "column",
+          width: "100%",
+          height: "100%",
+          justifyContent: "flex-start",
+        }}
+      >
+        <FlexWrap style={{ width: "100%", height: "95%" }}>
+          <Left>
+            <TopLeft>
+              <TextArea
+                value={textValue}
+                onChange={handleTextChange}
+                placeholder={"ALT+CTRL+C Item text..."}
+              />
+              <Options>
+                <InputWrapper
+                  onClick={handleIsMirrorChange}
+                  style={{ cursor: "pointer" }}
+                >
+                  <Mirror
+                    isMirrorService={isMirrorService}
+                    src={
+                      "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyDuplicate.png?scale=1&w=1&h=1"
+                    }
+                  />
+                  <NameField
+                    style={{ border: "none", cursor: "pointer" }}
+                    value={"Mirror service?"}
+                    readOnly={true}
+                  />
+                </InputWrapper>
+                <InputWrapper>
+                  <Icon
+                    src={
+                      "https://web.poecdn.com/image/Art/2DItems/Amulets/AgateAmuletUnique.png?scale=1&w=1&h=1"
+                    }
+                  />
+                  <NameField
+                    value={nameValue}
+                    onChange={handleNameChange}
+                    placeholder="Item alias..."
+                  />
+                </InputWrapper>
+                <InputWrapper>
+                  <Icon
+                    src={
+                      "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollRare.png?scale=1&w=1&h=1"
+                    }
+                  />
+                  <NameField
+                    value={chaosValue}
+                    onChange={handleChaosChange}
+                    placeholder="Chaos Price..."
+                    onKeyPress={onKeyPress}
+                  />
+                </InputWrapper>
+                <InputWrapper>
+                  <Icon
+                    src={
+                      "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyAddModToRare.png?scale=1&w=1&h=1"
+                    }
+                  />
+                  <NameField
+                    value={exValue}
+                    onChange={handleExChange}
+                    placeholder="Exalted Price..."
+                    onKeyPress={onKeyPress}
+                  />
+                </InputWrapper>
+                <InputWrapper>
+                  <Icon
+                    src={
+                      "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyDuplicate.png?scale=1&w=1&h=1"
+                    }
+                  />
+                  <NameField
+                    value={mirrorValue}
+                    onChange={handleMirrorChange}
+                    placeholder="Mirror Price..."
+                    onKeyPress={onKeyPress}
+                  />
+                </InputWrapper>
+                <InputWrapper>
+                  <SvgIcon
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 448 512"
+                  >
+                    <path d="M400 32h-352C21.49 32 0 53.49 0 80v352C0 458.5 21.49 480 48 480h245.5c16.97 0 33.25-6.744 45.26-18.75l90.51-90.51C441.3 358.7 448 342.5 448 325.5V80C448 53.49 426.5 32 400 32zM64 96h320l-.001 224H320c-17.67 0-32 14.33-32 32v64H64V96z" />
+                  </SvgIcon>
+                  <NameField
+                    value={noteValue}
+                    onChange={handleNoteChange}
+                    placeholder="Item note..."
+                  />
+                </InputWrapper>
+                <ConfirmButton onClick={handleAddItem}>Add Item</ConfirmButton>
+              </Options>
+            </TopLeft>
+            <Header>Saved items</Header>
+            <ItemListWrap>
+              {bulkItems &&
+                bulkItems.map((bulkItem: any) => {
+                  return <BulkItemSavedRecord item={bulkItem} />;
+                })}
+            </ItemListWrap>
+          </Left>
+          <Right>
+            <Header style={{ justifyContent: "center" }}>Selected items</Header>
+            <Box
+              sx={{
+                width: "96%",
+                height: "90%",
+                overflowY: "scroll",
+                overflowX: "hidden",
+              }}
             >
-              <Mirror
-                isMirrorService={isMirrorService}
-                src={
-                  "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyDuplicate.png?scale=1&w=1&h=1"
-                }
-              />
-              <NameField
-                style={{ border: "none", cursor: "pointer" }}
-                value={"Mirror service?"}
-                readOnly={true}
-              />
-            </InputWrapper>
-            <InputWrapper>
-              <Icon
-                src={
-                  "https://web.poecdn.com/image/Art/2DItems/Amulets/AgateAmuletUnique.png?scale=1&w=1&h=1"
-                }
-              />
-              <NameField
-                value={nameValue}
-                onChange={handleNameChange}
-                placeholder="Item alias..."
-              />
-            </InputWrapper>
-            <InputWrapper>
-              <Icon
-                src={
-                  "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollRare.png?scale=1&w=1&h=1"
-                }
-              />
-              <NameField
-                value={chaosValue}
-                onChange={handleChaosChange}
-                placeholder="Chaos Price..."
-                onKeyPress={onKeyPress}
-              />
-            </InputWrapper>
-            <InputWrapper>
-              <Icon
-                src={
-                  "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyAddModToRare.png?scale=1&w=1&h=1"
-                }
-              />
-              <NameField
-                value={exValue}
-                onChange={handleExChange}
-                placeholder="Exalted Price..."
-                onKeyPress={onKeyPress}
-              />
-            </InputWrapper>
-            <InputWrapper>
-              <Icon
-                src={
-                  "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyDuplicate.png?scale=1&w=1&h=1"
-                }
-              />
-              <NameField
-                value={mirrorValue}
-                onChange={handleMirrorChange}
-                placeholder="Mirror Price..."
-                onKeyPress={onKeyPress}
-              />
-            </InputWrapper>
-            <InputWrapper>
-              <SvgIcon xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                <path d="M400 32h-352C21.49 32 0 53.49 0 80v352C0 458.5 21.49 480 48 480h245.5c16.97 0 33.25-6.744 45.26-18.75l90.51-90.51C441.3 358.7 448 342.5 448 325.5V80C448 53.49 426.5 32 400 32zM64 96h320l-.001 224H320c-17.67 0-32 14.33-32 32v64H64V96z" />
-              </SvgIcon>
-              <NameField
-                value={noteValue}
-                onChange={handleNoteChange}
-                placeholder="Item note..."
-              />
-            </InputWrapper>
-            <ConfirmButton onClick={handleAddItem}>Add Item</ConfirmButton>
-          </Options>
-        </TopLeft>
-        <Header>Saved items</Header>
-        <ItemListWrap>
-          {bulkItems &&
-            bulkItems.map((bulkItem:any) => {
-              return <BulkItemSavedRecord item={bulkItem} />;
-            })}
-        </ItemListWrap>
-      </Left>
-      <Right>
-        <Header style={{ justifyContent: "center" }}>Selected items</Header>
-        <Box
-          sx={{
-            width: "96%",
-            height: "90%",
-            overflowY: "scroll",
-            overflowX: "hidden",
-          }}
-        >
               <Masonry columns={columns} spacing={2}>
-            {selectedItems.map((x: any) => {
-              return (
-                <BulkItemWrapper>
-                  <BulkItemNote item={x} />
-                  <BulkItemIcon item={x.item} />
-                  <BulkItemHeader item={x} />
-                </BulkItemWrapper>
-              );
-            })}
-          </Masonry>
-        </Box>
+                {selectedItems.map((x: any) => {
+                  return (
+                    <BulkItemWrapper>
+                      <BulkItemNote item={x} />
+                      <BulkItemIcon item={x.item} />
+                      <BulkItemHeader item={x} />
+                    </BulkItemWrapper>
+                  );
+                })}
+              </Masonry>
+            </Box>
+          </Right>
+        </FlexWrap>
 
-      </Right>
-    </FlexWrap>
-
-  <FlexWrap style={{width:"100%",height:"5%"}}>
-      <GenerateBulkItemMessage selectedItems={selectedItems} msg={msg} setMsg={setMsg}/>
-    </FlexWrap>
-
-    </FlexWrap>
+        <FlexWrap style={{ width: "100%", height: "5%" }}>
+          <GenerateBulkItemMessage
+            selectedItems={selectedItems}
+            msg={msg}
+            setMsg={setMsg}
+          />
+        </FlexWrap>
+      </FlexWrap>
 
       <GeneratedBulkItemMessage selectedItems={selectedItems} msg={msg} />
     </Wrapper>

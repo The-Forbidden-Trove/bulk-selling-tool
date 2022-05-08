@@ -62,8 +62,6 @@ export const ItemIcon = ({ item }: any) => {
     return "";
   };
 
-  let socketCounter = 0;
-
   const getLinks = () => {
     let links = [
       <LinkHorizontal bg={""} />,
@@ -79,16 +77,6 @@ export const ItemIcon = ({ item }: any) => {
     let isEven = true;
     item.sockets.groups.forEach((group: string[]) => {
       group.slice(0, -1).forEach((color: string) => {
-        console.log(
-          item.base.name,
-          group,
-          idx,
-          links[idx].props.bg,
-          "isEven",
-          isEven,
-          "isLeft",
-          isLeft,
-        );
         links[idx] = isEven ? (
           <LinkHorizontal
             bg={"https://web.poecdn.com/image/gen/socket.png?1651788356474"}
@@ -180,8 +168,6 @@ export const ItemIcon = ({ item }: any) => {
     </>
   );
 };
-
-//"https://web.poecdn.com/image/gen/socket.png?1651788356474");
 
 const Wrapper = styled(FlexWrap)`
   margin-top: 6px;

@@ -139,7 +139,6 @@ export const ItemIcon = ({ item }: any) => {
       {item.icon && (
         <Wrapper>
           <IconBase
-            crossOrigin="anonymous"
             src={item.icon + (item.base.rarity === "Unique" ? "" : "&scale=1")}
             isMirrored={item.flags.mirrored}
             isUnique={item.base.rarity === "Unique"}

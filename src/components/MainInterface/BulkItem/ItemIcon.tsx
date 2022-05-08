@@ -139,7 +139,7 @@ export const ItemIcon = ({ item }: any) => {
       {item.icon && (
         <Wrapper>
           <IconBase
-            src={item.icon + (item.base.rarity === "Unique" ? "" : "&scale=1")}
+            src={item.icon.replace("http://","https://") + (item.base.rarity === "Unique" ? "" : "&scale=1")}
             isMirrored={item.flags.mirrored}
             isUnique={item.base.rarity === "Unique"}
             isOneWidth={item.base.w === 1}

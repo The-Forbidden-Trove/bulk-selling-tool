@@ -95,10 +95,11 @@ export const ItemIcon = ({ item }: any) => {
           />
         );
         idx += 1;
-        if (isEven === false) isLeft = !isLeft;
+        if (!isEven && isLeft === false) isLeft = true;
         isEven = !isEven;
       });
 
+      if (!isEven && isLeft === false) isLeft = true;
       if (group.length <= 2) {
         idx += 1;
         isEven = !isEven;
@@ -144,31 +145,33 @@ export const ItemIcon = ({ item }: any) => {
             isOneWidth={item.base.w === 1}
           />
 
-          {item.sockets && item.sockets.groups &&<Sockets isGrid={isGrid}>
-            {item.sockets.groups.flatMap((group: string[]) => {
-              return group.map((color: string) => {
-                const offsetX = getOffsetX(color);
-                const offsetY = getOffsetY(color);
-                return (
-                  <FlexWrap>
-                    <IconBackground
-                      sockets={sockets}
-                      offsetX={offsetX}
-                      offsetY={offsetY}
-                    />
-                  </FlexWrap>
-                );
-              });
-            })}
-          </Sockets>}
+          {item.sockets && item.sockets.groups && (
+            <Sockets isGrid={isGrid}>
+              {item.sockets.groups.flatMap((group: string[]) => {
+                return group.map((color: string) => {
+                  const offsetX = getOffsetX(color);
+                  const offsetY = getOffsetY(color);
+                  return (
+                    <FlexWrap>
+                      <IconBackground
+                        sockets={sockets}
+                        offsetX={offsetX}
+                        offsetY={offsetY}
+                      />
+                    </FlexWrap>
+                  );
+                });
+              })}
+            </Sockets>
+          )}
 
-          {item.sockets && item.sockets.groups && item.base.w === 1 &&
+          {item.sockets && item.sockets.groups && item.base.w === 1 && (
             <Links>{getVerticalLinks()}</Links>
-        }
+          )}
 
-          {item.sockets && item.sockets.groups && item.base.w !== 1 &&
+          {item.sockets && item.sockets.groups && item.base.w !== 1 && (
             <Links>{getLinks()}</Links>
-        }
+          )}
         </Wrapper>
       )}
     </>

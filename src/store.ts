@@ -5,7 +5,7 @@ import thunk from "redux-thunk";
 const store = createStore(reducer, applyMiddleware(thunk));
 
 //
-store.subscribe(() => console.log("STATE: ", store.getState()));
+//store.subscribe(() => console.log("STATE: ", store.getState()));
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;

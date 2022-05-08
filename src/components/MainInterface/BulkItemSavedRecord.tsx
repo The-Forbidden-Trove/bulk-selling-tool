@@ -158,73 +158,74 @@ const BulkItemSavedRecord = ({ item }: any) => {
       </Header>
       {isDetails && (
         <Details>
-        <DetailSection>
-          <Mirror
-            isMirrorService={isMirrorService}
-            onClick={handleIsMirrorChange}
-            src={
-              "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyDuplicate.png?scale=1&w=1&h=1"
-            }
-          />
-          <InputWrapper>
-            <NameField
-              value={nameValue}
-              onChange={handleNameChange}
-              placeholder="Item name..."
+          <DetailSection>
+            <Mirror
+              isMirrorService={isMirrorService}
+              onClick={handleIsMirrorChange}
+              src={
+                "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyDuplicate.png?scale=1&w=1&h=1"
+              }
             />
-          </InputWrapper>
+            <InputWrapper>
+              <NameField
+                value={nameValue}
+                onChange={handleNameChange}
+                placeholder="Item name..."
+              />
+            </InputWrapper>
 
-          <InputWrapper>
-            <NameField
-              value={itemNote}
-              onChange={handleNoteChange}
-              placeholder="Item note..."
-            />
-          </InputWrapper>
+            <InputWrapper>
+              <NameField
+                value={itemNote}
+                onChange={handleNoteChange}
+                placeholder="Item note..."
+              />
+            </InputWrapper>
           </DetailSection>
 
-        <DetailSection>
-          <InputWrapper>
-            <Icon
-              src={
-                "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollRare.png?scale=1&w=1&h=1"
-              }
-            />
-            <PriceField
-              value={chaosValue}
-              onChange={handleChaosChange}
-              onKeyPress={onKeyPress}
-              placeholder="Chaos Price..."
-            />
-          </InputWrapper>
-          <InputWrapper>
-            <Icon
-              src={
-                "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyAddModToRare.png?scale=1&w=1&h=1"
-              }
-            />
-            <PriceField
-              value={exValue}
-              onChange={handleExChange}
-              onKeyPress={onKeyPress}
-              placeholder="Exalted Price..."
-            />
-          </InputWrapper>
+          <DetailSection>
+            <InputWrapper>
+              <Icon
+                src={
+                  "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyDuplicate.png?scale=1&w=1&h=1"
+                }
+              />
+              <PriceField
+                value={mirrorValue}
+                onChange={handleMirrorChange}
+                onKeyPress={onKeyPress}
+                placeholder="Mirror Price..."
+              />
+            </InputWrapper>
 
-          <InputWrapper>
-            <Icon
-              src={
-              "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyDuplicate.png?scale=1&w=1&h=1"
-              }
-            />
-            <PriceField
-              value={mirrorValue}
-              onChange={handleMirrorChange}
-              onKeyPress={onKeyPress}
-              placeholder="Mirror Price..."
-            />
-          </InputWrapper>
-        </DetailSection>
+            <InputWrapper>
+              <Icon
+                src={
+                  "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyAddModToRare.png?scale=1&w=1&h=1"
+                }
+              />
+              <PriceField
+                value={exValue}
+                onChange={handleExChange}
+                onKeyPress={onKeyPress}
+                placeholder="Exalted Price..."
+              />
+            </InputWrapper>
+
+            <InputWrapper>
+              <Icon
+                src={
+                  "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollRare.png?scale=1&w=1&h=1"
+                }
+              />
+              <PriceField
+                value={chaosValue}
+                onChange={handleChaosChange}
+                onKeyPress={onKeyPress}
+                placeholder="Chaos Price..."
+              />
+            </InputWrapper>
+          </DetailSection>
         </Details>
       )}
     </Wrapper>
@@ -237,8 +238,7 @@ const SelectWrap = styled(FlexWrap)`
   padding: 10px 12px;
 `;
 
-const DetailSection = styled(FlexWrap)`
-`;
+const DetailSection = styled(FlexWrap)``;
 
 const Header = styled(FlexWrap)`
   background: #0b1a3a;

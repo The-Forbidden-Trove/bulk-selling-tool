@@ -40,7 +40,11 @@ export const ItemIcon = ({ item }: any) => {
   useEffect(() => {
     if (item.base.w === 1 && (item.base.h === 3 || item.base.h === 4))
       setIsGrid(false);
-    if (item.sockets.groups.flatMap((e: any) => e).length <= 1)
+    if (
+      item.sockets &&
+      item.sockets.groups &&
+      item.sockets.groups.flatMap((e: any) => e).length <= 1
+    )
       setIsGrid(false);
   }, [item.base.w, item.base.h]);
 
@@ -140,7 +144,7 @@ export const ItemIcon = ({ item }: any) => {
             isOneWidth={item.base.w === 1}
           />
 
-          <Sockets isGrid={isGrid}>
+          {item.sockets && item.sockets.groups &&<Sockets isGrid={isGrid}>
             {item.sockets.groups.flatMap((group: string[]) => {
               return group.map((color: string) => {
                 const offsetX = getOffsetX(color);
@@ -156,13 +160,15 @@ export const ItemIcon = ({ item }: any) => {
                 );
               });
             })}
-          </Sockets>
+          </Sockets>}
 
-          {item.base.w === 1 ? (
+          {item.sockets && item.sockets.groups && item.base.w === 1 &&
             <Links>{getVerticalLinks()}</Links>
-          ) : (
+        }
+
+          {item.sockets && item.sockets.groups && item.base.w !== 1 &&
             <Links>{getLinks()}</Links>
-          )}
+        }
         </Wrapper>
       )}
     </>

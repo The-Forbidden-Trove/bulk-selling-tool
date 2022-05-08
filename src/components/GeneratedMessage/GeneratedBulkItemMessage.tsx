@@ -39,7 +39,6 @@ const GeneratedBulkItemMessage = ({ selectedItems, msg }: any) => {
     let totalChaos = 0;
     let totalMirror = 0;
     selectedItems.forEach((item: any) => {
-      console.log(item.item.icon);
       totalChaos += Number(item.chaosValue);
       totalChaos += Number(item.exValue) * exPrice;
       totalMirror += Number(item.mirrorValue);

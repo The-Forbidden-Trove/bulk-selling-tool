@@ -239,12 +239,12 @@ const MagicItemHeader = styled(Header)`
 `;
 
 const NormalItemHeader = styled(Header)`
-  background: url("https://web.poecdn.com/image/image/item/popup/header-normal-left.png?1648706966517")
-      top left no-repeat,
-    url("https://web.poecdn.com/image/image/item/popup/header-normal-right.png?1648706966517")
-      top right no-repeat,
-    url("https://web.poecdn.com/image/image/item/popup/header-normal-middle.png?1648706966517")
-      top center repeat-x;
+  background: url("https://web.poecdn.com/image/item/popup/header-normal-left.png?1648706966517") top
+      left no-repeat,
+    url("https://web.poecdn.com/image/item/popup/header-normal-right.png?1648706966517") top right
+      no-repeat,
+    url("https://web.poecdn.com/image/item/popup/header-normal-middle.png?1648706966517") top center
+      repeat-x;
   color: #c8c8c8;
 
   background-size: contain;

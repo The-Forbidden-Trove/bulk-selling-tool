@@ -6,10 +6,10 @@ export const BulkItemNote = ({ item }: any) => {
 };
 
 const Wrapper = styled(FlexWrap)`
-  width: 98%;
+  width: 100%;
   justify-content: flex-start;
   padding: 3px 10px;
-  background: #0b1a3a;
+  background: transparent;
 `;
 
 const Icon = styled.img`

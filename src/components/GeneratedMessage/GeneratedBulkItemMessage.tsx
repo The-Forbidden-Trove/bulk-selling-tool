@@ -11,7 +11,7 @@ import chaosOrb from "../../assets/chaosOrb.png";
 import exaltedOrb from "../../assets/exaltedOrb.png";
 import { useEffect, useState } from "react";
 
-const GeneratedBulkItemMessage = ({ selectedItems,msg }: any) => {
+const GeneratedBulkItemMessage = ({ selectedItems, msg }: any) => {
   const [sellEx, setSellEx] = useState(0);
   const [sellChaos, setSellChaos] = useState(0);
   const [sellMirror, setSellMirror] = useState(0);
@@ -39,6 +39,7 @@ const GeneratedBulkItemMessage = ({ selectedItems,msg }: any) => {
     let totalChaos = 0;
     let totalMirror = 0;
     selectedItems.forEach((item: any) => {
+      console.log(item.item.icon);
       totalChaos += Number(item.chaosValue);
       totalChaos += Number(item.exValue) * exPrice;
       totalMirror += Number(item.mirrorValue);
@@ -180,5 +181,7 @@ const H = styled.h3`
 const BulkItemWrapper = styled(FlexWrap)`
   flex-direction: column;
   border: solid 3px #0b1a3a;
+  background: #0b1a3a;
   border-radius: 0.5em;
+  padding: 0px 1px;
 `;

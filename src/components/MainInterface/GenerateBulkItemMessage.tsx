@@ -51,7 +51,7 @@ const GenerateBulkItemMessage = ({ selectedItems, msg, setMsg }: any) => {
     return new Promise((resolve, reject) => {
       const copyText = `WTS ${league}\n${
         userName ? `IGN: \`${userName}\`\n` : ""
-      }`;
+}${msg.length > 0 ? "Note: `" + msg + "`" : ""}`;
 
       const textBlob: any = new Blob([copyText], {
         type: "text/plain",
@@ -166,9 +166,11 @@ const GenerateBulkItemMessage = ({ selectedItems, msg, setMsg }: any) => {
         <P>Asking Price</P>
 
         <>
-          <Icon src={
-                      "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyDuplicate.png?scale=1&w=1&h=1"
-          } />
+          <Icon
+            src={
+              "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyDuplicate.png?scale=1&w=1&h=1"
+            }
+          />
           <P>{sellMirror}</P>
         </>
 
@@ -191,7 +193,7 @@ const GenerateBulkItemMessage = ({ selectedItems, msg, setMsg }: any) => {
         <FlexWrap>
           <P>Note</P>
           <Input
-            placeholder="Put your lisint note here..."
+            placeholder="Put your listing note here..."
             value={msg}
             onChange={(e: any) => setMsg(e.target.value)}
           />

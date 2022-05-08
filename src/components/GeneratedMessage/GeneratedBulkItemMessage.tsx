@@ -121,9 +121,9 @@ const GeneratedBulkItemMessage = ({ selectedItems, msg }: any) => {
             {selectedItems.map((x: any) => {
               return (
                 <BulkItemWrapper>
-                  <BulkItemHeader item={x} />
-                  <BulkItemIcon item={x.item} />
                   <BulkItemNote item={x} />
+                  <BulkItemIcon item={x.item} />
+                  <BulkItemHeader item={x} />
                 </BulkItemWrapper>
               );
             })}

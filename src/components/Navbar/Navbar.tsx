@@ -201,6 +201,18 @@ const TextIcon = styled(FlexWrap)`
     background: none;
   }
 `;
+
+const Red = styled(FlexWrap)`
+  width: 100%;
+  text-align: left;
+  color: ${(props) => props.theme.colors.accent2};
+  font-size: ${(props) => props.theme.fontS};
+`;
+
+const Text = styled(FlexWrap)`
+  flex-direction: column;
+  justify-content: flex-start;
+`;
 const Right = styled(FlexWrap)`
   width: 33%;
   justify-content: flex-end;
@@ -274,16 +286,4 @@ const SvgIcon = styled.svg`
   padding: 0px 5px 0px 0px;
   height: 26px;
   width: 26px;
-`;
-
-const Red = styled(FlexWrap)`
-  width: 100%;
-  text-align: left;
-  color: ${(props) => props.theme.colors.accent2};
-  font-size: ${(props) => props.theme.fontS};
-`;
-
-const Text = styled(FlexWrap)`
-  flex-direction: column;
-  justify-content: flex-start;
 `;

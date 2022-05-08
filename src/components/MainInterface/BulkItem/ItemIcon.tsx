@@ -143,6 +143,7 @@ export const ItemIcon = ({ item }: any) => {
             isMirrored={item.flags.mirrored}
             isUnique={item.base.rarity === "Unique"}
             isOneWidth={item.base.w === 1}
+            crossOrigin="anonymous"
           />
 
           {item.sockets && item.sockets.groups && (

@@ -53,6 +53,10 @@ const GeneratedBulkItemMessage = ({ selectedItems, msg }: any) => {
     if (len >= 3) setColumns(3);
   }, [selectedItems]);
 
+  const runCallback = (cb: any) => {
+    return cb();
+  };
+
   return (
     <Wrapper id="generatedBulkItemMessage">
       <H>Generated with TFT Bulk Selling Tool</H>
@@ -111,17 +115,21 @@ const GeneratedBulkItemMessage = ({ selectedItems, msg }: any) => {
         </ExPrice>
       </Header>
 
-      <Masonry columns={columns} spacing={2}>
-        {selectedItems.map((x: any) => {
-          return (
-            <BulkItemWrapper>
-              <BulkItemHeader item={x} />
-              <BulkItemIcon item={x.item} />
-              <BulkItemNote item={x} />
-            </BulkItemWrapper>
-          );
-        })}
-      </Masonry>
+      {runCallback(() => {
+        return (
+          <Masonry columns={columns} spacing={2}>
+            {selectedItems.map((x: any) => {
+              return (
+                <BulkItemWrapper>
+                  <BulkItemHeader item={x} />
+                  <BulkItemIcon item={x.item} />
+                  <BulkItemNote item={x} />
+                </BulkItemWrapper>
+              );
+            })}
+          </Masonry>
+        );
+      })}
       <P>{msg}</P>
     </Wrapper>
   );
@@ -142,8 +150,8 @@ const Wrapper = styled(FlexWrap)`
   visibility: visible;
   padding: 20px 20px 10px 20px;
   flex-direction: column;
-  left: -5000%;
-  top: -5000%;
+  left: 5000%;
+  top: 5000%;
   position: absolute;
 
   background: ${(props) => props.theme.colors.bg};

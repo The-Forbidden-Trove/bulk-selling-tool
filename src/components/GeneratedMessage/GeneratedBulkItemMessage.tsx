@@ -51,7 +51,7 @@ const GeneratedBulkItemMessage = ({ selectedItems, msg }: any) => {
     if (len === 1) setColumns(2);
     if (len === 2) setColumns(2);
     if (len >= 3) setColumns(3);
-  }, [selectedItems]);
+  }, [selectedItems, exPrice, makeExPrice, makeChaosPrice]);
 
   const runCallback = (cb: any) => {
     return cb();
@@ -68,7 +68,7 @@ const GeneratedBulkItemMessage = ({ selectedItems, msg }: any) => {
             <FlexWrap>
               <Icon
                 src={
-                  "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyDuplicate.png?scale=1&w=1&h=1"
+                  "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQ3VycmVuY3lEdXBsaWNhdGUiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/7111e35254/CurrencyDuplicate.png"
                 }
               />
               <P>{sellMirror}</P>
@@ -78,18 +78,14 @@ const GeneratedBulkItemMessage = ({ selectedItems, msg }: any) => {
           {sellEx > 0 && (
             <FlexWrap>
               <Icon src={exaltedOrb} />
-              <P>
-                {Math.round(
-                  sellEx + ((sellChaos + Number.EPSILON) * 100) / exPrice / 100,
-                )}
-              </P>
+              <P>{Math.round(sellEx)}</P>
             </FlexWrap>
           )}
 
           {sellChaos > 0 && (
             <FlexWrap>
               <Icon src={chaosOrb} />
-              <P>{Math.round((sellChaos + Number.EPSILON) * 100) / 100}</P>
+              <P>{Math.round(sellChaos)}</P>
             </FlexWrap>
           )}
         </TotalValue>

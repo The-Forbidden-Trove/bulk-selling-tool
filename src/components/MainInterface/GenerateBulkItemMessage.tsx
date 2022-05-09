@@ -51,7 +51,7 @@ const GenerateBulkItemMessage = ({ selectedItems, msg, setMsg }: any) => {
     return new Promise((resolve, reject) => {
       const copyText = `WTS ${league}\n${
         userName ? `IGN: \`${userName}\`\n` : ""
-}${msg.length > 0 ? "Note: `" + msg + "`" : ""}`;
+      }${msg.length > 0 ? "Note: `" + msg + "`" : ""}`;
 
       const textBlob: any = new Blob([copyText], {
         type: "text/plain",
@@ -158,7 +158,7 @@ const GenerateBulkItemMessage = ({ selectedItems, msg, setMsg }: any) => {
     setSellEx(makeExPrice(totalChaos));
     setSellChaos(makeChaosPrice(totalChaos));
     setSellMirror(totalMirror);
-  }, [selectedItems]);
+  }, [selectedItems, exPrice, makeExPrice, makeChaosPrice]);
 
   return (
     <Wrapper>
@@ -168,7 +168,7 @@ const GenerateBulkItemMessage = ({ selectedItems, msg, setMsg }: any) => {
         <>
           <Icon
             src={
-              "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyDuplicate.png?scale=1&w=1&h=1"
+              "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQ3VycmVuY3lEdXBsaWNhdGUiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/7111e35254/CurrencyDuplicate.png"
             }
           />
           <P>{sellMirror}</P>
@@ -176,16 +176,12 @@ const GenerateBulkItemMessage = ({ selectedItems, msg, setMsg }: any) => {
 
         <>
           <Icon src={exaltedOrb} />
-          <P>
-            {Math.round(
-              sellEx + ((sellChaos + Number.EPSILON) * 100) / exPrice / 100,
-            )}
-          </P>
+          <P>{Math.round(sellEx)}</P>
         </>
 
         <>
           <Icon src={chaosOrb} />
-          <P>{Math.round((sellChaos + Number.EPSILON) * 100) / 100}</P>
+          <P>{Math.round(sellChaos)}</P>
         </>
       </FlexWrap>
 

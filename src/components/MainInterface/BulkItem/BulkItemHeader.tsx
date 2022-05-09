@@ -9,7 +9,7 @@ export const BulkItemHeader = ({ item }: any) => {
           <PriceWrapper>
             <Icon
               src={
-                "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyDuplicate.png?scale=1&w=1&h=1"
+                "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQ3VycmVuY3lEdXBsaWNhdGUiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/7111e35254/CurrencyDuplicate.png"
               }
             />
           </PriceWrapper>
@@ -33,7 +33,7 @@ export const BulkItemHeader = ({ item }: any) => {
         <PriceWrapper>
           <Icon
             src={
-              "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyDuplicate.png?scale=1&w=1&h=1"
+              "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQ3VycmVuY3lEdXBsaWNhdGUiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/7111e35254/CurrencyDuplicate.png"
             }
           />
           <Price>{item.mirrorValue}</Price>
@@ -44,7 +44,7 @@ export const BulkItemHeader = ({ item }: any) => {
         <PriceWrapper>
           <Icon
             src={
-              "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyAddModToRare.png?scale=1&w=1&h=1"
+              "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQ3VycmVuY3lBZGRNb2RUb1JhcmUiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/b102771c23/CurrencyAddModToRare.png"
             }
           />
           <Price>{item.exValue}</Price>
@@ -55,7 +55,7 @@ export const BulkItemHeader = ({ item }: any) => {
         <PriceWrapper>
           <Icon
             src={
-              "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollRare.png?scale=1&w=1&h=1"
+              "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQ3VycmVuY3lSZXJvbGxSYXJlIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/d119a0d734/CurrencyRerollRare.png"
             }
           />
           <Price>{item.chaosValue}</Price>

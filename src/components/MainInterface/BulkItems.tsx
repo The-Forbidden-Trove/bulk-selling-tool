@@ -6,7 +6,6 @@ import { useAppDispatch, useAppSelector } from "../..";
 import BulkItemSavedRecord from "./BulkItemSavedRecord";
 import BulkItemIcon from "./BulkItemIconUnique";
 
-import Box from "@mui/material/Box";
 import Masonry from "@mui/lab/Masonry";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { BulkItemHeader } from "./BulkItem/BulkItemHeader";
@@ -247,14 +246,7 @@ const BulkItems = () => {
           </Left>
           <Right>
             <Header style={{ justifyContent: "center" }}>Selected items</Header>
-            <Box
-              sx={{
-                width: "96%",
-                height: "90%",
-                overflowY: "scroll",
-                overflowX: "hidden",
-              }}
-            >
+            <Box style={{}}>
               <Masonry columns={columns} spacing={2}>
                 {selectedItems.map((x: any) => {
                   return (
@@ -286,6 +278,32 @@ const BulkItems = () => {
 
 export default BulkItems;
 
+const Box = styled(FlexWrap)`
+  width: 96%;
+  height: 90%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    background-color: #f5f5f5;
+    background: none;
+  }
+
+  &::-webkit-scrollbar {
+    width: 12px;
+    background-color: #f5f5f5;
+
+    background: none;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #555;
+  }
+`;
 const BulkItemWrapper = styled(FlexWrap)`
   flex-direction: column;
   background: #0b1a3a;
@@ -302,6 +320,25 @@ const ItemListWrap = styled(FlexWrap)`
   align-items: flex-start;
   justify-content: flex-start;
 
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    background-color: #f5f5f5;
+    background: none;
+  }
+
+  &::-webkit-scrollbar {
+    width: 12px;
+    background-color: #f5f5f5;
+
+    background: none;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #555;
+  }
 `;
 
 const InputWrapper = styled(FlexWrap)`

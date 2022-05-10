@@ -301,6 +301,7 @@ const ItemListWrap = styled(FlexWrap)`
   overflow-y: scroll;
   align-items: flex-start;
   justify-content: flex-start;
+
 `;
 
 const InputWrapper = styled(FlexWrap)`
@@ -320,6 +321,26 @@ const ConfirmButton = styled(Button)`
 const Wrapper = styled(FlexWrap)`
   width: 100%;
   height: 100%;
+
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    background-color: #f5f5f5;
+    background: none;
+  }
+
+  &::-webkit-scrollbar {
+    width: 12px;
+    background-color: #f5f5f5;
+
+    background: none;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #555;
+  }
 `;
 
 const Left = styled(FlexWrap)`

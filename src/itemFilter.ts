@@ -736,6 +736,10 @@ export const itemFilter = {
       "Deafening Essence of Misery",
       "Deafening Essence of Suffering",
       "Deafening Essence of Torment",
+      "Essence of Insanity",
+      "Essence of Horror",
+      "Essence of Delirium",
+      "Essence of Hysteria"
     ],
     icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQnJlYWNoL0JyZWFjaEZyYWdtZW50c0NoYW9zIiwic2NhbGUiOjF9XQ/4c99b7dd49/BreachFragmentsChaos.png",
   },

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useAppSelector } from "../..";
 import { FlexWrap } from "../baseStyles";
 import chaosOrb from "../../assets/chaosOrb.png";
-import exaltedOrb from "../../assets/exaltedOrb.png";
+import exaltedOrb from "../../assets/divineOrb.png";
 
 import { FaTimes } from "react-icons/fa";
 

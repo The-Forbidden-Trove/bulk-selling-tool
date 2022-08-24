@@ -16,14 +16,14 @@ export const BulkItemHeader = ({ item }: any) => {
         )}
 
       {(item.exValue > 0 || item.chaosValue > 0 || item.mirrorValue > 0) &&
-      item.isMirrorService ? (
+        item.isMirrorService ? (
         <Price>Mirror Fee: </Price>
       ) : (
         <></>
       )}
 
       {(item.exValue > 0 || item.chaosValue > 0 || item.mirrorValue > 0) &&
-      !item.isMirrorService ? (
+        !item.isMirrorService ? (
         <Price>Asking Price</Price>
       ) : (
         <></>
@@ -44,7 +44,7 @@ export const BulkItemHeader = ({ item }: any) => {
         <PriceWrapper>
           <Icon
             src={
-              "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQ3VycmVuY3lBZGRNb2RUb1JhcmUiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/b102771c23/CurrencyAddModToRare.png"
+              "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQ3VycmVuY3lNb2RWYWx1ZXMiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/e1a54ff97d/CurrencyModValues.png"
             }
           />
           <Price>{item.exValue}</Price>

@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 import chaosOrb from "../../assets/chaosOrb.png";
-import exaltedOrb from "../../assets/exaltedOrb.png";
+import exaltedOrb from "../../assets/divineOrb.png";
 
 import { FaExclamationTriangle } from "react-icons/fa";
 

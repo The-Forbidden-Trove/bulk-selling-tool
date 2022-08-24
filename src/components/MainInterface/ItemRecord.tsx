@@ -75,7 +75,7 @@ const ItemRecord = ({ item }: any) => {
   return (
     <ItemRecordWrap isSelected={item.isSelected}>
       <NameWrap onClick={() => dispatch(toggleItemSelect(item.name))}>
-        <Checkbox checked={item.isSelected} onChange={() => {}} />
+        <Checkbox checked={item.isSelected} onChange={() => { }} />
         <Icon
           src={item.icon}
           alt="icon"
@@ -129,7 +129,7 @@ const ItemRecord = ({ item }: any) => {
       <PriceWrap>
         <Icon
           src={
-            "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyAddModToRare.png?scale=1&w=1&h=1"
+            "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQ3VycmVuY3lNb2RWYWx1ZXMiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/e1a54ff97d/CurrencyModValues.png"
           }
         />
         <PriceP>
@@ -162,7 +162,7 @@ const ChaosValue = styled(Input)`
   border-radius: 4px;
 `;
 
-const ItemRecordWrap = styled(FlexWrap)<{ isSelected?: boolean }>`
+const ItemRecordWrap = styled(FlexWrap) <{ isSelected?: boolean }>`
   width: 100%;
   padding: 5px 0px;
 

@@ -6,7 +6,7 @@ import GeneratedMessageItemRecord from './GeneratedMessageItemRecord';
 // for some reason I couldn't get these to render on the generated message
 // even tho I added cors and tainted canvas to html2canvas
 import chaosOrb from '../../assets/chaosOrb.png';
-import exaltedOrb from '../../assets/exaltedOrb.png';
+import exaltedOrb from '../../assets/divineOrb.png';
 
 const GeneratedMessage = () => {
   let sellSum = 0;
@@ -109,9 +109,9 @@ const GeneratedMessage = () => {
           <Excluded>
             {contracts.length > 0 || sextants.length > 0
               ? '( excluding: ' +
-                (contracts.length > 0 ? 'contracts ' : '') +
-                (sextants.length > 0 ? 'sextants ' : '') +
-                ')'
+              (contracts.length > 0 ? 'contracts ' : '') +
+              (sextants.length > 0 ? 'sextants ' : '') +
+              ')'
               : ''}
           </Excluded>
         </TotalValue>
@@ -133,7 +133,7 @@ const GeneratedMessage = () => {
           <P2>Ninja price</P2>
           <P2>Asking price</P2>
           <P2>Total chaos</P2>
-          <P2>Total exalted</P2>
+          <P2>Total divine</P2>
         </ItemRecordWrap>
 
         <ItemRecordWrap>
@@ -142,7 +142,7 @@ const GeneratedMessage = () => {
           <P2>Ninja price</P2>
           <P2>Asking price</P2>
           <P2>Total chaos</P2>
-          <P2>Total exalted</P2>
+          <P2>Total divine</P2>
         </ItemRecordWrap>
         {runCallback(() => {
           const rows: Item[] = [];

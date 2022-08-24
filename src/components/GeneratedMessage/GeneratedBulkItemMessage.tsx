@@ -8,7 +8,7 @@ import { BulkItemNote } from "../MainInterface/BulkItem/BulkItemNote";
 
 import Masonry from "@mui/lab/Masonry";
 import chaosOrb from "../../assets/chaosOrb.png";
-import exaltedOrb from "../../assets/exaltedOrb.png";
+import exaltedOrb from "../../assets/divineOrb.png";
 import { useEffect, useState } from "react";
 
 const GeneratedBulkItemMessage = ({ selectedItems, msg }: any) => {
@@ -25,7 +25,7 @@ const GeneratedBulkItemMessage = ({ selectedItems, msg }: any) => {
     const askingPriceChaos = Math.round(
       ((askingPrice * 100) / exPrice / 100 -
         Math.floor((askingPrice * 100) / exPrice / 100)) *
-        exPrice,
+      exPrice,
     );
     return askingPriceChaos;
   };

@@ -201,7 +201,7 @@ const PickedTabsHeader = () => {
           )}
           <ExWrap>
             <P>
-              <P style={{ width: "90px" }}>Ex Price</P>
+              <P style={{ width: "135px" }}>Divine Price</P>
               <Icon
                 src={
                   "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollRare.png?scale=1&w=1&h=1"
@@ -211,7 +211,7 @@ const PickedTabsHeader = () => {
 
               <Icon
                 src={
-                  "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyAddModToRare.png?scale=1&w=1&h=1"
+                  "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQ3VycmVuY3lNb2RWYWx1ZXMiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/e1a54ff97d/CurrencyModValues.png"
                 }
               />
             </P>
@@ -231,7 +231,7 @@ const PickedTabsHeader = () => {
 };
 export default PickedTabsHeader;
 
-const SetWrapper = styled(FlexWrap)<{ isSelected: boolean }>`
+const SetWrapper = styled(FlexWrap) <{ isSelected: boolean }>`
   padding: 0px 3px;
   opacity: ${(props) => (props.isSelected ? 1 : 0.5)};
   cursor: pointer;

@@ -30,18 +30,18 @@ const stashReducer = (state = initialState, action: any) => {
       const newState: StashTab[] = state.map((stash: StashTab) => {
         return stash.isHighlited
           ? {
-              ...stash,
-              isSelected: true,
-              isHighlited: false,
-              defaultMultiplier: action.data.multiplier,
-              assignedTypes: action.data.types.map((type: CurrencyType) => {
-                return {
-                  type: type.type,
-                  icon: type.icon,
-                  typeFilter: type.typeFilter,
-                };
-              }),
-            }
+            ...stash,
+            isSelected: true,
+            isHighlited: false,
+            defaultMultiplier: action.data.multiplier,
+            assignedTypes: action.data.types.map((type: CurrencyType) => {
+              return {
+                type: type.type,
+                icon: type.icon,
+                typeFilter: type.typeFilter,
+              };
+            }),
+          }
           : { ...stash };
       });
       return newState;
@@ -50,10 +50,10 @@ const stashReducer = (state = initialState, action: any) => {
       const newState = state.map((stash: StashTab) => {
         return stash.id === action.data.id
           ? {
-              ...stash,
-              filteredItems: action.data.filteredItems,
-              items: action.data.items,
-            }
+            ...stash,
+            filteredItems: action.data.filteredItems,
+            items: action.data.items,
+          }
           : stash;
       });
       return newState;
@@ -62,14 +62,14 @@ const stashReducer = (state = initialState, action: any) => {
       const newState = state.map((stash: StashTab) => {
         return stash.id === action.data.id
           ? {
-              ...stash,
-              isSelected: false,
-              isHighlited: false,
-              defaultMultiplier: undefined,
-              filteredItems: undefined,
-              items: undefined,
-              assignedTypes: undefined,
-            }
+            ...stash,
+            isSelected: false,
+            isHighlited: false,
+            defaultMultiplier: undefined,
+            filteredItems: undefined,
+            items: undefined,
+            assignedTypes: undefined,
+          }
           : { ...stash };
       });
       return newState;
@@ -135,7 +135,9 @@ export const selectStash = (
       return;
     }
 
-    const exPrice: number = ninjaItems["Exalted Orb"].chaosValue;
+    const exPrice: number = ninjaItems["Divine Orb"].chaosValue;
+    console.log(exPrice);
+
 
     dispatch({
       type: "SELECT_STASH",
@@ -165,17 +167,16 @@ export const selectStash = (
               //@ts-ignore
               item.properties.find((x): any => x.name === "Map Tier")
                 .values[0][0]
-            }`;
+              }`;
           } else if (item.baseType.match(/Blight-ravaged [\w\s]+Map/)) {
             name = `${item.baseType} ${
               //@ts-ignore
               item.properties.find((x): any => x.name === "Map Tier")
                 .values[0][0]
-            }`;
+              }`;
           } else if (item.baseType.includes("Contract:")) {
-            name = `Contract ${item.properties[3].values[1][0]}${
-              Number(item.ilvl) >= 81 ? " 81+" : ""
-            }`;
+            name = `Contract ${item.properties[3].values[1][0]}${Number(item.ilvl) >= 81 ? " 81+" : ""
+              }`;
           } else if (
             item.baseType.includes("Charged Compass") &&
             item.hasOwnProperty("enchantMods")
@@ -183,9 +184,9 @@ export const selectStash = (
             name = `Sextant ${item.enchantMods
               .slice(0, -1)
               .join(" ")} (${item.enchantMods[item.enchantMods.length - 1]
-              .split(" ")
-              .slice(0, -1)
-              .join(" ")})`;
+                .split(" ")
+                .slice(0, -1)
+                .join(" ")})`;
           }
 
           if (items[name]) {
@@ -205,8 +206,8 @@ export const selectStash = (
                 : 0,
               sellValue: ninjaItems[name]
                 ? roundToTwo(
-                    (ninjaItems[name].chaosValue * items[name].multiplier) / 100
-                  )
+                  (ninjaItems[name].chaosValue * items[name].multiplier) / 100
+                )
                 : 0,
               multiplier: multiplier,
               sellMultiplier: multiplier,

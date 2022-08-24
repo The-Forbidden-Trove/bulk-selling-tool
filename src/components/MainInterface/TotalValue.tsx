@@ -29,22 +29,20 @@ const TotalValue = () => {
   const generateImage = () => {
     toast.promise(generateImg, {
       pending: "Generating image",
-      success: `${
-        isFirefox || isSafari
-          ? "Image generated successfully! You are on Firefox, your image will open in a new tab."
-          : "Image generated successfully! Your image is in the clipboard already!"
-      }`,
+      success: `${isFirefox || isSafari
+        ? "Image generated successfully! You are on Firefox, your image will open in a new tab."
+        : "Image generated successfully! Your image is in the clipboard already!"
+        }`,
       error: `Couldn't generate an image.\n\nPlease stay on the site while it is being generated.`,
     });
   };
   const generateText = () => {
     toast.promise(generateTxt, {
       pending: "Generating text",
-      success: `${
-        isFirefox || isSafari
-          ? "Text generated successfully! It is in Your clipboard!"
-          : "Text generated successfully! It is in Your clipboard!"
-      }`,
+      success: `${isFirefox || isSafari
+        ? "Text generated successfully! It is in Your clipboard!"
+        : "Text generated successfully! It is in Your clipboard!"
+        }`,
       error: `Couldn't generate text.\n\nPlease stay on the site while it is being generated.`,
     });
   };
@@ -68,7 +66,7 @@ const TotalValue = () => {
       const ninjaPriceChaos = Math.round(
         ((ninjaPrice * 100) / exDefaultPrice / 100 -
           Math.floor((ninjaPrice * 100) / exDefaultPrice / 100)) *
-          exDefaultPrice,
+        exDefaultPrice,
       );
 
       const askingPrice = Math.round(
@@ -80,7 +78,7 @@ const TotalValue = () => {
       const askingPriceChaos = Math.round(
         ((askingPrice * 100) / exPrice / 100 -
           Math.floor((askingPrice * 100) / exPrice / 100)) *
-          exPrice,
+        exPrice,
       );
 
       const mostValuable = Object.values(items)
@@ -91,36 +89,32 @@ const TotalValue = () => {
           return ` ${x.shortName}`;
         });
 
-      const copyText = `WTS ${league}\n${
-        userName ? `IGN: \`${userName}\`\n` : ""
-      }Ninja price: \`${ninjaPrice}\` :chaos: ( \`${ninjaPriceEx}\` :ex: + \`${ninjaPriceChaos}\` :chaos: ) at ratio [\`${exDefaultPrice}\`:chaos:/\`1\`:ex:]\nAsking price: \`${askingPrice}\` :chaos: (\`${Math.round(
-        (sellSum / ninjaSum) * 100,
-      )}%\` of Ninja price) ( \`${askingPriceEx}\` :ex: + \`${askingPriceChaos}\` :chaos: ) at ratio [\`${exPrice}\`:chaos:/\`1\`:ex:] ${
-        contracts.length > 0 || sextants.length > 0
+      const copyText = `WTS ${league}\n${userName ? `IGN: \`${userName}\`\n` : ""
+        }Ninja price: \`${ninjaPrice}\` :chaos: ( \`${ninjaPriceEx}\` :divine: + \`${ninjaPriceChaos}\` :chaos: ) at ratio [\`${exDefaultPrice}\`:chaos:/\`1\`:ex:]\nAsking price: \`${askingPrice}\` :chaos: (\`${Math.round(
+          (sellSum / ninjaSum) * 100,
+        )}%\` of Ninja price) ( \`${askingPriceEx}\` :divine: + \`${askingPriceChaos}\` :chaos: ) at ratio [\`${exPrice}\`:chaos:/\`1\`:ex:] ${contracts.length > 0 || sextants.length > 0
           ? "( excluding: " +
-            (contracts.length > 0 ? "contracts " : "") +
-            (sextants.length > 0 ? "sextants " : "") +
-            ")"
+          (contracts.length > 0 ? "contracts " : "") +
+          (sextants.length > 0 ? "sextants " : "") +
+          ")"
           : ""
-      }\nMost valuable:${mostValuable}${
-        contracts.length > 0
+        }\nMost valuable:${mostValuable}${contracts.length > 0
           ? "\n`Contracts are experimental`\n" +
-            contracts
-              .map((x: any) => {
-                return `${x.stackSize}x ${x.name} ${x.sellValue} :chaos:/each`;
-              })
-              .join("\n")
+          contracts
+            .map((x: any) => {
+              return `${x.stackSize}x ${x.name} ${x.sellValue} :chaos:/each`;
+            })
+            .join("\n")
           : ""
-      }${
-        sextants.length > 0
+        }${sextants.length > 0
           ? "\n`Sextants are experimental`\n" +
-            sextants
-              .map((x: any) => {
-                return `${x.stackSize}x ${x.name} ${x.sellValue} :chaos:/each`;
-              })
-              .join("\n")
+          sextants
+            .map((x: any) => {
+              return `${x.stackSize}x ${x.name} ${x.sellValue} :chaos:/each`;
+            })
+            .join("\n")
           : ""
-      }`;
+        }`;
 
       const textBlob: any = new Blob([copyText], {
         type: "text/plain",
@@ -217,7 +211,7 @@ const TotalValue = () => {
           <Price>
             <Icon
               src={
-                "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyAddModToRare.png?scale=1&w=1&h=1"
+                "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQ3VycmVuY3lNb2RWYWx1ZXMiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/e1a54ff97d/CurrencyModValues.png"
               }
             />
             {Math.round(((sellSum + Number.EPSILON) * 100) / exPrice) / 100}

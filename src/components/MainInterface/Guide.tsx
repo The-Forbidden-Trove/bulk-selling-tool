@@ -49,7 +49,7 @@ const Guide = () => {
         <P>
           Now all items according to the currency types you chose will be
           displayed and priced below. You can manually adjust
-          <Highlight> Ex Price</Highlight>,<Highlight> multiplier</Highlight>{" "}
+          <Highlight> Divine Price</Highlight>,<Highlight> multiplier</Highlight>{" "}
           and
           <Highlight> single item value</Highlight>.
         </P>

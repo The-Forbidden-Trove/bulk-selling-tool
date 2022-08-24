@@ -136,7 +136,6 @@ export const selectStash = (
     }
 
     const exPrice: number = ninjaItems["Divine Orb"].chaosValue;
-    console.log(exPrice);
 
 
     dispatch({

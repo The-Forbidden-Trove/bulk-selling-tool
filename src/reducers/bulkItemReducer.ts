@@ -74,12 +74,12 @@ const bulkItemReducer = (state = initialState, action: any) => {
       return newState;
     }
 
-    case "SELECT_ITEM": {
-      break;
-    }
-    case "UNSELECT_ITEM": {
-      break;
-    }
+    // case "SELECT_ITEM": {
+    //   break;
+    // }
+    // case "UNSELECT_ITEM": {
+    //   break;
+    // }
 
     case "TOGGLE_ITEM_SELECT": {
       const newState = state.map((item) => {

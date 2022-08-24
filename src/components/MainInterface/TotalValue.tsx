@@ -90,9 +90,9 @@ const TotalValue = () => {
         });
 
       const copyText = `WTS ${league}\n${userName ? `IGN: \`${userName}\`\n` : ""
-        }Ninja price: \`${ninjaPrice}\` :chaos: ( \`${ninjaPriceEx}\` :divine: + \`${ninjaPriceChaos}\` :chaos: ) at ratio [\`${exDefaultPrice}\`:chaos:/\`1\`:ex:]\nAsking price: \`${askingPrice}\` :chaos: (\`${Math.round(
+        }Ninja price: \`${ninjaPrice}\` :chaos: ( \`${ninjaPriceEx}\` :divine: + \`${ninjaPriceChaos}\` :chaos: ) at ratio [\`${exDefaultPrice}\`:chaos:/\`1\`:divine:]\nAsking price: \`${askingPrice}\` :chaos: (\`${Math.round(
           (sellSum / ninjaSum) * 100,
-        )}%\` of Ninja price) ( \`${askingPriceEx}\` :divine: + \`${askingPriceChaos}\` :chaos: ) at ratio [\`${exPrice}\`:chaos:/\`1\`:ex:] ${contracts.length > 0 || sextants.length > 0
+        )}%\` of Ninja price) ( \`${askingPriceEx}\` :divine: + \`${askingPriceChaos}\` :chaos: ) at ratio [\`${exPrice}\`:chaos:/\`1\`:divine:] ${contracts.length > 0 || sextants.length > 0
           ? "( excluding: " +
           (contracts.length > 0 ? "contracts " : "") +
           (sextants.length > 0 ? "sextants " : "") +

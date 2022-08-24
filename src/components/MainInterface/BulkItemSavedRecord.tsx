@@ -208,7 +208,7 @@ const BulkItemSavedRecord = ({ item }: any) => {
                 value={exValue}
                 onChange={handleExChange}
                 onKeyPress={onKeyPress}
-                placeholder="Exalted Price..."
+                placeholder="Divine Price..."
               />
             </InputWrapper>
 

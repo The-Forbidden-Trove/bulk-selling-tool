@@ -44,7 +44,7 @@ const PickedItems = () => {
         <NameWrap onClick={handleSelectAll}>
           <Checkbox
             checked={selectAll}
-            onChange={() => {}}
+            onChange={() => { }}
             style={selectAll ? { opacity: 1 } : { opacity: 0.5 }}
           />
           <p
@@ -61,7 +61,7 @@ const PickedItems = () => {
         <Label>Asking price</Label>
         <Label>Multiplier</Label>
         <Label>Chaos value</Label>
-        <Label>Exalt value</Label>
+        <Label>Divine value</Label>
       </ItemRecordWrap>
       <Wrapper>
         {runCallback(() => {
@@ -114,7 +114,7 @@ const Wrapper = styled.div`
 
 export default PickedItems;
 
-const ItemRecordWrap = styled(FlexWrap)<{ isSelected?: boolean }>`
+const ItemRecordWrap = styled(FlexWrap) <{ isSelected?: boolean }>`
   width: 100%;
   opacity: ${(props) => (props.isSelected ? 1 : 0.4)};
   justify-items: flex-start;

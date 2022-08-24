@@ -25,13 +25,13 @@ const bulkItemReducer = (state = initialState, action: any) => {
       let exValue = action.data.exValue;
       let mirrorValue = action.data.mirrorValue;
 
-      const regex = /^~price (\d*) (chaos|exalted|mirror)$/m;
+      const regex = /^~price (\d*) (chaos|divine|mirror)$/m;
       const match = note.match(regex);
 
       if (match) {
         if (match[2] === "mirror" && action.data.mirrorValue === 0)
           mirrorValue = match[1];
-        if (match[2] === "exalted" && action.data.exValue === 0)
+        if (match[2] === "divine" && action.data.exValue === 0)
           exValue = match[1];
         if (match[2] === "chaos" && action.data.chaosValue === 0)
           chaosValue = match[1];

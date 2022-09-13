@@ -65,7 +65,7 @@ const authServiceData = new AuthService({
   provider: provider,
   tokenEndpoint: tokenEndpoint,
   authorizeEndpoint: "https://www.pathofexile.com/oauth/authorize",
-  redirectUri: "https://bulk.tftrove.com",
+  redirectUri: "https://bulk.tftrove.com/",
   location: window.location,
   scopes: ["account:stashes", "account:profile"],
   state: "fd3a90ef-ce50-4361-86ae-985d6d8a26aa",

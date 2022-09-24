@@ -7,6 +7,7 @@ import { useAppDispatch } from ".";
 import { FlexWrap } from "./components/baseStyles";
 import { useEffect } from "react";
 import { initAppState } from "./reducers/leagueReducer";
+import backgroundImg from './assets/harvest-bg.jpg';
 function App() {
   const { authService } = useAuth();
 
@@ -61,7 +62,7 @@ const Container = styled.div`
       rgba(16, 26, 49, 0.7),
       rgba(16, 29, 54, 0.7)
     ),
-    url(https://www.pathofexile.com/image/layout/harvest-bg.jpg),
+    url(${backgroundImg}),
     no-repeat center center / cover;
   background-size: 100%;
   display: flex;

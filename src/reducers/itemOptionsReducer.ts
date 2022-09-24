@@ -12,6 +12,7 @@ interface FragmentSet {
 interface Options {
   search: string;
   sorters: { key: keyof Item; order?: "asc" | "desc" }[];
+  stashLoading: "loading" | "idle" | "failed";
   fragmentSets: FragmentSet[];
   minValue: number;
   minTotalValue: number;
@@ -21,6 +22,7 @@ interface Options {
 const initialState: Options = {
   search: "",
   sorters: [{ key: "totalValue", order: "desc" }],
+  stashLoading: "idle",
   fragmentSets: itemFilter.fragments.map((type: any) => {
     return { ...type, isSelected: false };
   }),
@@ -89,6 +91,18 @@ const itemOptionsReducer = (state = initialState, action: any) => {
       }
       return newState;
     }
+
+    case "SET_LOADING_STATUS": {
+      const newState = { ...state };
+      newState.stashLoading = "loading";
+      return newState;
+    }
+
+    case "SET_IDLE_STATUS": {
+      const newState = { ...state };
+      newState.stashLoading = "idle";
+      return newState;
+    }
     default:
       return state;
   }
@@ -105,6 +119,18 @@ export const toggleItemOptionsSet = (setName: string) => {
   return {
     type: "TOGGLE_ITEM_OPTIONS_SET",
     data: { setName: setName },
+  };
+};
+
+export const setLoadingStatus = () => {
+  return {
+    type: "SET_LOADING_STATUS"
+  };
+};
+
+export const setIdleStatus = () => {
+  return {
+    type: "SET_IDLE_STATUS"
   };
 };
 

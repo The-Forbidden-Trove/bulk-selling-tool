@@ -6,6 +6,7 @@ import { unselectAllCurrencyTypes } from "./currencyTypeReducer";
 import { initItemFilter } from "./itemFilterReducer";
 import { addGlobalItems, removeGlobalItems } from "./itemReducer";
 import { itemFilter } from "../itemFilter";
+import { setIdleStatus, setLoadingStatus } from "./itemOptionsReducer";
 
 const initialState: StashTab[] | undefined = [];
 
@@ -160,6 +161,7 @@ export const selectStash = (
         multiplier: multiplier,
       },
     });
+    dispatch(setLoadingStatus())
     dispatch(unselectAllCurrencyTypes());
 
     let items: Record<string, Item> = {};
@@ -302,6 +304,8 @@ export const selectStash = (
     dispatch(initStashItems(items, filteredItems, highlightStash.id));
 
     dispatch(addGlobalItems(filteredItems));
+
+    dispatch(setIdleStatus())
   };
 };
 
@@ -314,6 +318,13 @@ export const initStashItems = (items: any, filteredItems: any, id: string) => {
 
 export const unselectStash = (id: string) => {
   return async (dispatch: AppDispatch, getState: any) => {
+    const loadingStatus = getState().itemOptions.stashLoading;
+
+    // console.log("LOADING STATUS", loadingStatus);
+    if (loadingStatus === "loading") {
+      return
+    }
+
     const items: Record<string, Item> = getState().stashes.find(
       (x: StashTab) => {
         return x.id === id;

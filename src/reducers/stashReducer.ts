@@ -346,9 +346,19 @@ export const highlightStash = (id: string) => {
   };
 };
 
+
 export const unselectAllStashes = () => {
-  return {
-    type: "UNSELECT_ALL_STASHES"
+  return async (dispatch: AppDispatch, getState: any) => {
+    const loadingStatus = getState().itemOptions.stashLoading;
+    // console.log("LOADING STATUS", loadingStatus);
+    if (loadingStatus === "loading") {
+      return
+    }
+
+    dispatch({
+      type: "UNSELECT_ALL_STASHES"
+    });
+
   };
 };
 

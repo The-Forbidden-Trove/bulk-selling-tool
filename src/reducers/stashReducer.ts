@@ -75,6 +75,21 @@ const stashReducer = (state = initialState, action: any) => {
       return newState;
     }
 
+    case "UNSELECT_ALL_STASHES": {
+      const newState = state.map((stash: StashTab) => {
+        return {
+          ...stash,
+          isSelected: false,
+          isHighlited: false,
+          defaultMultiplier: undefined,
+          filteredItems: undefined,
+          items: undefined,
+          assignedTypes: undefined,
+        }
+      });
+      return newState;
+    }
+
     default:
       return state;
   }
@@ -317,6 +332,12 @@ export const highlightStash = (id: string) => {
   return {
     type: "HIGHLIGHT_STASH",
     data: id,
+  };
+};
+
+export const unselectAllStashes = () => {
+  return {
+    type: "UNSELECT_ALL_STASHES"
   };
 };
 

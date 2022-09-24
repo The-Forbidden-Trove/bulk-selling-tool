@@ -4,6 +4,7 @@ import { AppDispatch } from "../store";
 import { setDefaultExaltPrice } from "./exaltPriceReducer";
 import { initItemFilter } from "./itemFilterReducer";
 import { clearAllItems } from "./itemReducer";
+import { unselectAllStashes } from "./stashReducer";
 
 const initialState: any | undefined = {};
 
@@ -55,6 +56,7 @@ export const changeDefaultLeague = (leagueName: string) => {
     }
 
     dispatch(clearAllItems());
+    dispatch(unselectAllStashes());
 
     dispatch({
       type: "CHANGE_DEFAULT_LEAGUE",

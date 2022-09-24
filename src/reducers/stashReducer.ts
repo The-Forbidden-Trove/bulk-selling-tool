@@ -149,94 +149,93 @@ export const selectStash = (
 
     let items: Record<string, Item> = {};
 
-    await axios
+    const response = await axios
       .get(`https://api.pathofexile.com/stash/${league}/${highlightStash.id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((response: any) => {
-        const allItems = response.data.stash.items;
 
-        allItems.forEach((item: any) => {
-          let name = item.baseType;
+    const allItems = response.data.stash.items;
 
-          if (item.baseType.match(/Blighted [\w\s]+Map/)) {
-            name = `${item.baseType} ${
-              //@ts-ignore
-              item.properties.find((x): any => x.name === "Map Tier")
-                .values[0][0]
-              }`;
-          } else if (item.baseType.match(/Blight-ravaged [\w\s]+Map/)) {
-            name = `${item.baseType} ${
-              //@ts-ignore
-              item.properties.find((x): any => x.name === "Map Tier")
-                .values[0][0]
-              }`;
-          } else if (item.baseType.includes("Contract:")) {
-            name = `Contract ${item.properties[3].values[1][0]}${Number(item.ilvl) >= 81 ? " 81+" : ""
-              }`;
-          } else if (
-            item.baseType.includes("Charged Compass") &&
-            item.hasOwnProperty("enchantMods")
-          ) {
-            name = `Sextant ${item.enchantMods
-              .slice(0, -1)
-              .join(" ")} (${item.enchantMods[item.enchantMods.length - 1]
-                .split(" ")
-                .slice(0, -1)
-                .join(" ")})`;
-          }
+    allItems.forEach((item: any) => {
+      let name = item.baseType;
 
-          if (items[name]) {
-            items[name] = {
-              id: item?.id,
-              name: name,
-              icon: item.icon,
-              shortName: generateSimpleName(name),
-              w: item.w,
-              h: item.h,
-              maxStackSize: item.maxStackSize ? item.maxStackSize : 1,
-              stackSize: item.stackSize
-                ? items[name].stackSize + item.stackSize
-                : items[name].stackSize + 1,
-              chaosEquivalent: ninjaItems[name]
-                ? ninjaItems[name].chaosValue
-                : 0,
-              sellValue: ninjaItems[name]
-                ? roundToTwo(
-                  (ninjaItems[name].chaosValue * items[name].multiplier) / 100
-                )
-                : 0,
-              multiplier: multiplier,
-              sellMultiplier: multiplier,
-              isSelected: true,
-              group: generateItemGroup(name),
-            };
-          } else {
-            items[name] = {
-              id: item?.id,
-              name: name,
-              shortName: generateSimpleName(name),
-              icon: item.icon,
-              w: item.w,
-              h: item.h,
-              maxStackSize: item.maxStackSize ? item.maxStackSize : 1,
-              stackSize: item.stackSize ? item.stackSize : 1,
-              chaosEquivalent: ninjaItems[name]
-                ? ninjaItems[name].chaosValue
-                : 0,
-              sellValue: ninjaItems[name]
-                ? roundToTwo((ninjaItems[name].chaosValue * multiplier) / 100)
-                : 0,
-              multiplier: multiplier,
-              sellMultiplier: multiplier,
-              isSelected: true,
-              group: generateItemGroup(name),
-            };
-          }
-        });
-      });
+      if (item.baseType.match(/Blighted [\w\s]+Map/)) {
+        name = `${item.baseType} ${
+          //@ts-ignore
+          item.properties.find((x): any => x.name === "Map Tier")
+            .values[0][0]
+          }`;
+      } else if (item.baseType.match(/Blight-ravaged [\w\s]+Map/)) {
+        name = `${item.baseType} ${
+          //@ts-ignore
+          item.properties.find((x): any => x.name === "Map Tier")
+            .values[0][0]
+          }`;
+      } else if (item.baseType.includes("Contract:")) {
+        name = `Contract ${item.properties[3].values[1][0]}${Number(item.ilvl) >= 81 ? " 81+" : ""
+          }`;
+      } else if (
+        item.baseType.includes("Charged Compass") &&
+        item.hasOwnProperty("enchantMods")
+      ) {
+        name = `Sextant ${item.enchantMods
+          .slice(0, -1)
+          .join(" ")} (${item.enchantMods[item.enchantMods.length - 1]
+            .split(" ")
+            .slice(0, -1)
+            .join(" ")})`;
+      }
+
+      if (items[name]) {
+        items[name] = {
+          id: item?.id,
+          name: name,
+          icon: item.icon,
+          shortName: generateSimpleName(name),
+          w: item.w,
+          h: item.h,
+          maxStackSize: item.maxStackSize ? item.maxStackSize : 1,
+          stackSize: item.stackSize
+            ? items[name].stackSize + item.stackSize
+            : items[name].stackSize + 1,
+          chaosEquivalent: ninjaItems[name]
+            ? ninjaItems[name].chaosValue
+            : 0,
+          sellValue: ninjaItems[name]
+            ? roundToTwo(
+              (ninjaItems[name].chaosValue * items[name].multiplier) / 100
+            )
+            : 0,
+          multiplier: multiplier,
+          sellMultiplier: multiplier,
+          isSelected: true,
+          group: generateItemGroup(name),
+        };
+      } else {
+        items[name] = {
+          id: item?.id,
+          name: name,
+          shortName: generateSimpleName(name),
+          icon: item.icon,
+          w: item.w,
+          h: item.h,
+          maxStackSize: item.maxStackSize ? item.maxStackSize : 1,
+          stackSize: item.stackSize ? item.stackSize : 1,
+          chaosEquivalent: ninjaItems[name]
+            ? ninjaItems[name].chaosValue
+            : 0,
+          sellValue: ninjaItems[name]
+            ? roundToTwo((ninjaItems[name].chaosValue * multiplier) / 100)
+            : 0,
+          multiplier: multiplier,
+          sellMultiplier: multiplier,
+          isSelected: true,
+          group: generateItemGroup(name),
+        };
+      }
+    });
 
     let filteredItems: Record<string, Item> = {};
 

@@ -1218,6 +1218,23 @@ export const itemFilter = {
     name: "Delirium Orbs",
     icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvRGVsaXJpdW0vRGVsaXJpdW1PcmJTY2FyYWJzIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/fa4c5160ca/DeliriumOrbScarabs.png",
   },
+  invitationFilter: {
+    items: [
+      "Incandescent Invitation",
+      "Screaming Invitation",
+      "Maven's Invitation: The Elderslayers",
+      "Maven's Invitation: The Formed",
+      "Maven's Invitation: The Twisted",
+      "Maven's Invitation: The Forgotten",
+      "Maven's Invitation: The Hidden",
+      "Polaric Invitation",
+      "Maven's Invitation: The Feared",
+      "Writhing Invitation",
+      "Maven's Invitation: The Atlas"
+    ],
+    name: "Invitation",
+    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQXRsYXMvTnVsbFZvaWQyIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/3c5b06022e/NullVoid2.png",
+  },
   beastFilter: {
     items: [
       "Bleached Crawler",

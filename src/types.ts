@@ -16,7 +16,7 @@ export interface BulkItem {
   isMirrorService: boolean;
   itemNote: string;
   isSelected: boolean;
-  item:any;
+  item: any;
 }
 
 export interface Item {
@@ -167,6 +167,14 @@ export const currencies: CurrencyType[] = [
     ninjaEndpoint: "itemoverview",
     isSelected: false,
     typeFilter: itemFilter.beastFilter.items,
+  },
+
+  {
+    type: "Invitation",
+    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQXRsYXMvTnVsbFZvaWQyIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/3c5b06022e/NullVoid2.png",
+    ninjaEndpoint: "itemoverview",
+    isSelected: false,
+    typeFilter: itemFilter.invitationFilter.items,
   },
 
   {

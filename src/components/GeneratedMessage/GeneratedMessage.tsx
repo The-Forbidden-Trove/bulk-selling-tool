@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import CryptoJS from "crypto-js";
 import { useAppSelector } from '../..';
 import { FlexWrap } from '../baseStyles';
 import { CurrencyType, Item, StashTab } from '../../types';
@@ -7,11 +8,15 @@ import GeneratedMessageItemRecord from './GeneratedMessageItemRecord';
 // even tho I added cors and tainted canvas to html2canvas
 import chaosOrb from '../../assets/chaosOrb.png';
 import exaltedOrb from '../../assets/divineOrb.png';
+import { useEffect, useState } from 'react';
 
 const GeneratedMessage = () => {
   let sellSum = 0;
   let ninjaSum = 0;
   const items = useAppSelector((store) => store.items);
+  const [ninjaTimestamp, setNinjaTimestamp] = useState("");
+  const [name, setName] = useState("");
+
   const selectedTypes = useAppSelector((store) => store.stashes)
     .filter((stash: StashTab) => {
       return stash.isSelected;
@@ -49,6 +54,24 @@ const GeneratedMessage = () => {
     return cb();
   };
 
+  useEffect(() => {
+    const time = JSON.parse(window.localStorage.getItem("ninjaFetch") || "{}");
+    const name = JSON.parse(window.localStorage.getItem("auth") || "{}");
+
+    if (typeof time === "number") {
+      var theDate = new Date(time);
+      setNinjaTimestamp(theDate.toUTCString());
+    }
+
+    if (typeof name !== undefined) {
+      if (name.user) {
+        var encryptedName = CryptoJS.AES.encrypt(name.user, "Name");
+        //var decrypted = CryptoJS.AES.decrypt(encrypted, "Secret Passphrase");
+        setName(encryptedName.toString());
+      }
+    }
+  }, [])
+
   return (
     <Wrapper id="generatedMessage">
       <H>Generated with TFT Bulk Selling Tool</H>
@@ -63,7 +86,7 @@ const GeneratedMessage = () => {
           <FlexWrap>
             <Icon src={exaltedOrb} />
             <P>
-              {Math.round(((ninjaSum + Number.EPSILON) * 100) / exPrice) / 100}
+              {Math.round(((ninjaSum + Number.EPSILON) * 100) / exDefaultPrice) / 100}
             </P>
           </FlexWrap>
         </TotalValue>
@@ -86,6 +109,18 @@ const GeneratedMessage = () => {
             </P>
           )}
         </ExPrice>
+
+        {ninjaTimestamp &&
+          <FloatBottomRight>
+            Poe.ninja gathered at: {ninjaTimestamp}
+          </FloatBottomRight>
+        }
+
+        {name &&
+          <FloatBottomLeft>
+            ID: {name}
+          </FloatBottomLeft>
+        }
       </Header>
 
       <Header>
@@ -177,6 +212,26 @@ const Header = styled(FlexWrap)`
   width: 100%;
   justify-content: space-between;
 `;
+
+
+const FloatBottomLeft = styled(FlexWrap)`
+  bottom: 0%;
+  left: 0%;
+  padding: 5px 0px;
+  margin: 5px 0px 0px 5px;
+  position: absolute;
+  opacity: 0.2;
+`;
+
+const FloatBottomRight = styled(FlexWrap)`
+  bottom: 0%;
+  right: 0%;
+  padding: 5px 0px;
+  margin: 5px 0px 0px 5px;
+  position: absolute;
+  opacity: 0.2;
+`;
+
 const CurrencyTypes = styled(FlexWrap)``;
 const ExPrice = styled(FlexWrap)``;
 const Wrapper = styled(FlexWrap)`

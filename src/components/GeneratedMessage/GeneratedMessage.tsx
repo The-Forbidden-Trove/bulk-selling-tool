@@ -70,7 +70,7 @@ const GeneratedMessage = () => {
         setName(encodedString);
       }
     }
-  }, [])
+  }, [localStorage.getItem('ninjaFetch')])
 
   return (
     <Wrapper id="generatedMessage">

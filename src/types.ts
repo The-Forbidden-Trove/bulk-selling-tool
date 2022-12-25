@@ -32,6 +32,7 @@ export interface Item {
   sellValue?: number;
   isSelected: boolean;
   stackSize: number;
+  wasPriceAdjusted: boolean;
   sellStackSize?: number;
   maxStackSize?: number;
   group: string;

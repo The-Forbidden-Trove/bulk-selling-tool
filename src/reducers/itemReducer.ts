@@ -62,6 +62,7 @@ const itemReducer = (state = initialState, action: any) => {
       newState[name].totalValue = roundToTwo(
         newState[name].stackSize * newState[name].sellValue
       );
+      newState[name].wasPriceAdjusted = true;
       return newState;
     }
 
@@ -116,6 +117,8 @@ const itemReducer = (state = initialState, action: any) => {
       newState[name].totalValue = roundToTwo(
         newState[name].stackSize * newState[name].sellValue
       );
+
+      newState[name].wasPriceAdjusted = true;
       return newState;
     }
     case "RESET_CHAOS_VALUE": {
@@ -129,6 +132,8 @@ const itemReducer = (state = initialState, action: any) => {
       newState[name].totalValue = roundToTwo(
         newState[name].stackSize * newState[name].sellValue
       );
+
+      newState[name].wasPriceAdjusted = false;
       return newState;
     }
     case "CLEAR_ALL_ITEMS": {
@@ -200,6 +205,81 @@ const itemReducer = (state = initialState, action: any) => {
       }
       return newState;
     }
+
+    case "UPDATE_NINJA_PRICES_ITEMS": {
+      const newState = { ...state };
+      let ninjaItems: any = window.localStorage.getItem("ninjaItems");
+
+      if (ninjaItems) {
+        ninjaItems = JSON.parse(ninjaItems);
+      for (const [key, value] of Object.entries(state)) {
+          if(newState[key].wasPriceAdjusted)
+          {
+            newState[key].chaosEquivalent = roundToTwo(ninjaItems[key].chaosValue)
+          } else {
+            newState[key].chaosEquivalent = roundToTwo(ninjaItems[key].chaosValue)
+            //
+            newState[key].sellValue = roundToTwo(ninjaItems[key].chaosValue * newState[key].multiplier / 100);
+
+            const multiplier = Math.round(
+                (newState[key].sellValue / newState[key].chaosEquivalent) * 100
+              )
+            newState[key].multiplier =
+              multiplier === Infinity ? 100 : multiplier;
+
+            const sellMultiplier = Math.round(
+                (newState[key].sellValue / newState[key].chaosEquivalent) * 100
+              )
+            newState[key].sellMultiplier =
+              sellMultiplier === Infinity ? 100 : sellMultiplier;
+
+            newState[key].totalValue = roundToTwo(
+              newState[key].stackSize * newState[key].sellValue
+            );
+          }
+      }
+      }
+
+      return newState;
+    }
+    case "UPDATE_NINJA_PRICES_ITEMS_TEST": {
+      const newState = { ...state };
+      let ninjaItems: any = window.localStorage.getItem("ninjaItems");
+
+      if (ninjaItems) {
+        ninjaItems = JSON.parse(ninjaItems);
+
+      for (const [key, value] of Object.entries(state)) {
+          if(newState[key].wasPriceAdjusted)
+          {
+            newState[key].chaosEquivalent = roundToTwo(21.33)
+          } else {
+            newState[key].chaosEquivalent = roundToTwo(21.33)
+            //
+            newState[key].sellValue = roundToTwo(21.33 * newState[key].multiplier / 100);
+
+            const multiplier = Math.round(
+                (newState[key].sellValue / newState[key].chaosEquivalent) * 100
+              )
+            newState[key].multiplier =
+              multiplier === Infinity ? 100 : multiplier;
+
+            const sellMultiplier = Math.round(
+                (newState[key].sellValue / newState[key].chaosEquivalent) * 100
+              )
+            newState[key].sellMultiplier =
+              sellMultiplier === Infinity ? 100 : sellMultiplier;
+
+            newState[key].totalValue = roundToTwo(
+              newState[key].stackSize * newState[key].sellValue
+            );
+          }
+      }
+      }
+
+      return newState;
+    }
+
     case "UNSELECT_ITEM": {
       const newState = { ...state };
       if (newState[action.data.name]) {
@@ -294,6 +374,17 @@ export const selectAllItems = () => {
 export const unselectAllItems = () => {
   return {
     type: "UNSELECT_ALL_ITEMS",
+  };
+};
+export const updateNinjaPriceItems = () => {
+  return {
+    type: "UPDATE_NINJA_PRICES_ITEMS"
+  };
+};
+
+export const updateNinjaPriceItemsTest = () => {
+  return {
+    type: "UPDATE_NINJA_PRICES_ITEMS_TEST"
   };
 };
 export const filterByMinStack = (minStackSize: number) => {

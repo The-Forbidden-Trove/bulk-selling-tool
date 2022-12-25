@@ -76,6 +76,60 @@ const stashReducer = (state = initialState, action: any) => {
       return newState;
     }
 
+    case "UPDATE_NINJA_PRICES_STASH_ITEMS": {
+      const newState: StashTab[] = state
+      let ninjaItems: any = window.localStorage.getItem("ninjaItems");
+
+      if (ninjaItems) {
+        ninjaItems = JSON.parse(ninjaItems);
+
+        return state.map((stash:StashTab)=>{
+          if(stash.hasOwnProperty("items") && stash.items) {
+
+            for( const [key, value] of Object.entries(stash.items)){
+              const ninjaVal = ninjaItems[key]
+              if(ninjaVal && !stash.items[key].wasPriceAdjusted){
+                stash.items[key].chaosEquivalent = ninjaVal.chaosValue;
+              }
+            }
+
+          }
+          return stash
+          }
+        )
+      }
+
+      return state;
+    }
+
+    case "UPDATE_NINJA_PRICES_STASH_ITEMS_TEST": {
+      const newState: StashTab[] = state
+      let ninjaItems: any = window.localStorage.getItem("ninjaItems");
+
+      if (ninjaItems) {
+        ninjaItems = JSON.parse(ninjaItems);
+
+        return state.map((stash:StashTab)=>{
+          if(stash.hasOwnProperty("items") && stash.items) {
+
+            for( const [key, value] of Object.entries(stash.items)){
+              console.log(key,value)
+              const ninjaVal = ninjaItems[key]
+              if(ninjaVal && !stash.items[key].wasPriceAdjusted){
+                stash.items[key].chaosEquivalent = 21.33;
+              }
+            }
+
+          }
+          return stash
+          }
+        )
+      }
+
+      return state;
+    }
+
+
     case "UNSELECT_ALL_STASHES": {
       const newState = state.map((stash: StashTab) => {
         return {
@@ -121,6 +175,18 @@ export const initStashes = (token: string, league: string) => {
       type: "INIT_STASHES",
       data: stashes,
     });
+  };
+};
+
+export const updateNinjaPriceStashItems = () => {
+  return {
+    type: "UPDATE_NINJA_PRICES_STASH_ITEMS"
+  };
+};
+
+export const updateNinjaPriceStashItemsTest = () => {
+  return {
+    type: "UPDATE_NINJA_PRICES_STASH_ITEMS_TEST"
   };
 };
 
@@ -228,6 +294,7 @@ export const selectStash = (
           multiplier: multiplier,
           sellMultiplier: multiplier,
           isSelected: true,
+          wasPriceAdjusted: false,
           group: generateItemGroup(name),
         };
       } else {
@@ -249,6 +316,7 @@ export const selectStash = (
           multiplier: multiplier,
           sellMultiplier: multiplier,
           isSelected: true,
+          wasPriceAdjusted: false,
           group: generateItemGroup(name),
         };
       }

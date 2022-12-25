@@ -5,12 +5,16 @@ import { useAppDispatch, useAppSelector } from "../..";
 import { useAuth } from "../../api/oauth/AuthContext";
 import { initCurrencies } from "../../reducers/currencyTypeReducer";
 import { changeDefaultLeague } from "../../reducers/leagueReducer";
-import { initStashes } from "../../reducers/stashReducer";
+import { initStashes, updateNinjaPriceStashItems } from "../../reducers/stashReducer";
 import { currencies } from "../../types";
 import { Button, FlexWrap } from "../baseStyles";
+import { differenceInMinutes } from "date-fns";
+import { fetchNinjaData } from "../../api/poeninja/poeninja";
 import BulkCurrency from "./BulkCurrency";
 
 import BulkItems from "./BulkItems";
+import { updateNinjaPriceItems } from "../../reducers/itemReducer";
+import { setDefaultExaltPrice } from "../../reducers/exaltPriceReducer";
 
 //<FaCog
 //style={{ ...iconStyle, position: "absolute", top: "1%", right: "0.5%" }}
@@ -25,6 +29,30 @@ const MainInterface = () => {
 
   const { authService } = useAuth();
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    let secTimer = setInterval( () => {
+    const time = JSON.parse(window.localStorage.getItem("ninjaFetch") || "{}");
+   if (typeof time === "number") {
+       const diff = differenceInMinutes(new Date().getTime(), time);
+       if (diff >= 15) {
+         localStorage.setItem("ninjaFetch", JSON.stringify(new Date().getTime()));
+         fetchNinjaData(league);
+         dispatch(updateNinjaPriceItems());
+         dispatch(updateNinjaPriceStashItems());
+          
+         let ninjaItems: any = window.localStorage.getItem("ninjaItems");
+
+          if (ninjaItems) {
+            ninjaItems = JSON.parse(ninjaItems);
+              dispatch(setDefaultExaltPrice(ninjaItems["Divine Orb"].chaosValue));
+          }
+       }
+   } 
+    },1000)
+
+    return () => clearInterval(secTimer);
+  }, []);
 
   useEffect(() => {
     dispatch(initStashes(authService.getAuthTokens().access_token, league));

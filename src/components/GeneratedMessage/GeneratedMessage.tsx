@@ -54,6 +54,14 @@ const GeneratedMessage = () => {
     return cb();
   };
 
+function utf8_to_b64( str:string ) {
+    return window.btoa(unescape(encodeURIComponent( str )));
+}
+
+function b64_to_utf8( str:string ) {
+    return decodeURIComponent(escape(window.atob( str )));
+}
+
   useEffect(() => {
     const time = JSON.parse(window.localStorage.getItem("ninjaFetch") || "{}");
     const name = JSON.parse(window.localStorage.getItem("auth") || "{}");
@@ -65,8 +73,10 @@ const GeneratedMessage = () => {
 
     if (typeof name !== undefined) {
       if (name.user) {
-        var encodedString = btoa(name.user);
-        //var decodedString = atob(encodedString);
+        var encodedString = utf8_to_b64(name.user);
+        // var decodedString = b64_to_utf8(encodedString);
+        // console.log(decodedString)
+        // console.log(encodedString)
         setName(encodedString);
       }
     }

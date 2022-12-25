@@ -65,9 +65,9 @@ const GeneratedMessage = () => {
 
     if (typeof name !== undefined) {
       if (name.user) {
-        var encryptedName = CryptoJS.AES.encrypt(name.user, "Name");
-        //var decrypted = CryptoJS.AES.decrypt(encrypted, "Secret Passphrase");
-        setName(encryptedName.toString());
+        var encodedString = btoa(name.user);
+        //var decodedString = atob(encodedString);
+        setName(encodedString);
       }
     }
   }, [])

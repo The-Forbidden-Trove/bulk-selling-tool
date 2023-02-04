@@ -7,6 +7,7 @@ import { initItemFilter } from "./itemFilterReducer";
 import { addGlobalItems, removeGlobalItems } from "./itemReducer";
 import { itemFilter } from "../itemFilter";
 import { setIdleStatus, setLoadingStatus } from "./itemOptionsReducer";
+import { translateLeagueName } from "../utils/league";
 
 const initialState: StashTab[] | undefined = [];
 
@@ -83,19 +84,19 @@ const stashReducer = (state = initialState, action: any) => {
       if (ninjaItems) {
         ninjaItems = JSON.parse(ninjaItems);
 
-        return state.map((stash:StashTab)=>{
-          if(stash.hasOwnProperty("items") && stash.items) {
+        return state.map((stash: StashTab) => {
+          if (stash.hasOwnProperty("items") && stash.items) {
 
-            for( const [key, value] of Object.entries(stash.items)){
+            for (const [key, value] of Object.entries(stash.items)) {
               const ninjaVal = ninjaItems[key]
-              if(ninjaVal && !stash.items[key].wasPriceAdjusted){
+              if (ninjaVal && !stash.items[key].wasPriceAdjusted) {
                 stash.items[key].chaosEquivalent = ninjaVal.chaosValue;
               }
             }
 
           }
           return stash
-          }
+        }
         )
       }
 
@@ -109,20 +110,19 @@ const stashReducer = (state = initialState, action: any) => {
       if (ninjaItems) {
         ninjaItems = JSON.parse(ninjaItems);
 
-        return state.map((stash:StashTab)=>{
-          if(stash.hasOwnProperty("items") && stash.items) {
+        return state.map((stash: StashTab) => {
+          if (stash.hasOwnProperty("items") && stash.items) {
 
-            for( const [key, value] of Object.entries(stash.items)){
-              console.log(key,value)
+            for (const [key, value] of Object.entries(stash.items)) {
               const ninjaVal = ninjaItems[key]
-              if(ninjaVal && !stash.items[key].wasPriceAdjusted){
+              if (ninjaVal && !stash.items[key].wasPriceAdjusted) {
                 stash.items[key].chaosEquivalent = 21.33;
               }
             }
 
           }
           return stash
-          }
+        }
         )
       }
 
@@ -241,6 +241,9 @@ export const selectStash = (
 
     const allItems = response.data.stash.items;
 
+    const TFTNamesLink = "https://raw.githubusercontent.com/The-Forbidden-Trove/tft-data-prices/master/mappings/compasses.json";
+    const TFTNames = (await axios.get(TFTNamesLink)).data;
+
     allItems.forEach((item: any) => {
       let name = item.baseType;
 
@@ -263,6 +266,9 @@ export const selectStash = (
         item.baseType.includes("Charged Compass") &&
         item.hasOwnProperty("enchantMods")
       ) {
+        // name = `Sextant ${item.enchantMods
+        //   .slice(0, -1)
+        //   .join(" ")}`;
         name = `Sextant ${item.enchantMods
           .slice(0, -1)
           .join(" ")} (${item.enchantMods[item.enchantMods.length - 1]
@@ -328,6 +334,17 @@ export const selectStash = (
       return filters.typeFilter;
     });
 
+    let TFTCompassPrices = JSON.parse(localStorage.getItem("TFTCompassPrices") || "{}");
+    const translatedLeague = translateLeagueName(league);
+    if (translatedLeague === "Standard") {
+      TFTCompassPrices = TFTCompassPrices.std;
+    } else if (translatedLeague === "League") {
+      TFTCompassPrices = TFTCompassPrices.lsc;
+    } else {
+      TFTCompassPrices = [];
+    }
+
+
     for (const [key, value] of Object.entries(items)) {
       if (key.match(/Blighted [\w\s]+Map \d+/)) {
         if (
@@ -343,9 +360,39 @@ export const selectStash = (
         ) {
           filteredItems[key] = value as Item;
         }
-      } else if (key.match(/Sextant/) && key.match(/\(\d*\s*uses\)/)) {
+      } else if (key.match(/^Sextant/)) {
         if (itemFilters && itemFilters.includes("Sextant")) {
-          filteredItems[key] = value as Item;
+          const usesName = key.match(/\((\d*)\s*uses\)/);
+
+          let usesNum = 3;
+          if (usesName) {
+            usesNum = Number(usesName[1]);
+          }
+
+          const strippedFullName = key.replace(/ \(\d*\s*uses\)/, "");
+          const newName = TFTNames[strippedFullName];
+
+
+          const sextantValue = value as Item;
+          sextantValue.shortName = newName + " u" + usesNum;
+          sextantValue.isSelected = false;
+
+          if (usesNum === 4 || usesNum === 16) {
+            sextantValue.isSelected = true;
+
+            const TFTCompass = TFTCompassPrices.find((compass: any) => {
+              return compass.name === newName;
+            });
+
+            if (TFTCompass) {
+              sextantValue.chaosEquivalent = TFTCompass.chaos;
+              sextantValue.sellValue = roundToTwo((TFTCompass.chaos * multiplier) / 100);
+            }
+          }
+
+
+          filteredItems[key] = sextantValue;
+
         }
       } else if (itemFilters && itemFilters.includes(key)) {
         filteredItems[key] = value as Item;

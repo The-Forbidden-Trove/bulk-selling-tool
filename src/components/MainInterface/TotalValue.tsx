@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 import { FaExclamationTriangle } from "react-icons/fa";
+import axios from "axios";
 
 const TotalValue = () => {
   const [userName, setUserName] = useState("");
@@ -47,13 +48,20 @@ const TotalValue = () => {
     });
   };
   const generateTxt = () => {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
       const contracts = Object.values(items)
         .filter((x: any) => x.isSelected)
-        .filter((x: any) => x.name.includes("Contract"));
+        .filter((x: any) => x.name.includes("Contract") && !x.name.match(/^Sextant/));
+
+
+      const TFTNamesLink = "https://raw.githubusercontent.com/The-Forbidden-Trove/tft-data-prices/master/mappings/compasses.json";
+      const TFTNames = (await axios.get(TFTNamesLink)).data
+
       const sextants = Object.values(items)
         .filter((x: any) => x.isSelected)
-        .filter((x: any) => x.name.match(/Sextant (\w\s*)*\(\d*\s*uses\)/));
+        .filter((x: any) => {
+          return x.name.match(/Sextant (\w\s*)*\(\d*\s*uses\)/) || TFTNames[x.name] !== undefined
+        });
 
       const ninjaPrice = Math.round(
         Math.round((ninjaSum + Number.EPSILON) * 100) / 100,
@@ -107,10 +115,9 @@ const TotalValue = () => {
             .join("\n")
           : ""
         }${sextants.length > 0
-          ? "\n`Sextants are experimental`\n" +
-          sextants
+          ? sextants
             .map((x: any) => {
-              return `${x.stackSize}x ${x.name} ${x.sellValue} :chaos:/each`;
+              return `${x.stackSize}x ${x.shortName} ${x.sellValue} c/each`;
             })
             .join("\n")
           : ""

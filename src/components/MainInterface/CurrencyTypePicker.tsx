@@ -34,20 +34,33 @@ const CurrencyTypePicker = () => {
         ninjaItems
       )
     );
-    let isSpecial = false;
+    let isContract = false;
+    let isSextant = false;
     currencyTypes.forEach((currencyType: CurrencyType) => {
       if (
         currencyType.isSelected &&
-        (currencyType.type === "Contract" || currencyType.type === "Sextant")
+        (currencyType.type === "Contract")
       )
-        isSpecial = true;
+        isContract = true;
+
+      if (
+        currencyType.isSelected &&
+        (currencyType.type === "Sextant")
+      )
+        isSextant = true;
     });
-    if (isSpecial) {
+    if (isContract) {
       toast.info(
-        "We ask you to just paste the generated text - no need for the image when selling contracts or sextants."
+        "We ask you to just paste the generated text - no need for the image when selling contracts."
       );
       toast.warn(
         "You are using an experimental type, please input the prices yourself since they are not supported by poe.ninja."
+      );
+    }
+
+    if (isSextant) {
+      toast.info(
+        "We ask you to just paste the generated text - no need for the image when selling sextants."
       );
     }
     setInput("100%");

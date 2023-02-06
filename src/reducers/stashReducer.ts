@@ -374,7 +374,7 @@ export const selectStash = (
 
 
           const sextantValue = value as Item;
-          sextantValue.shortName = newName + " u" + usesNum;
+          sextantValue.shortName = newName + " " + usesNum + "uses";
           sextantValue.isSelected = false;
 
           if (usesNum === 4 || usesNum === 16) {

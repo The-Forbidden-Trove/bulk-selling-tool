@@ -77,6 +77,7 @@ export const initAppState = () => {
       const res = response.filter((x: any) => {
         return (
           !x.id.toLowerCase().includes("solo self-found") &&
+          !x.id.toLowerCase().includes("ssf") &&
           !x.id.toLowerCase().includes("royale")
         );
       });

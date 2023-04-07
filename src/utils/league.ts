@@ -62,7 +62,7 @@ async function fetchLeaguesFromGithub() {
   const availableLeagues = await axios.get(ghUrl);
   return availableLeagues.data.filter((leagueObj: any) => {
     const league = leagueObj.leagueName;
-    return !league.includes("SSF") && !league.includes("Royale");
+    return !league.includes("Solo Self-Found") && !league.includes("Royale");
   });
 }
 

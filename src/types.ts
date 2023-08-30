@@ -192,6 +192,13 @@ export const currencies: CurrencyType[] = [
     isSelected: false,
     typeFilter: itemFilter.divinationFilter.items,
   },
+  {
+    type: "Tattoo",
+    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQW5jZXN0b3JzL0NvbW1vbkRleFRhdHR0b29FcXVpcG1lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/b80711f45f/CommonDexTatttooEquipment.png",
+    ninjaEndpoint: "itemoverview",
+    isSelected: false,
+    typeFilter: itemFilter.tattooFilter.items,
+  },
 
   {
     type: "Contract",
@@ -207,4 +214,5 @@ export const currencies: CurrencyType[] = [
     isSelected: false,
     typeFilter: itemFilter.sextantFilter.items,
   },
+
 ];

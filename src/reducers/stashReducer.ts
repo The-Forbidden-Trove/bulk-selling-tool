@@ -240,6 +240,7 @@ export const selectStash = (
       })
 
     const allItems = response.data.stash.items;
+    console.log("ALL ITEMS", allItems);
 
     const TFTNamesLink = "https://raw.githubusercontent.com/The-Forbidden-Trove/tft-data-prices/master/mappings/compasses.json";
     const TFTNames = (await axios.get(TFTNamesLink)).data;
@@ -315,9 +316,7 @@ export const selectStash = (
           w: item.w,
           h: item.h,
           maxStackSize: item.maxStackSize ? item.maxStackSize : 1,
-          stackSize: item.stackSize
-            ? items[name].stackSize + item.stackSize
-            : 1,
+          stackSize: items[name] ? items[name].stackSize + 1 : 1,
           chaosEquivalent: ninjaItems[name]
             ? ninjaItems[name].chaosValue
             : 0,

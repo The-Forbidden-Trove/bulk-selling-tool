@@ -30,10 +30,18 @@ export const getAllItemTypePrices = async (league: string) => {
                 name = `${item.baseType} ${item.mapTier}`;
               }
 
-              const x = {
+              const x: { name: string, chaosValue: number, levelRequired?: number } = {
                 name: name,
+                // levelRequired: item.levelRequired,
                 chaosValue: item.chaosValue,
               };
+
+              if (currency.type.match("Coffin")) {
+                name = `${item.name} ${item.levelRequired}`;
+                x.levelRequired = item.levelRequired;
+                x.name = name;
+              }
+
               items[x.name] = x;
             })
             : data.forEach((item: any) => {

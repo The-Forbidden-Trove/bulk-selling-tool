@@ -57,6 +57,7 @@ export interface StashTab {
 export interface NinjaItem {
   name: string;
   chaosValue: number;
+  levelRequired?: number;
 }
 
 export interface CurrencyType {
@@ -124,6 +125,13 @@ export const currencies: CurrencyType[] = [
     ninjaEndpoint: "none",
     isSelected: false,
     typeFilter: itemFilter.highEssenceFilter.items,
+  },
+  {
+    type: "Coffin",
+    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvTmVjcm9wb2xpcy9OZWNyb3BvbGlzQ29mZmluRmlsbGVkIiwidyI6MiwiaCI6MSwic2NhbGUiOjF9XQ/5b4214a420/NecropolisCoffinFilled.png",
+    ninjaEndpoint: "itemoverview",
+    isSelected: false,
+    typeFilter: itemFilter.coffinsFilter.items,
   },
 
   {

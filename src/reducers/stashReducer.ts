@@ -259,6 +259,9 @@ export const selectStash = (
           item.properties.find((x): any => x.name === "Map Tier")
             .values[0][0]
           }`;
+      } else if (item.baseType.includes("Filled Coffin")) {
+        name = item.implicitMods[0]
+
       } else if (item.baseType.includes("Contract:")) {
         name = `Contract ${item.properties[3].values[1][0]}${Number(item.ilvl) >= 81 ? " 81+" : ""
           }`;
@@ -277,7 +280,56 @@ export const selectStash = (
             .join(" ")})`;
       }
 
-      if (items[name]) {
+      if (item.baseType.includes("Filled Coffin")) {
+        const possiblePrices = []
+        for (const [key, value] of Object.entries(ninjaItems)) {
+          if (key.includes(name)) {
+            possiblePrices.push(value)
+          }
+        }
+
+        const currentLevelRequired = item.properties.find((x: any) => x.name === "Corpse Level").values[0][0];
+
+        const findBestFit = (currentLevelRequired: number, items: NinjaItem[]) => {
+          //@ts-ignore
+          const filteredItems = items.filter(item => item.levelRequired <= currentLevelRequired);
+          if (filteredItems.length === 0) {
+            return undefined;
+          }
+          //@ts-ignore
+          return filteredItems.reduce((prev, current) => (prev.levelRequired > current.levelRequired) ? prev : current);
+        }
+
+        const bestFitItem = findBestFit(currentLevelRequired, possiblePrices);
+        if (bestFitItem) {
+          name = name + " " + bestFitItem.levelRequired;
+        } else {
+          console.log("No item found for the given level requirement.");
+        }
+
+        items[name] = {
+          id: item?.id,
+          name: name,
+          shortName: name,
+          icon: item.icon,
+          w: item.w,
+          h: item.h,
+          maxStackSize: item.maxStackSize ? item.maxStackSize : 1,
+          stackSize: item.stackSize ? item.stackSize : 1,
+          chaosEquivalent: ninjaItems[name]
+            ? ninjaItems[name].chaosValue
+            : 0,
+          sellValue: ninjaItems[name]
+            ? roundToTwo((ninjaItems[name].chaosValue * multiplier) / 100)
+            : 0,
+          multiplier: multiplier,
+          sellMultiplier: multiplier,
+          isSelected: true,
+          wasPriceAdjusted: false,
+          group: generateItemGroup(name),
+        };
+
+      } else if (items[name]) {
         items[name] = {
           id: item?.id,
           name: name,
@@ -396,6 +448,8 @@ export const selectStash = (
         }
       } else if (itemFilters && itemFilters.includes(key)) {
         filteredItems[key] = value as Item;
+      } else if (itemFilters && itemFilters.some((enty: string) => key.includes(enty))) {
+        filteredItems[key] = value as Item;
       }
     }
 
@@ -435,7 +489,6 @@ export const unselectStash = (id: string) => {
   return async (dispatch: AppDispatch, getState: any) => {
     const loadingStatus = getState().itemOptions.stashLoading;
 
-    // console.log("LOADING STATUS", loadingStatus);
     if (loadingStatus === "loading") {
       return
     }

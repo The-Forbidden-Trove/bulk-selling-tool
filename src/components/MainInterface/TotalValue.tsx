@@ -177,7 +177,7 @@ const TotalValue = () => {
 
     for (const [key, value] of Object.entries(items)) {
       if (items[key].isSelected) {
-        itemsString += `${items[key].stackSize}x ${items[key].shortName}: ${items[key].chaosEquivalent} c/ea\n`
+        itemsString += `${items[key].stackSize}x ${items[key].shortName}: ${items[key].sellValue} c/ea\n`
       }
     }
 

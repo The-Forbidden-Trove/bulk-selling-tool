@@ -99,13 +99,6 @@ export const currencies: CurrencyType[] = [
     typeFilter: itemFilter.scarabFilter.items,
   },
   {
-    type: "High Scarab",
-    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2NhcmFicy9HcmVhdGVyU2NhcmFiSGFyYmluZ2VycyIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/ce393cfd58/GreaterScarabHarbingers.png",
-    ninjaEndpoint: "none",
-    isSelected: false,
-    typeFilter: itemFilter.highScarabFilter.items,
-  },
-  {
     type: "Fossil",
     icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvRGVsdmUvRmFjZXRlZEZvc3NpbCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/db0aba6238/FacetedFossil.png",
     ninjaEndpoint: "itemoverview",
@@ -215,12 +208,4 @@ export const currencies: CurrencyType[] = [
     isSelected: false,
     typeFilter: itemFilter.contractFilter.items,
   },
-  {
-    type: "Sextant",
-    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQ2hhcmdlZENvbXBhc3MiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/ea8fcc3e35/ChargedCompass.png",
-    ninjaEndpoint: "none",
-    isSelected: false,
-    typeFilter: itemFilter.sextantFilter.items,
-  },
-
 ];

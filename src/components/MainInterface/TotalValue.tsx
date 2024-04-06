@@ -3,14 +3,18 @@ import styled from "styled-components";
 import { isFirefox, isSafari } from "react-device-detect";
 import { FaCheck } from "react-icons/fa";
 import { useAppSelector } from "../..";
-import { Button, FlexWrap } from "../baseStyles";
+import { Button, CheckboxContainer, FlexWrap } from "../baseStyles";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 import { FaExclamationTriangle } from "react-icons/fa";
 import axios from "axios";
+import { Checkbox } from "../Checkbox";
 
 const TotalValue = () => {
+  const [isFullText, setIsFullText] = useState(false);
+  const [isNitro, setIsNitro] = useState(false);
+
   const [userName, setUserName] = useState("");
   const [warning, setWarning] = useState(false);
   let sellSum = 0;
@@ -38,14 +42,28 @@ const TotalValue = () => {
     });
   };
   const generateText = () => {
-    toast.promise(generateTxt, {
-      pending: "Generating text",
-      success: `${isFirefox || isSafari
-        ? "Text generated successfully! It is in Your clipboard!"
-        : "Text generated successfully! It is in Your clipboard!"
-        }`,
-      error: `Couldn't generate text.\n\nPlease stay on the site while it is being generated.`,
-    });
+    if (isFullText === false) {
+      toast.promise(generateTxt, {
+        pending: "Generating text",
+        success: `${isFirefox || isSafari
+          ? "Text generated successfully! It is in Your clipboard!"
+          : "Text generated successfully! It is in Your clipboard!"
+          }`,
+        error: `Couldn't generate text.\n\nPlease stay on the site while it is being generated.`,
+      });
+
+    } else {
+
+      toast.promise(generateFullTxt, {
+        pending: "Generating text",
+        success: `${isFirefox || isSafari
+          ? "Text generated successfully! It is in Your clipboard!"
+          : "Text generated successfully! It is in Your clipboard!"
+          }`,
+        error: `Couldn't generate text.\n\nPlease stay on the site while it is being generated.`,
+      });
+
+    }
   };
   const generateTxt = () => {
     return new Promise(async (resolve, reject) => {
@@ -154,6 +172,128 @@ const TotalValue = () => {
     });
   };
 
+  const generateFullTxt = () => {
+    let itemsString = "";
+
+    for (const [key, value] of Object.entries(items)) {
+      if (items[key].isSelected) {
+        itemsString += `${items[key].stackSize}x ${items[key].shortName}: ${items[key].totalValue} c/ea\n`
+      }
+    }
+
+
+    return new Promise(async (resolve, reject) => {
+      const contracts = Object.values(items)
+        .filter((x: any) => x.isSelected)
+        .filter((x: any) => x.name.includes("Contract") && !x.name.match(/^Sextant/));
+
+
+      const TFTNamesLink = "https://raw.githubusercontent.com/The-Forbidden-Trove/tft-data-prices/master/mappings/compasses.json";
+      const TFTNames = (await axios.get(TFTNamesLink)).data
+
+      const sextants = Object.values(items)
+        .filter((x: any) => x.isSelected)
+        .filter((x: any) => {
+          return x.name.match(/Sextant (\w\s*)*\(\d*\s*uses\)/) || TFTNames[x.name] !== undefined
+        });
+
+      const ninjaPrice = Math.round(
+        Math.round((ninjaSum + Number.EPSILON) * 100) / 100,
+      );
+
+      const ninjaPriceEx = Math.floor(
+        (ninjaPrice * 100) / exDefaultPrice / 100,
+      );
+
+      const ninjaPriceChaos = Math.round(
+        ((ninjaPrice * 100) / exDefaultPrice / 100 -
+          Math.floor((ninjaPrice * 100) / exDefaultPrice / 100)) *
+        exDefaultPrice,
+      );
+
+      const askingPrice = Math.round(
+        Math.round((sellSum + Number.EPSILON) * 100) / 100,
+      );
+
+      const askingPriceEx = Math.floor((askingPrice * 100) / exPrice / 100);
+
+      const askingPriceChaos = Math.round(
+        ((askingPrice * 100) / exPrice / 100 -
+          Math.floor((askingPrice * 100) / exPrice / 100)) *
+        exPrice,
+      );
+
+      const mostValuable = Object.values(items)
+        .filter((x: any) => x.isSelected)
+        .sort((a: any, b: any) => b.totalValue - a.totalValue)
+        .slice(0, 3)
+        .map((x: any) => {
+          return ` ${x.shortName}`;
+        });
+
+      const copyText = `WTS ${league}\n${userName ? `IGN: \`${userName}\`\n` : ""
+        }Ninja price: \`${ninjaPrice}\` :chaos: ( \`${ninjaPriceEx}\` :divine: + \`${ninjaPriceChaos}\` :chaos: ) at ratio [\`${exDefaultPrice}\`:chaos:/\`1\`:divine:]\nAsking price: \`${askingPrice}\` :chaos: (\`${Math.round(
+          (sellSum / ninjaSum) * 100,
+        )}%\` of Ninja price) ( \`${askingPriceEx}\` :divine: + \`${askingPriceChaos}\` :chaos: ) at ratio [\`${exPrice}\`:chaos:/\`1\`:divine:] ${contracts.length > 0 || sextants.length > 0
+          ? "( excluding: " +
+          (contracts.length > 0 ? "contracts " : "") +
+          (sextants.length > 0 ? "sextants " : "") +
+          ")"
+          : ""
+        }\nMost valuable:${mostValuable}${contracts.length > 0
+          ? "\n`Contracts are experimental`\n" +
+          contracts
+            .map((x: any) => {
+              return `${x.stackSize}x ${x.name} ${x.sellValue} :chaos:/each`;
+            })
+            .join("\n")
+          : ""
+        }${sextants.length > 0
+          ? sextants
+            .map((x: any) => {
+              return `${x.stackSize}x ${x.shortName} ${x.sellValue} c/each`;
+            })
+            .join("\n")
+          : ""
+        }\n\n${itemsString}`;
+
+      const textBlob: any = new Blob([copyText], {
+        type: "text/plain",
+      });
+
+      if (copyText.length > 2000 && isNitro === false) {
+        toast.warn("Text is too long, you will need discord nitro to send it")
+        reject(new Error("Text is too long, you will need discord nitro to send it"));
+      }
+
+      if (isFirefox || isSafari) {
+        navigator.clipboard
+          .writeText(copyText)
+          .then((x) => {
+            resolve("Text Generated");
+          })
+          .catch((e) => {
+            console.log("Error:", e);
+            reject(new Error("Not generated"));
+          });
+      } else {
+        window.navigator.clipboard
+          .write([
+            new window.ClipboardItem({
+              "text/plain": textBlob,
+            }),
+          ])
+          .then((x) => {
+            resolve("Text Generated");
+          })
+          .catch((e) => {
+            reject(new Error("Not generated"));
+          });
+      }
+    });
+
+  };
+
   const generateImg = () => {
     return new Promise((resolve, reject) => {
       let component = document.getElementById("generatedMessage");
@@ -239,13 +379,26 @@ const TotalValue = () => {
 
           <Generate>
             <div style={{ display: "flex", flexDirection: "column" }}>
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+
+                <P onClick={() => setIsFullText(!isFullText)} style={{ color: isFullText ? "" : "white" }}>
+                  Full text
+                </P>
+
+                <P onClick={() => {
+                  setIsNitro(!isNitro);
+                  setIsFullText(!isNitro);
+                }} style={{ color: isNitro ? "" : "white" }}>
+                  Nitro
+                </P>
+
                 <P
                   style={warning ? { color: "red" } : {}}
                   onClick={() => generateText()}
                 >
                   Generate text
                 </P>
+
 
                 <P
                   style={warning ? { color: "red" } : {}}

@@ -28,30 +28,27 @@ const GenerateBulkItemMessage = ({ selectedItems, msg, setMsg }: any) => {
   const generateImage = () => {
     toast.promise(generateImg, {
       pending: "Generating image",
-      success: `${
-        isFirefox || isSafari
+      success: `${isFirefox || isSafari
           ? "Image generated successfully! You are on Firefox, your image will open in a new tab."
           : "Image generated successfully! Your image is in the clipboard already!"
-      }`,
+        }`,
       error: `Couldn't generate an image.\n\nPlease stay on the site while it is being generated.`,
     });
   };
   const generateText = () => {
     toast.promise(generateTxt, {
       pending: "Generating text",
-      success: `${
-        isFirefox || isSafari
+      success: `${isFirefox || isSafari
           ? "Text generated successfully! It is in Your clipboard!"
           : "Text generated successfully! It is in Your clipboard!"
-      }`,
+        }`,
       error: `Couldn't generate text.\n\nPlease stay on the site while it is being generated.`,
     });
   };
   const generateTxt = () => {
     return new Promise((resolve, reject) => {
-      const copyText = `WTS ${league}\n${
-        userName ? `IGN: \`${userName}\`\n` : ""
-      }${msg.length > 0 ? "Note: `" + msg + "`" : ""}`;
+      const copyText = `WTS ${league}\n${userName ? `IGN: \`${userName}\`\n` : ""
+        }${msg.length > 0 ? "Note: `" + msg + "`" : ""}`;
 
       const textBlob: any = new Blob([copyText], {
         type: "text/plain",
@@ -126,7 +123,7 @@ const GenerateBulkItemMessage = ({ selectedItems, msg, setMsg }: any) => {
     const askingPriceChaos = Math.round(
       ((askingPrice * 100) / exPrice / 100 -
         Math.floor((askingPrice * 100) / exPrice / 100)) *
-        exPrice,
+      exPrice,
     );
     return askingPriceChaos;
   };

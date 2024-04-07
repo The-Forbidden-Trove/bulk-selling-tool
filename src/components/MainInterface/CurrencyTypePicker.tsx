@@ -102,8 +102,6 @@ const CurrencyTypePicker = () => {
                     ? "Delirium Orb"
                     : currencyType.type === "DivinationCard"
                     ? "Divination"
-                    : currencyType.type === "AllflameEmber"
-                    ? "Allflame"
                     : currencyType.type}
                 </p>
               </TypeWrap>

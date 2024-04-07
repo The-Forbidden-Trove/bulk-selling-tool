@@ -311,7 +311,7 @@ export const selectStash = (
         items[name] = {
           id: item?.id,
           name: name,
-          shortName: generateSimpleName(name),
+          shortName: name,
           icon: item.icon,
           w: item.w,
           h: item.h,
@@ -535,9 +535,6 @@ export default stashReducer;
 
 const generateSimpleName = (name: string) => {
   const filters = [
-    "Allflame Ember of",
-    "when this Corpse is buried",
-    "Essence of ",
     "Essence of ",
     "Delirium Orb",
     "Fragment of the",

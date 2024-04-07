@@ -19,6 +19,8 @@ const GeneratedMessageItemRecord = ({ item }: any) => {
 
   if (item.name.includes("Contract")) {
     name = "/icons/Contract.png";
+  } else if( item.icon === "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvTmVjcm9wb2xpcy9OZWNyb3BvbGlzQ29mZmluRmlsbGVkIiwidyI6MiwiaCI6MSwic2NhbGUiOjF9XQ/5b4214a420/NecropolisCoffinFilled.png"){
+    name = "/icons/Coffin.png";
   }
 
   return (
@@ -26,7 +28,7 @@ const GeneratedMessageItemRecord = ({ item }: any) => {
       <Stack>{item.stackSize}</Stack>
       <NameWrap>
         <FaTimes style={iconStyle} />
-        <Icon src={`/icons/${item.name.replace(/\s+/g, '_')}.png`} alt={item.name} crossOrigin="anonymous" />
+        <Icon src={name} alt={item.name} crossOrigin="anonymous" />
         <P2>{item.shortName}</P2>
       </NameWrap>
 

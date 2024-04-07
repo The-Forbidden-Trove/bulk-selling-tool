@@ -13,13 +13,20 @@ const iconStyle = {
 };
 const GeneratedMessageItemRecord = ({ item }: any) => {
   const exPrice = useAppSelector((store) => store.exaltedPrice).value || 1;
+  // console.log(item);
+  let name = `/icons/${item.name.replace(/\s+/g, '_')}.png`;
+  // console.log(name);
+
+  if (item.name.includes("Contract")) {
+    name = "/icons/Contract.png";
+  }
 
   return (
     <ItemRecordWrap>
       <Stack>{item.stackSize}</Stack>
       <NameWrap>
         <FaTimes style={iconStyle} />
-        <Icon src={item.icon} alt="icon" crossOrigin="anonymous" />
+        <Icon src={`/icons/${item.name.replace(/\s+/g, '_')}.png`} alt={item.name} crossOrigin="anonymous" />
         <P2>{item.shortName}</P2>
       </NameWrap>
 

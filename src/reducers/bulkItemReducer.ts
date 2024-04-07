@@ -50,7 +50,6 @@ const bulkItemReducer = (state = initialState, action: any) => {
         isSelected: true,
         item: item,
       };
-      console.log(newItem);
       const LS = localStorage.getItem("bulkItems");
       let savedItems = [];
       if (LS) savedItems = JSON.parse(LS);

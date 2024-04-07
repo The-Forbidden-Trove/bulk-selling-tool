@@ -120,6 +120,13 @@ export const currencies: CurrencyType[] = [
     typeFilter: itemFilter.highEssenceFilter.items,
   },
   {
+    type: "AllflameEmber",
+    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvTmVjcm9wb2xpcy9BbGxmbGFtZUVtYmVyc0Jhc2VDdXJyZW5jeSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/fcf983d363/AllflameEmbersBaseCurrency.png",
+    ninjaEndpoint: "itemoverview",
+    isSelected: false,
+    typeFilter: itemFilter.allflameFilter.items,
+  },
+  {
     type: "Coffin",
     icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvTmVjcm9wb2xpcy9OZWNyb3BvbGlzQ29mZmluRmlsbGVkIiwidyI6MiwiaCI6MSwic2NhbGUiOjF9XQ/5b4214a420/NecropolisCoffinFilled.png",
     ninjaEndpoint: "itemoverview",

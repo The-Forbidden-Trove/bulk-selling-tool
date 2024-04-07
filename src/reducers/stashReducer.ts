@@ -240,7 +240,6 @@ export const selectStash = (
       })
 
     const allItems = response.data.stash.items;
-    console.log("ALL ITEMS", allItems);
 
     const TFTNamesLink = "https://raw.githubusercontent.com/The-Forbidden-Trove/tft-data-prices/master/mappings/compasses.json";
     const TFTNames = (await axios.get(TFTNamesLink)).data;
@@ -311,7 +310,7 @@ export const selectStash = (
         items[name] = {
           id: item?.id,
           name: name,
-          shortName: name,
+          shortName: generateSimpleName(name),
           icon: item.icon,
           w: item.w,
           h: item.h,
@@ -535,6 +534,9 @@ export default stashReducer;
 
 const generateSimpleName = (name: string) => {
   const filters = [
+    "Allflame Ember of",
+    "when this Corpse is buried",
+    "Essence of ",
     "Essence of ",
     "Delirium Orb",
     "Fragment of the",

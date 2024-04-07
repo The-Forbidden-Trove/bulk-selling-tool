@@ -14,6 +14,7 @@ import { Checkbox } from "../Checkbox";
 const TotalValue = () => {
   const [isFullText, setIsFullText] = useState(false);
   const [isNitro, setIsNitro] = useState(false);
+  const [isWillingToNegotiate, setIsWillingToNegotiate] = useState(false);
 
   const [userName, setUserName] = useState("");
   const [warning, setWarning] = useState(false);
@@ -139,7 +140,7 @@ const TotalValue = () => {
             })
             .join("\n")
           : ""
-        }`;
+        }\n${isWillingToNegotiate ? "**Willing to negotiate and sell specific pieces.**" : ""}`;
 
       const textBlob: any = new Blob([copyText], {
         type: "text/plain",
@@ -255,7 +256,7 @@ const TotalValue = () => {
             })
             .join("\n")
           : ""
-        }\n\n${itemsString}`;
+        }\n${isWillingToNegotiate ? "**Willing to negotiate and sell specific pieces.**" : ""}\n\n${itemsString}`;
 
       const textBlob: any = new Blob([copyText], {
         type: "text/plain",
@@ -381,16 +382,22 @@ const TotalValue = () => {
             <div style={{ display: "flex", flexDirection: "column" }}>
               <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
 
-                <P onClick={() => setIsFullText(!isFullText)} style={{ color: isFullText ? "" : "white" }}>
+                <P3 onClick={() => setIsFullText(!isFullText)} style={{ color: isFullText ? "" : "white" }}>
                   Full text
-                </P>
+                </P3>
 
-                <P onClick={() => {
+                <P3 onClick={() => {
                   setIsNitro(!isNitro);
                   setIsFullText(!isNitro);
                 }} style={{ color: isNitro ? "" : "white" }}>
                   Nitro
-                </P>
+                </P3>
+
+                <P3 onClick={() => {
+                  setIsWillingToNegotiate(!isWillingToNegotiate);
+                }} style={{ color: isWillingToNegotiate ? "" : "white" }}>
+                  Negotieable
+                </P3>
 
                 <P
                   style={warning ? { color: "red" } : {}}
@@ -485,6 +492,14 @@ const Price = styled(FlexWrap)`
 `;
 const P = styled.p`
   font-size: ${(props) => props.theme.fontL};
+  padding: 0px 15px;
+
+  color: ${(props) => props.theme.colors.text};
+  color: ${(props) => props.theme.colors.accent};
+`;
+
+const P3 = styled.p`
+  font-size: ${(props) => props.theme.fontM};
   padding: 0px 15px;
 
   color: ${(props) => props.theme.colors.text};

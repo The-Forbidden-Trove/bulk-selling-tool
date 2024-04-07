@@ -8,7 +8,7 @@ import { FaTimes } from "react-icons/fa";
 
 const iconStyle = {
   fill: "#555",
-  padding: "0px 5px",
+  padding: "0px 0px",
   cursor: "pointer",
 };
 const GeneratedMessageItemRecord = ({ item }: any) => {
@@ -19,7 +19,7 @@ const GeneratedMessageItemRecord = ({ item }: any) => {
       <Stack>{item.stackSize}</Stack>
       <NameWrap>
         <FaTimes style={iconStyle} />
-        <Icon src={item.icon} alt="icon" />
+        <Icon src={item.icon} alt="icon" crossOrigin="anonymous" />
         <P2>{item.shortName}</P2>
       </NameWrap>
 
@@ -52,38 +52,38 @@ const ChaosValue = styled.p`
   width: 55px;
   font-size: 16px;
   color: ${(props) => props.theme.colors.text};
-  margin: 0;
+  margin: 0px;
   padding: 0px;
 `;
 const SellValue = styled.p`
   width: 55px;
   font-size: 16px;
   color: ${(props) => props.theme.colors.accent};
-  margin: 0;
+  margin: 0px;
   padding: 0px;
 `;
 
 const ItemRecordWrap = styled.div`
-  margin: 5px 10px;
+  margin: 0px 0px;
 
   justify-items: start;
   font-size: ${(props) => props.theme.fontM};
-  grid-template-columns: 1fr 4fr 3fr 4fr 3fr 3fr;
+  grid-template-columns: 12px minmax(0px, 1fr) 100px 160px 100px 100px;
   display: grid;
   border: 0.5px solid ${(props) => props.theme.colors.fg2};
 `;
 
 const NameWrap = styled(FlexWrap)`
-  padding: 0px 5px 0px 0px;
+  padding: 0px 0px 0px 0px;
   background: none;
   outline: none;
   border: none;
 `;
 
 const Icon = styled.img`
-  padding: 0px 5px;
-  width: 36px;
-  height: 36px;
+  padding: 0px 0px;
+  width: 32px;
+  height: 32px;
   object-fit: contain;
 `;
 
@@ -94,6 +94,7 @@ const P = styled(FlexWrap)`
 
 const P2 = styled(FlexWrap)`
   font-size: 16px;
+  padding: 0px 2px 0px 2px;
   color: ${(props) => props.theme.colors.text};
 `;
 

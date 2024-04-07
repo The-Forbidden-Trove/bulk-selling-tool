@@ -54,13 +54,13 @@ const GeneratedMessage = () => {
     return cb();
   };
 
-function utf8_to_b64( str:string ) {
-    return window.btoa(unescape(encodeURIComponent( str )));
-}
+  function utf8_to_b64(str: string) {
+    return window.btoa(unescape(encodeURIComponent(str)));
+  }
 
-function b64_to_utf8( str:string ) {
-    return decodeURIComponent(escape(window.atob( str )));
-}
+  function b64_to_utf8(str: string) {
+    return decodeURIComponent(escape(window.atob(str)));
+  }
 
   useEffect(() => {
     const time = JSON.parse(window.localStorage.getItem("ninjaFetch") || "{}");
@@ -84,7 +84,10 @@ function b64_to_utf8( str:string ) {
 
   return (
     <Wrapper id="generatedMessage">
-      <H>Generated with TFT Bulk Selling Tool</H>
+      <FloatTop>
+        <H>Generated with TFT Bulk Selling Tool</H>
+        <H3>https://bulk.tftrove.com</H3>
+      </FloatTop>
       <Header>
         <TotalValue>
           <P>Ninja price</P>
@@ -218,7 +221,7 @@ const P2 = styled(FlexWrap)`
   color: ${(props) => props.theme.colors.accent2};
 `;
 const Header = styled(FlexWrap)`
-  padding: 5px 0px;
+  padding: 0px 0px;
   width: 100%;
   justify-content: space-between;
 `;
@@ -240,6 +243,13 @@ const FloatBottomRight = styled(FlexWrap)`
   margin: 5px 0px 0px 5px;
   position: absolute;
   opacity: 0.2;
+`;
+
+const FloatTop = styled(FlexWrap)`
+  top: 0%;
+  position: absolute;
+  opacity: 0.8;
+  flex-direction: column;
 `;
 
 const CurrencyTypes = styled(FlexWrap)``;
@@ -300,19 +310,25 @@ const H = styled.h3`
   color: ${(props) => props.theme.colors.text};
 `;
 
+const H3 = styled.h3`
+  font-size: 18px;
+  color: ${(props) => props.theme.colors.accent2};
+`;
+
 const ItemsWrapper = styled.div`
   width: 100%;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-column-gap: 20px;
   grid-auto-columns: min-content;
   grid-auto-rows: min-content;
 `;
 
 const ItemRecordWrap = styled.div`
-  padding: 5px 10px;
+  padding: 0px 0px;
 
   justify-items: start;
   font-size: ${(props) => props.theme.fontM};
-  grid-template-columns: 1fr 4fr 3fr 4fr 3fr 3fr;
+  grid-template-columns: 12px minmax(0px, 1fr) 100px 160px 100px 100px;
   display: grid;
 `;

@@ -10,6 +10,8 @@ const iconStyle = {
   fill: "#555",
   padding: "0px 0px",
   cursor: "pointer",
+  width: "12px",
+  height: "12px",
 };
 const GeneratedMessageItemRecord = ({ item }: any) => {
   const exPrice = useAppSelector((store) => store.exaltedPrice).value || 1;

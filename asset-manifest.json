@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "./static/js/main.aa5a719f.chunk.js",
-    "main.js.map": "./static/js/main.aa5a719f.chunk.js.map",
+    "main.js": "./static/js/main.8992a0be.chunk.js",
+    "main.js.map": "./static/js/main.8992a0be.chunk.js.map",
     "runtime-main.js": "./static/js/runtime-main.0db79499.js",
     "runtime-main.js.map": "./static/js/runtime-main.0db79499.js.map",
     "static/css/2.e434f813.chunk.css": "./static/css/2.e434f813.chunk.css",
@@ -14,12 +14,13 @@
     "static/media/Guide1.94fb55b4.png": "./static/media/Guide1.94fb55b4.png",
     "static/media/Guide2.e45a625c.png": "./static/media/Guide2.e45a625c.png",
     "static/media/firefox-web-store.2ea4cef4.png": "./static/media/firefox-web-store.2ea4cef4.png",
-    "static/media/harvest-bg.11d92769.jpg": "./static/media/harvest-bg.11d92769.jpg"
+    "static/media/harvest-bg.11d92769.jpg": "./static/media/harvest-bg.11d92769.jpg",
+    "static/media/patreon.4a630b90.png": "./static/media/patreon.4a630b90.png"
   },
   "entrypoints": [
     "static/js/runtime-main.0db79499.js",
     "static/css/2.e434f813.chunk.css",
     "static/js/2.b5fbbe83.chunk.js",
-    "static/js/main.aa5a719f.chunk.js"
+    "static/js/main.8992a0be.chunk.js"
   ]
 }

@@ -8,6 +8,9 @@ import { FlexWrap } from "./components/baseStyles";
 import { useEffect } from "react";
 import { initAppState } from "./reducers/leagueReducer";
 import backgroundImg from './assets/harvest-bg.jpg';
+import patreon from './assets/patreon.png';
+import { width } from "@mui/system";
+
 function App() {
   const { authService } = useAuth();
 
@@ -27,6 +30,11 @@ function App() {
           in any way.
         </P>
 
+        <Patreon onClick={() => window.open("https://www.patreon.com/pacto_", "_blank")} style={{ width: "35%", justifyItems: "center", alignItems: "center", fontSize: "12px" }}>
+          <Icon src={patreon} />
+          Support the dev!
+        </Patreon>
+
         <P style={{ textAlign: "right" }}>
           All prices gathered thanks to poe.ninja
         </P>
@@ -36,6 +44,20 @@ function App() {
 }
 
 export default App;
+
+const Icon = styled.img`
+  padding: 0px 3px;
+  width: 12px;
+  height: 12px;
+  object-fit: contain;
+`;
+
+const Patreon = styled(FlexWrap)`
+&:hover {
+  cursor: pointer;
+  color: #ff6e25;
+}
+`
 
 const Bottom = styled(FlexWrap)`
   justify-content: space-between;

@@ -8,6 +8,7 @@ import { changeDefaultLeague } from "../../reducers/leagueReducer";
 import { isFirefox, isSafari } from "react-device-detect";
 import ChromeStore from "../../assets/chrome-web-store.png";
 import FirefoxStore from "../../assets/firefox-web-store.png";
+import PoeHub from "../../assets/PoEHub-logo.png";
 
 const Img = styled.img`
   width: 64px;
@@ -44,6 +45,13 @@ const Navbar = () => {
     const link = "https://discord.com/invite/zBpfweq";
     window.open(link);
   };
+
+  const redirectPoeHub = () => {
+    const link =
+      "https://poe-hub.com/";
+    window.open(link);
+  };
+
   const { authService } = useAuth();
 
   const login = async () => {
@@ -67,6 +75,23 @@ const Navbar = () => {
       </Left>
 
       <Middle>
+
+        <Button
+          onClick={redirectPoeHub}
+          onAuxClick={redirectPoeHub}
+        >
+          <TextIcon>
+            <Img
+              src={PoeHub}
+              style={{ height: "36px", width: "36px" }}
+            />
+            <Text>
+              <p style={{ fontSize: "1rem" }}>PoEHub</p>
+              <Red style={{ color: "#E54949", fontSize: "1rem" }}>New bulk selling tool!</Red>
+            </Text>
+          </TextIcon>
+        </Button>
+
         {isFirefox ? (
           <Button
             onClick={redirectExtensionFirefox}
@@ -181,7 +206,7 @@ const Wrapper = styled(FlexWrap)`
 `;
 
 const Left = styled(FlexWrap)`
-  width: 33%;
+  max-width: 33%;
   padding: 0px 0px 0px 10px;
   justify-content: flex-start;
   color: ${(props) => props.theme.colors.text};
@@ -192,7 +217,6 @@ const Left = styled(FlexWrap)`
 const Middle = styled(FlexWrap)`
   color: ${(props) => props.theme.colors.text};
 
-  width: 33%;
   font-size: 32px;
 `;
 const TextIcon = styled(FlexWrap)`
@@ -214,7 +238,7 @@ const Text = styled(FlexWrap)`
   justify-content: flex-start;
 `;
 const Right = styled(FlexWrap)`
-  width: 33%;
+  max-width: 33%;
   justify-content: flex-end;
   color: ${(props) => props.theme.colors.text};
   padding: 0px 10px 0px 0px;

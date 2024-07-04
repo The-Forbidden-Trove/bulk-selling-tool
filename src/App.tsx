@@ -9,7 +9,6 @@ import { useEffect } from "react";
 import { initAppState } from "./reducers/leagueReducer";
 import backgroundImg from './assets/harvest-bg.jpg';
 import patreon from './assets/patreon.png';
-import { width } from "@mui/system";
 
 function App() {
   const { authService } = useAuth();

@@ -85,9 +85,10 @@ const Navbar = () => {
               src={PoeHub}
               style={{ height: "36px", width: "36px" }}
             />
+            {/* <p style={{ fontSize: "1rem" }}>PoEHub</p> */}
             <Text>
-              <p style={{ fontSize: "1rem" }}>PoEHub</p>
               <Red style={{ color: "#E54949", fontSize: "1rem" }}>New bulk selling tool!</Red>
+              <Red style={{ fontSize: "1rem" }}>One click post is back!</Red>
             </Text>
           </TextIcon>
         </Button>

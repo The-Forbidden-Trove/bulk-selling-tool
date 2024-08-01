@@ -117,9 +117,9 @@ const TotalValue = () => {
         });
 
       const copyText = `WTS ${league}\n${userName ? `IGN: \`${userName}\`\n` : ""
-        }Ninja price: \`${ninjaPrice}\` :chaos: ( \`${ninjaPriceEx}\` :divine: + \`${ninjaPriceChaos}\` :chaos: ) at ratio [\`${exDefaultPrice}\`:chaos:/\`1\`:divine:]\nAsking price: \`${askingPrice}\` :chaos: (\`${Math.round(
+        }Ninja Price: ${ninjaPriceEx} :divine: + ${ninjaPriceChaos} :chaos:\n**Asking Price**: ${askingPriceEx} :divine: + ${askingPriceChaos} :chaos: (${Math.round(
           (sellSum / ninjaSum) * 100,
-        )}%\` of Ninja price) ( \`${askingPriceEx}\` :divine: + \`${askingPriceChaos}\` :chaos: ) at ratio [\`${exPrice}\`:chaos:/\`1\`:divine:] ${contracts.length > 0 || sextants.length > 0
+        )}% of Ninja price)${contracts.length > 0 || sextants.length > 0
           ? "( excluding: " +
           (contracts.length > 0 ? "contracts " : "") +
           (sextants.length > 0 ? "sextants " : "") +
@@ -140,7 +140,7 @@ const TotalValue = () => {
             })
             .join("\n")
           : ""
-        }\n${isWillingToNegotiate ? "**Willing to negotiate and sell specific pieces.**" : ""}`;
+        }\n${userName ? `\`\`\`@${userName} Hi, I would like to buy your bulk listing \`\`\`\n` : ""}${isWillingToNegotiate ? "**Willing to negotiate and sell specific pieces.**" : ""}`;
 
       const textBlob: any = new Blob([copyText], {
         type: "text/plain",

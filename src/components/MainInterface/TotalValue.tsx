@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import { FaExclamationTriangle } from "react-icons/fa";
 import axios from "axios";
 import { Checkbox } from "../Checkbox";
+import { CurrencyType, StashTab } from "../../types";
 
 const TotalValue = () => {
   const [isFullText, setIsFullText] = useState(false);
@@ -25,6 +26,21 @@ const TotalValue = () => {
   const exDefaultPrice =
     useAppSelector((store) => store.exaltedPrice).defaultValue || 1;
   const league = useAppSelector((store) => store.leagues).defaultLeague;
+
+  const selectedTypes = useAppSelector((store) => store.stashes)
+    .filter((stash: StashTab) => {
+      return stash.isSelected;
+    })
+    .flatMap((stash: StashTab) => {
+      return stash.assignedTypes;
+    })
+    .filter(
+      (thing: CurrencyType, index: number, self: any) =>
+        index ===
+        self.findIndex(
+          (t: CurrencyType) => t.type === thing.type && t.icon === thing.icon,
+        ),
+    );
 
   for (const [key, value] of Object.entries(items)) {
     if (items[key].isSelected) {
@@ -140,7 +156,7 @@ const TotalValue = () => {
             })
             .join("\n")
           : ""
-        }\n${userName ? `\`\`\`@${userName} Hi, I would like to buy your bulk listing \`\`\`\n` : ""}${isWillingToNegotiate ? "**Willing to negotiate and sell specific pieces.**" : ""}`;
+        }\n${userName ? `\`\`\`@${userName} Hi, I would like to buy your bulk ${selectedTypes.map((type: CurrencyType) => type.type).join(", ")} listing for ${askingPriceEx ? `${askingPriceEx} div + ` : ""}${askingPriceChaos} chaos\`\`\`\n` : ""}${isWillingToNegotiate ? "**Willing to negotiate and sell specific pieces.**" : ""}`;
 
       const textBlob: any = new Blob([copyText], {
         type: "text/plain",

@@ -1157,6 +1157,22 @@ export const itemFilter = {
     name: "Fragments",
     icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQnJlYWNoL0JyZWFjaEZyYWdtZW50c0NoYW9zIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/04b5c032f4/BreachFragmentsChaos.png",
   },
+  runeFilter: {
+    items: [
+      "Power Rune",
+      "Time Rune",
+      "Mountain Rune",
+      "Journey Rune",
+      "War Rune",
+      "River Rune",
+      "Bounty Rune",
+      "Life Rune",
+      "Bound Rune",
+      "Sun Rune",
+    ],
+    name: "Kalguuran Runes",
+    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2V0dGxlcnMvVmlsbGFnZVJ1bmUxMCIsInNjYWxlIjoxfV0/7a75e42c42/VillageRune10.png",
+  },
   oilFilter: {
     items: [
       "Amber Oil",

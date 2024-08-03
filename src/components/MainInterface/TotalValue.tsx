@@ -444,7 +444,7 @@ const TotalValue = () => {
                   }}
                   style={{ color: isWillingToNegotiate ? "" : "white" }}
                 >
-                  Negotieable
+                  Negotiable
                 </P3>
 
                 <P

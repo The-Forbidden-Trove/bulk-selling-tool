@@ -99,6 +99,13 @@ export const currencies: CurrencyType[] = [
     typeFilter: itemFilter.scarabFilter.items,
   },
   {
+    type: "KalguuranRune",
+    icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvU2V0dGxlcnMvVmlsbGFnZVJ1bmUxMCIsInNjYWxlIjoxfV0/7a75e42c42/VillageRune10.png",
+    ninjaEndpoint: "itemoverview",
+    isSelected: false,
+    typeFilter: itemFilter.runeFilter.items,
+  },
+  {
     type: "Fossil",
     icon: "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvRGVsdmUvRmFjZXRlZEZvc3NpbCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/db0aba6238/FacetedFossil.png",
     ninjaEndpoint: "itemoverview",

@@ -1,14 +1,14 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 import CryptoJS from "crypto-js";
-import { useAppSelector } from '../..';
-import { FlexWrap } from '../baseStyles';
-import { CurrencyType, Item, StashTab } from '../../types';
-import GeneratedMessageItemRecord from './GeneratedMessageItemRecord';
+import { useAppSelector } from "../..";
+import { FlexWrap } from "../baseStyles";
+import { CurrencyType, Item, StashTab } from "../../types";
+import GeneratedMessageItemRecord from "./GeneratedMessageItemRecord";
 // for some reason I couldn't get these to render on the generated message
 // even tho I added cors and tainted canvas to html2canvas
-import chaosOrb from '../../assets/chaosOrb.png';
-import exaltedOrb from '../../assets/divineOrb.png';
-import { useEffect, useState } from 'react';
+import chaosOrb from "../../assets/chaosOrb.png";
+import exaltedOrb from "../../assets/divineOrb.png";
+import { useEffect, useState } from "react";
 
 const GeneratedMessage = () => {
   let sellSum = 0;
@@ -38,7 +38,7 @@ const GeneratedMessage = () => {
 
   const contracts = Object.values(items)
     .filter((x: any) => x.isSelected)
-    .filter((x: any) => x.name.includes('Contract'));
+    .filter((x: any) => x.name.includes("Contract"));
   const sextants = Object.values(items)
     .filter((x: any) => x.isSelected)
     .filter((x: any) => x.name.match(/Sextant (\w\s*)*\(\d*\s*uses\)/));
@@ -80,14 +80,19 @@ const GeneratedMessage = () => {
         setName(encodedString);
       }
     }
-  }, [localStorage.getItem('ninjaFetch')])
+  }, [localStorage.getItem("ninjaFetch")]);
 
   return (
     <Wrapper id="generatedMessage">
       <FloatTop>
-        <H>Generated with TFT Bulk Selling Tool</H>
-        <H>Sell Fast, Stay Safe at TFT</H>
-        <H3>https://bulk.tftrove.com / discord.gg/tftrove</H3>
+        <H style={{ display: "flex", justifyItems: "center", justifyContent: "center", alignItems: "center" }}>
+          Generated with TFT Bulk Selling Tool{" "}
+          <H3> - https://bulk.tftrove.com</H3>
+        </H>
+        <H style={{ display: "flex", justifyItems: "center", justifyContent: "center", alignItems: "center" }}>
+          Sell Fast, Stay Safe at TFT{" "}
+          <H3> - discord.gg/tftrove</H3>
+        </H>
       </FloatTop>
       <Header>
         <TotalValue>
@@ -100,7 +105,9 @@ const GeneratedMessage = () => {
           <FlexWrap>
             <Icon src={exaltedOrb} />
             <P>
-              {Math.round(((ninjaSum + Number.EPSILON) * 100) / exDefaultPrice) / 100}
+              {Math.round(
+                ((ninjaSum + Number.EPSILON) * 100) / exDefaultPrice,
+              ) / 100}
             </P>
           </FlexWrap>
         </TotalValue>
@@ -114,27 +121,23 @@ const GeneratedMessage = () => {
           </P>
           {exDefaultPrice !== exPrice && <P>|</P>}
           {exDefaultPrice !== exPrice && (
-            <P >
-              <p style={{ color: '#e49a05' }}>Asking rate</p>
+            <P>
+              <p style={{ color: "#e49a05" }}>Asking rate</p>
               <Icon src={chaosOrb} />
               <p>/</p>
               <Icon src={exaltedOrb} />
-              <P style={{ color: '#e49a05' }}> {exPrice}</P>
+              <P style={{ color: "#e49a05" }}> {exPrice}</P>
             </P>
           )}
         </ExPrice>
 
-        {ninjaTimestamp &&
+        {ninjaTimestamp && (
           <FloatBottomRight>
             Poe.ninja gathered at: {ninjaTimestamp}
           </FloatBottomRight>
-        }
+        )}
 
-        {name &&
-          <FloatBottomLeft>
-            ID: {name}
-          </FloatBottomLeft>
-        }
+        {name && <FloatBottomLeft>ID: {name}</FloatBottomLeft>}
       </Header>
 
       <Header>
@@ -152,22 +155,22 @@ const GeneratedMessage = () => {
             </R>
           </FlexWrap>
           <FlexWrap>
-            <R>({Math.round((sellSum / ninjaSum) * 100)}% of Ninja price)</R>
+            <R>({Math.round((sellSum / ninjaSum) * 100)}% Ninja price)</R>
           </FlexWrap>
 
           <Excluded>
             {contracts.length > 0 || sextants.length > 0
-              ? '( excluding: ' +
-              (contracts.length > 0 ? 'contracts ' : '') +
-              (sextants.length > 0 ? 'sextants ' : '') +
-              ')'
-              : ''}
+              ? "( excluding: " +
+              (contracts.length > 0 ? "contracts " : "") +
+              (sextants.length > 0 ? "sextants " : "") +
+              ")"
+              : ""}
           </Excluded>
         </TotalValue>
         <CurrencyTypes>
           <P>Currency types</P>
           {selectedTypes.map((x: Partial<CurrencyType>) => {
-            if (x.type === 'Currency') {
+            if (x.type === "Currency") {
               return <Icon src={chaosOrb} key={x.type} />;
             }
             return <Icon src={x.icon} key={x.type} />;
@@ -187,7 +190,7 @@ const GeneratedMessage = () => {
 
         <ItemRecordWrap>
           <div></div>
-          <P2 style={{ padding: '0px 0px 0px 35px' }}>Currency</P2>
+          <P2 style={{ padding: "0px 0px 0px 35px" }}>Currency</P2>
           <P2>Ninja price</P2>
           <P2>Asking price</P2>
           <P2>Total chaos</P2>
@@ -226,7 +229,6 @@ const Header = styled(FlexWrap)`
   width: 100%;
   justify-content: space-between;
 `;
-
 
 const FloatBottomLeft = styled(FlexWrap)`
   bottom: 0%;

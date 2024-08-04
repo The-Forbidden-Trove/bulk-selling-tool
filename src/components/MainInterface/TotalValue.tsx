@@ -51,10 +51,11 @@ const TotalValue = () => {
   const generateImage = () => {
     toast.promise(generateImg, {
       pending: "Generating image",
-      success: `${isFirefox || isSafari
-        ? "Image generated successfully! You are on Firefox, your image will open in a new tab."
-        : "Image generated successfully! Your image is in the clipboard already!"
-        }`,
+      success: `${
+        isFirefox || isSafari
+          ? "Image generated successfully! You are on Firefox, your image will open in a new tab."
+          : "Image generated successfully! Your image is in the clipboard already!"
+      }`,
       error: `Couldn't generate an image.\n\nPlease stay on the site while it is being generated.`,
     });
   };
@@ -62,19 +63,21 @@ const TotalValue = () => {
     if (isFullText === false) {
       toast.promise(generateTxt, {
         pending: "Generating text",
-        success: `${isFirefox || isSafari
-          ? "Text generated successfully! It is in Your clipboard!"
-          : "Text generated successfully! It is in Your clipboard!"
-          }`,
+        success: `${
+          isFirefox || isSafari
+            ? "Text generated successfully! It is in Your clipboard!"
+            : "Text generated successfully! It is in Your clipboard!"
+        }`,
         error: `Couldn't generate text.\n\nPlease stay on the site while it is being generated.`,
       });
     } else {
       toast.promise(generateFullTxt, {
         pending: "Generating text",
-        success: `${isFirefox || isSafari
-          ? "Text generated successfully! It is in Your clipboard!"
-          : "Text generated successfully! It is in Your clipboard!"
-          }`,
+        success: `${
+          isFirefox || isSafari
+            ? "Text generated successfully! It is in Your clipboard!"
+            : "Text generated successfully! It is in Your clipboard!"
+        }`,
         error: `Couldn't generate text.\n\nPlease stay on the site while it is being generated.`,
       });
     }
@@ -111,7 +114,7 @@ const TotalValue = () => {
       const ninjaPriceChaos = Math.round(
         ((ninjaPrice * 100) / exDefaultPrice / 100 -
           Math.floor((ninjaPrice * 100) / exDefaultPrice / 100)) *
-        exDefaultPrice,
+          exDefaultPrice,
       );
 
       const askingPrice = Math.round(
@@ -123,7 +126,7 @@ const TotalValue = () => {
       const askingPriceChaos = Math.round(
         ((askingPrice * 100) / exPrice / 100 -
           Math.floor((askingPrice * 100) / exPrice / 100)) *
-        exPrice,
+          exPrice,
       );
 
       const mostValuable = Object.values(items)
@@ -136,30 +139,33 @@ const TotalValue = () => {
 
       const divineRate = `[1 :divine: = ${exDefaultPrice} :chaos:]`;
 
-      const copyText = `WTS ${league}\nNinja Price: ${ninjaPriceEx} :divine: + ${ninjaPriceChaos} :chaos:\n**Listing Price**: ${askingPriceEx} :divine: + ${askingPriceChaos} :chaos: (${Math.round(
+      const copyText = `WTS ${league}\nNinja Price: ${ninjaPriceEx} :divine: + ${ninjaPriceChaos} :chaos:\n**Asking Price**: ${askingPriceEx} :divine: + ${askingPriceChaos} :chaos: (${Math.round(
         (sellSum / ninjaSum) * 100,
-      )}% of Ninja price) ${divineRate}${contracts.length > 0 || sextants.length > 0
-        ? "( excluding: " +
-        (contracts.length > 0 ? "contracts " : "") +
-        (sextants.length > 0 ? "sextants " : "") +
-        ")"
-        : ""
-        }\nMost valuable:${mostValuable}${contracts.length > 0
+      )}% Ninja price) ${divineRate}${
+        contracts.length > 0 || sextants.length > 0
+          ? "( excluding: " +
+            (contracts.length > 0 ? "contracts " : "") +
+            (sextants.length > 0 ? "sextants " : "") +
+            ")"
+          : ""
+      }\nMost valuable:${mostValuable}${
+        contracts.length > 0
           ? "\n`Contracts are experimental`\n" +
-          contracts
-            .map((x: any) => {
-              return `${x.stackSize}x ${x.name} ${x.sellValue} :chaos:/each`;
-            })
-            .join("\n")
+            contracts
+              .map((x: any) => {
+                return `${x.stackSize}x ${x.name} ${x.sellValue} :chaos:/each`;
+              })
+              .join("\n")
           : ""
-        }${sextants.length > 0
+      }${
+        sextants.length > 0
           ? sextants
-            .map((x: any) => {
-              return `${x.stackSize}x ${x.shortName} ${x.sellValue} c/each`;
-            })
-            .join("\n")
+              .map((x: any) => {
+                return `${x.stackSize}x ${x.shortName} ${x.sellValue} c/each`;
+              })
+              .join("\n")
           : ""
-        }\n${userName ? `\`\`\`@${userName} Hi, I would like to buy your bulk ${selectedTypes.map((type: CurrencyType) => type.type).join(", ")} listing for ${askingPriceEx ? `${askingPriceEx} div + ` : ""}${askingPriceChaos} chaos\`\`\`\n` : ""}${isWillingToNegotiate ? "**Willing to negotiate and sell specific pieces.**" : ""}`;
+      }\n${userName ? `\`\`\`@${userName} Hi, I would like to buy your bulk ${selectedTypes.map((type: CurrencyType) => type.type).join(", ")} listing for ${askingPriceEx ? `${askingPriceEx} div + ` : ""}${askingPriceChaos} chaos\`\`\`\n` : ""}${isWillingToNegotiate ? "**Willing to negotiate and sell specific pieces.**" : ""}`;
 
       const textBlob: any = new Blob([copyText], {
         type: "text/plain",
@@ -232,7 +238,7 @@ const TotalValue = () => {
       const ninjaPriceChaos = Math.round(
         ((ninjaPrice * 100) / exDefaultPrice / 100 -
           Math.floor((ninjaPrice * 100) / exDefaultPrice / 100)) *
-        exDefaultPrice,
+          exDefaultPrice,
       );
 
       const askingPrice = Math.round(
@@ -244,7 +250,7 @@ const TotalValue = () => {
       const askingPriceChaos = Math.round(
         ((askingPrice * 100) / exPrice / 100 -
           Math.floor((askingPrice * 100) / exPrice / 100)) *
-        exPrice,
+          exPrice,
       );
 
       const mostValuable = Object.values(items)
@@ -255,31 +261,35 @@ const TotalValue = () => {
           return ` ${x.shortName}`;
         });
 
-      const copyText = `WTS ${league}\n${userName ? `IGN: \`${userName}\`\n` : ""
-        }Ninja price: \`${ninjaPrice}\` :chaos: ( \`${ninjaPriceEx}\` :divine: + \`${ninjaPriceChaos}\` :chaos: ) at ratio [\`${exDefaultPrice}\`:chaos:/\`1\`:divine:]\nAsking price: \`${askingPrice}\` :chaos: (\`${Math.round(
-          (sellSum / ninjaSum) * 100,
-        )}%\` of Ninja price) ( \`${askingPriceEx}\` :divine: + \`${askingPriceChaos}\` :chaos: ) at ratio [\`${exPrice}\`:chaos:/\`1\`:divine:] ${contracts.length > 0 || sextants.length > 0
+      const copyText = `WTS ${league}\n${
+        userName ? `IGN: \`${userName}\`\n` : ""
+      }Ninja price: \`${ninjaPrice}\` :chaos: ( \`${ninjaPriceEx}\` :divine: + \`${ninjaPriceChaos}\` :chaos: ) at ratio [\`${exDefaultPrice}\`:chaos:/\`1\`:divine:]\nAsking price: \`${askingPrice}\` :chaos: (\`${Math.round(
+        (sellSum / ninjaSum) * 100,
+      )}%\` Ninja price) ( \`${askingPriceEx}\` :divine: + \`${askingPriceChaos}\` :chaos: ) at ratio [\`${exPrice}\`:chaos:/\`1\`:divine:] ${
+        contracts.length > 0 || sextants.length > 0
           ? "( excluding: " +
-          (contracts.length > 0 ? "contracts " : "") +
-          (sextants.length > 0 ? "sextants " : "") +
-          ")"
+            (contracts.length > 0 ? "contracts " : "") +
+            (sextants.length > 0 ? "sextants " : "") +
+            ")"
           : ""
-        }\nMost valuable:${mostValuable}${contracts.length > 0
+      }\nMost valuable:${mostValuable}${
+        contracts.length > 0
           ? "\n`Contracts are experimental`\n" +
-          contracts
-            .map((x: any) => {
-              return `${x.stackSize}x ${x.name} ${x.sellValue} :chaos:/each`;
-            })
-            .join("\n")
+            contracts
+              .map((x: any) => {
+                return `${x.stackSize}x ${x.name} ${x.sellValue} :chaos:/each`;
+              })
+              .join("\n")
           : ""
-        }${sextants.length > 0
+      }${
+        sextants.length > 0
           ? sextants
-            .map((x: any) => {
-              return `${x.stackSize}x ${x.shortName} ${x.sellValue} c/each`;
-            })
-            .join("\n")
+              .map((x: any) => {
+                return `${x.stackSize}x ${x.shortName} ${x.sellValue} c/each`;
+              })
+              .join("\n")
           : ""
-        }\n${isWillingToNegotiate ? "**Willing to negotiate and sell specific pieces.**" : ""}\n\n${itemsString}`;
+      }\n${isWillingToNegotiate ? "**Willing to negotiate and sell specific pieces.**" : ""}\n\n${itemsString}`;
 
       const textBlob: any = new Blob([copyText], {
         type: "text/plain",

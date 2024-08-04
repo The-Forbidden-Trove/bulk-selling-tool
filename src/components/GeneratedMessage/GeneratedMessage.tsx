@@ -86,11 +86,11 @@ const GeneratedMessage = () => {
     <Wrapper id="generatedMessage">
       <FloatTop>
         <H style={{ display: "flex", justifyItems: "center", justifyContent: "center", alignItems: "center" }}>
-          Generated with TFT Bulk Selling Tool{" "}
+          Generated with TFT Bulk Selling Tool&nbsp;
           <H3> - https://bulk.tftrove.com</H3>
         </H>
         <H style={{ display: "flex", justifyItems: "center", justifyContent: "center", alignItems: "center" }}>
-          Sell Fast, Stay Safe at TFT{" "}
+          Sell Fast, Stay Safe at TFT&nbsp;
           <H3> - discord.gg/tftrove</H3>
         </H>
       </FloatTop>

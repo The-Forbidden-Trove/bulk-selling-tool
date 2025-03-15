@@ -13,6 +13,7 @@ const iconStyle = {
   width: "12px",
   height: "12px",
 };
+
 const GeneratedMessageItemRecord = ({ item }: any) => {
   const exPrice = useAppSelector((store) => store.exaltedPrice).value || 1;
   // console.log(item);
@@ -32,7 +33,15 @@ const GeneratedMessageItemRecord = ({ item }: any) => {
     <ItemRecordWrap>
       <Stack>{item.stackSize}</Stack>
       <NameWrap>
-        <span>x</span>
+        <span
+          style={{
+            color: "#9c9c9c",
+            fontSize: "12px",
+          }}
+        >
+          x
+        </span>
+
         <Icon src={name} alt={item.name} crossOrigin="anonymous" />
         <P2>{item.shortName}</P2>
       </NameWrap>
@@ -118,6 +127,7 @@ const Stack = styled(FlexWrap)`
   width: 100%;
   color: ${(props) => props.theme.colors.text};
   align-items: center;
-  text-align: middle;
+  text-align: right;
+  justify-content: flex-start;
   align-content: center;
 `;

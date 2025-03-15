@@ -85,11 +85,25 @@ const GeneratedMessage = () => {
   return (
     <Wrapper id="generatedMessage">
       <FloatTop>
-        <H style={{ display: "flex", justifyItems: "center", justifyContent: "center", alignItems: "center" }}>
+        <H
+          style={{
+            display: "flex",
+            justifyItems: "center",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           Generated with TFT Bulk Selling Tool&nbsp;
           <H3> - https://bulk.tftrove.com</H3>
         </H>
-        <H style={{ display: "flex", justifyItems: "center", justifyContent: "center", alignItems: "center" }}>
+        <H
+          style={{
+            display: "flex",
+            justifyItems: "center",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           Sell Fast, Stay Safe at TFT&nbsp;
           <H3> - discord.gg/tftrove</H3>
         </H>
@@ -161,9 +175,9 @@ const GeneratedMessage = () => {
           <Excluded>
             {contracts.length > 0 || sextants.length > 0
               ? "( excluding: " +
-              (contracts.length > 0 ? "contracts " : "") +
-              (sextants.length > 0 ? "sextants " : "") +
-              ")"
+                (contracts.length > 0 ? "contracts " : "") +
+                (sextants.length > 0 ? "sextants " : "") +
+                ")"
               : ""}
           </Excluded>
         </TotalValue>

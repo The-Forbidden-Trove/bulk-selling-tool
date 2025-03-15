@@ -88,10 +88,14 @@ const SellValue = styled.p`
 
 const ItemRecordWrap = styled.div`
   margin: 0px 0px;
+  padding: 0px 0px 0px 4px;
 
   justify-items: start;
   font-size: ${(props) => props.theme.fontM};
-  grid-template-columns: minmax(12px, 20px) minmax(0px, 1fr) 100px 160px 100px 100px;
+  grid-template-columns: minmax(12px, 20px) minmax(
+      0px,
+      1fr
+    ) 100px 160px 100px 100px;
   display: grid;
   border: 0.5px solid ${(props) => props.theme.colors.fg2};
 `;
@@ -128,6 +132,6 @@ const Stack = styled(FlexWrap)`
   color: ${(props) => props.theme.colors.text};
   align-items: center;
   text-align: right;
-  justify-content: flex-start;
+  justify-content: flex-end;
   align-content: center;
 `;

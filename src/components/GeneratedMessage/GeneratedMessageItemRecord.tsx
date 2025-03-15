@@ -16,12 +16,15 @@ const iconStyle = {
 const GeneratedMessageItemRecord = ({ item }: any) => {
   const exPrice = useAppSelector((store) => store.exaltedPrice).value || 1;
   // console.log(item);
-  let name = `/icons/${item.name.replace(/\s+/g, '_')}.png`;
+  let name = `/icons/${item.name.replace(/\s+/g, "_")}.png`;
   // console.log(name);
 
   if (item.name.includes("Contract")) {
     name = "/icons/Contract.png";
-  } else if( item.icon === "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvTmVjcm9wb2xpcy9OZWNyb3BvbGlzQ29mZmluRmlsbGVkIiwidyI6MiwiaCI6MSwic2NhbGUiOjF9XQ/5b4214a420/NecropolisCoffinFilled.png"){
+  } else if (
+    item.icon ===
+    "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvTmVjcm9wb2xpcy9OZWNyb3BvbGlzQ29mZmluRmlsbGVkIiwidyI6MiwiaCI6MSwic2NhbGUiOjF9XQ/5b4214a420/NecropolisCoffinFilled.png"
+  ) {
     name = "/icons/Coffin.png";
   }
 
@@ -29,7 +32,7 @@ const GeneratedMessageItemRecord = ({ item }: any) => {
     <ItemRecordWrap>
       <Stack>{item.stackSize}</Stack>
       <NameWrap>
-        <FaTimes style={iconStyle} />
+        <span>x</span>
         <Icon src={name} alt={item.name} crossOrigin="anonymous" />
         <P2>{item.shortName}</P2>
       </NameWrap>
@@ -85,7 +88,7 @@ const ItemRecordWrap = styled.div`
 `;
 
 const NameWrap = styled(FlexWrap)`
-  padding: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 1px;
   background: none;
   outline: none;
   border: none;
@@ -110,7 +113,8 @@ const P2 = styled(FlexWrap)`
 `;
 
 const Stack = styled(FlexWrap)`
-  font-size: 16px;
+  font-size: 14px;
+  margin: 0px 1px 0px 0px;
   width: 100%;
   color: ${(props) => props.theme.colors.text};
   align-items: center;

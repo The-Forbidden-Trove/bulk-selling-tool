@@ -290,15 +290,15 @@ export const selectStash = (
           currentLevelRequired: number,
           items: NinjaItem[],
         ) => {
-          //@ts-ignore
           const filteredItems = items.filter(
+            //@ts-ignore
             (item) => item.levelRequired <= currentLevelRequired,
           );
           if (filteredItems.length === 0) {
             return undefined;
           }
-          //@ts-ignore
           return filteredItems.reduce((prev, current) =>
+            //@ts-ignore
             prev.levelRequired > current.levelRequired ? prev : current,
           );
         };

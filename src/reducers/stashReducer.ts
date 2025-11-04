@@ -32,18 +32,18 @@ const stashReducer = (state = initialState, action: any) => {
       const newState: StashTab[] = state.map((stash: StashTab) => {
         return stash.isHighlited
           ? {
-            ...stash,
-            isSelected: true,
-            isHighlited: false,
-            defaultMultiplier: action.data.multiplier,
-            assignedTypes: action.data.types.map((type: CurrencyType) => {
-              return {
-                type: type.type,
-                icon: type.icon,
-                typeFilter: type.typeFilter,
-              };
-            }),
-          }
+              ...stash,
+              isSelected: true,
+              isHighlited: false,
+              defaultMultiplier: action.data.multiplier,
+              assignedTypes: action.data.types.map((type: CurrencyType) => {
+                return {
+                  type: type.type,
+                  icon: type.icon,
+                  typeFilter: type.typeFilter,
+                };
+              }),
+            }
           : { ...stash };
       });
       return newState;
@@ -52,10 +52,10 @@ const stashReducer = (state = initialState, action: any) => {
       const newState = state.map((stash: StashTab) => {
         return stash.id === action.data.id
           ? {
-            ...stash,
-            filteredItems: action.data.filteredItems,
-            items: action.data.items,
-          }
+              ...stash,
+              filteredItems: action.data.filteredItems,
+              items: action.data.items,
+            }
           : stash;
       });
       return newState;
@@ -64,21 +64,21 @@ const stashReducer = (state = initialState, action: any) => {
       const newState = state.map((stash: StashTab) => {
         return stash.id === action.data.id
           ? {
-            ...stash,
-            isSelected: false,
-            isHighlited: false,
-            defaultMultiplier: undefined,
-            filteredItems: undefined,
-            items: undefined,
-            assignedTypes: undefined,
-          }
+              ...stash,
+              isSelected: false,
+              isHighlited: false,
+              defaultMultiplier: undefined,
+              filteredItems: undefined,
+              items: undefined,
+              assignedTypes: undefined,
+            }
           : { ...stash };
       });
       return newState;
     }
 
     case "UPDATE_NINJA_PRICES_STASH_ITEMS": {
-      const newState: StashTab[] = state
+      const newState: StashTab[] = state;
       let ninjaItems: any = window.localStorage.getItem("ninjaItems");
 
       if (ninjaItems) {
@@ -86,25 +86,22 @@ const stashReducer = (state = initialState, action: any) => {
 
         return state.map((stash: StashTab) => {
           if (stash.hasOwnProperty("items") && stash.items) {
-
             for (const [key, value] of Object.entries(stash.items)) {
-              const ninjaVal = ninjaItems[key]
+              const ninjaVal = ninjaItems[key];
               if (ninjaVal && !stash.items[key].wasPriceAdjusted) {
                 stash.items[key].chaosEquivalent = ninjaVal.chaosValue;
               }
             }
-
           }
-          return stash
-        }
-        )
+          return stash;
+        });
       }
 
       return state;
     }
 
     case "UPDATE_NINJA_PRICES_STASH_ITEMS_TEST": {
-      const newState: StashTab[] = state
+      const newState: StashTab[] = state;
       let ninjaItems: any = window.localStorage.getItem("ninjaItems");
 
       if (ninjaItems) {
@@ -112,23 +109,19 @@ const stashReducer = (state = initialState, action: any) => {
 
         return state.map((stash: StashTab) => {
           if (stash.hasOwnProperty("items") && stash.items) {
-
             for (const [key, value] of Object.entries(stash.items)) {
-              const ninjaVal = ninjaItems[key]
+              const ninjaVal = ninjaItems[key];
               if (ninjaVal && !stash.items[key].wasPriceAdjusted) {
                 stash.items[key].chaosEquivalent = 21.33;
               }
             }
-
           }
-          return stash
-        }
-        )
+          return stash;
+        });
       }
 
       return state;
     }
-
 
     case "UNSELECT_ALL_STASHES": {
       const newState = state.map((stash: StashTab) => {
@@ -140,7 +133,7 @@ const stashReducer = (state = initialState, action: any) => {
           filteredItems: undefined,
           items: undefined,
           assignedTypes: undefined,
-        }
+        };
       });
       return newState;
     }
@@ -180,13 +173,13 @@ export const initStashes = (token: string, league: string) => {
 
 export const updateNinjaPriceStashItems = () => {
   return {
-    type: "UPDATE_NINJA_PRICES_STASH_ITEMS"
+    type: "UPDATE_NINJA_PRICES_STASH_ITEMS",
   };
 };
 
 export const updateNinjaPriceStashItemsTest = () => {
   return {
-    type: "UPDATE_NINJA_PRICES_STASH_ITEMS_TEST"
+    type: "UPDATE_NINJA_PRICES_STASH_ITEMS_TEST",
   };
 };
 
@@ -194,7 +187,7 @@ export const selectStash = (
   token: string,
   league: string,
   multiplier: number,
-  ninjaItems: Record<string, NinjaItem>
+  ninjaItems: Record<string, NinjaItem>,
 ) => {
   return async (dispatch: AppDispatch, getState: any) => {
     const options = getState().itemOptions;
@@ -206,7 +199,7 @@ export const selectStash = (
     const types: CurrencyType[] = getState().currencyTypes.filter(
       (currencyType: CurrencyType) => {
         return currencyType.isSelected === true;
-      }
+      },
     );
 
     if (
@@ -217,8 +210,7 @@ export const selectStash = (
       return;
     }
 
-    const exPrice: number = ninjaItems["Divine Orb"].chaosValue;
-
+    // const exPrice: number = ninjaItems["Divine Orb"].chaosValue;
 
     dispatch({
       type: "SELECT_STASH",
@@ -227,22 +219,25 @@ export const selectStash = (
         multiplier: multiplier,
       },
     });
-    dispatch(setLoadingStatus())
+    dispatch(setLoadingStatus());
     dispatch(unselectAllCurrencyTypes());
 
     let items: Record<string, Item> = {};
 
-    const response = await axios
-      .get(`https://api.pathofexile.com/stash/${league}/${highlightStash.id}`, {
+    const response = await axios.get(
+      `https://api.pathofexile.com/stash/${league}/${highlightStash.id}`,
+      {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      })
+      },
+    );
 
     const allItems = response.data.stash.items;
     // console.log("ALL ITEMS", allItems);
 
-    const TFTNamesLink = "https://raw.githubusercontent.com/The-Forbidden-Trove/tft-data-prices/master/mappings/compasses.json";
+    const TFTNamesLink =
+      "https://raw.githubusercontent.com/The-Forbidden-Trove/tft-data-prices/master/mappings/compasses.json";
     const TFTNames = (await axios.get(TFTNamesLink)).data;
 
     allItems.forEach((item: any) => {
@@ -251,21 +246,19 @@ export const selectStash = (
       if (item.baseType.match(/Blighted [\w\s]+Map/)) {
         name = `${item.baseType} ${
           //@ts-ignore
-          item.properties.find((x): any => x.name === "Map Tier")
-            .values[0][0]
-          }`;
+          item.properties.find((x): any => x.name === "Map Tier").values[0][0]
+        }`;
       } else if (item.baseType.match(/Blight-ravaged [\w\s]+Map/)) {
         name = `${item.baseType} ${
           //@ts-ignore
-          item.properties.find((x): any => x.name === "Map Tier")
-            .values[0][0]
-          }`;
+          item.properties.find((x): any => x.name === "Map Tier").values[0][0]
+        }`;
       } else if (item.baseType.includes("Filled Coffin")) {
-        name = item.implicitMods[0]
-
+        name = item.implicitMods[0];
       } else if (item.baseType.includes("Contract:")) {
-        name = `Contract ${item.properties[3].values[1][0]}${Number(item.ilvl) >= 81 ? " 81+" : ""
-          }`;
+        name = `Contract ${item.properties[3].values[1][0]}${
+          Number(item.ilvl) >= 81 ? " 81+" : ""
+        }`;
       } else if (
         item.baseType.includes("Charged Compass") &&
         item.hasOwnProperty("enchantMods")
@@ -276,30 +269,39 @@ export const selectStash = (
         name = `Sextant ${item.enchantMods
           .slice(0, -1)
           .join(" ")} (${item.enchantMods[item.enchantMods.length - 1]
-            .split(" ")
-            .slice(0, -1)
-            .join(" ")})`;
+          .split(" ")
+          .slice(0, -1)
+          .join(" ")})`;
       }
 
       if (item.baseType.includes("Filled Coffin")) {
-        const possiblePrices = []
+        const possiblePrices = [];
         for (const [key, value] of Object.entries(ninjaItems)) {
           if (key.includes(name)) {
-            possiblePrices.push(value)
+            possiblePrices.push(value);
           }
         }
 
-        const currentLevelRequired = item.properties.find((x: any) => x.name === "Corpse Level").values[0][0];
+        const currentLevelRequired = item.properties.find(
+          (x: any) => x.name === "Corpse Level",
+        ).values[0][0];
 
-        const findBestFit = (currentLevelRequired: number, items: NinjaItem[]) => {
+        const findBestFit = (
+          currentLevelRequired: number,
+          items: NinjaItem[],
+        ) => {
           //@ts-ignore
-          const filteredItems = items.filter(item => item.levelRequired <= currentLevelRequired);
+          const filteredItems = items.filter(
+            (item) => item.levelRequired <= currentLevelRequired,
+          );
           if (filteredItems.length === 0) {
             return undefined;
           }
           //@ts-ignore
-          return filteredItems.reduce((prev, current) => (prev.levelRequired > current.levelRequired) ? prev : current);
-        }
+          return filteredItems.reduce((prev, current) =>
+            prev.levelRequired > current.levelRequired ? prev : current,
+          );
+        };
 
         const bestFitItem = findBestFit(currentLevelRequired, possiblePrices);
         if (bestFitItem) {
@@ -317,9 +319,7 @@ export const selectStash = (
           h: item.h,
           maxStackSize: item.maxStackSize ? item.maxStackSize : 1,
           stackSize: items[name] ? items[name].stackSize + 1 : 1,
-          chaosEquivalent: ninjaItems[name]
-            ? ninjaItems[name].chaosValue
-            : 0,
+          chaosEquivalent: ninjaItems[name] ? ninjaItems[name].chaosValue : 0,
           sellValue: ninjaItems[name]
             ? roundToTwo((ninjaItems[name].chaosValue * multiplier) / 100)
             : 0,
@@ -329,7 +329,6 @@ export const selectStash = (
           wasPriceAdjusted: false,
           group: generateItemGroup(name),
         };
-
       } else if (items[name]) {
         items[name] = {
           id: item?.id,
@@ -342,13 +341,11 @@ export const selectStash = (
           stackSize: item.stackSize
             ? items[name].stackSize + item.stackSize
             : items[name].stackSize + 1,
-          chaosEquivalent: ninjaItems[name]
-            ? ninjaItems[name].chaosValue
-            : 0,
+          chaosEquivalent: ninjaItems[name] ? ninjaItems[name].chaosValue : 0,
           sellValue: ninjaItems[name]
             ? roundToTwo(
-              (ninjaItems[name].chaosValue * items[name].multiplier) / 100
-            )
+                (ninjaItems[name].chaosValue * items[name].multiplier) / 100,
+              )
             : 0,
           multiplier: multiplier,
           sellMultiplier: multiplier,
@@ -366,9 +363,7 @@ export const selectStash = (
           h: item.h,
           maxStackSize: item.maxStackSize ? item.maxStackSize : 1,
           stackSize: item.stackSize ? item.stackSize : 1,
-          chaosEquivalent: ninjaItems[name]
-            ? ninjaItems[name].chaosValue
-            : 0,
+          chaosEquivalent: ninjaItems[name] ? ninjaItems[name].chaosValue : 0,
           sellValue: ninjaItems[name]
             ? roundToTwo((ninjaItems[name].chaosValue * multiplier) / 100)
             : 0,
@@ -387,7 +382,9 @@ export const selectStash = (
       return filters.typeFilter;
     });
 
-    let TFTCompassPrices = JSON.parse(localStorage.getItem("TFTCompassPrices") || "{}");
+    let TFTCompassPrices = JSON.parse(
+      localStorage.getItem("TFTCompassPrices") || "{}",
+    );
     const translatedLeague = translateLeagueName(league);
     if (translatedLeague === "Standard") {
       TFTCompassPrices = TFTCompassPrices.std;
@@ -396,7 +393,6 @@ export const selectStash = (
     } else {
       TFTCompassPrices = [];
     }
-
 
     for (const [key, value] of Object.entries(items)) {
       if (key.match(/Blighted [\w\s]+Map \d+/)) {
@@ -425,7 +421,6 @@ export const selectStash = (
           const strippedFullName = key.replace(/ \(\d*\s*uses\)/, "");
           const newName = TFTNames[strippedFullName];
 
-
           const sextantValue = value as Item;
           sextantValue.shortName = newName + " " + usesNum + "uses";
           sextantValue.isSelected = false;
@@ -439,17 +434,20 @@ export const selectStash = (
 
             if (TFTCompass) {
               sextantValue.chaosEquivalent = TFTCompass.chaos;
-              sextantValue.sellValue = roundToTwo((TFTCompass.chaos * multiplier) / 100);
+              sextantValue.sellValue = roundToTwo(
+                (TFTCompass.chaos * multiplier) / 100,
+              );
             }
           }
 
-
           filteredItems[key] = sextantValue;
-
         }
       } else if (itemFilters && itemFilters.includes(key)) {
         filteredItems[key] = value as Item;
-      } else if (itemFilters && itemFilters.some((enty: string) => key.includes(enty))) {
+      } else if (
+        itemFilters &&
+        itemFilters.some((enty: string) => key.includes(enty))
+      ) {
         filteredItems[key] = value as Item;
       }
     }
@@ -463,7 +461,7 @@ export const selectStash = (
       for (const [key, value] of Object.entries(items)) {
         if (
           !fragmentSetsAllItems.find((x: any) =>
-            x.toLocaleLowerCase().includes(items[key].name.toLocaleLowerCase())
+            x.toLocaleLowerCase().includes(items[key].name.toLocaleLowerCase()),
           )
         ) {
           items[key].isSelected = false;
@@ -475,7 +473,7 @@ export const selectStash = (
 
     dispatch(addGlobalItems(filteredItems));
 
-    dispatch(setIdleStatus())
+    dispatch(setIdleStatus());
   };
 };
 
@@ -491,13 +489,13 @@ export const unselectStash = (id: string) => {
     const loadingStatus = getState().itemOptions.stashLoading;
 
     if (loadingStatus === "loading") {
-      return
+      return;
     }
 
     const items: Record<string, Item> = getState().stashes.find(
       (x: StashTab) => {
         return x.id === id;
-      }
+      },
     ).filteredItems;
 
     dispatch({
@@ -515,19 +513,17 @@ export const highlightStash = (id: string) => {
   };
 };
 
-
 export const unselectAllStashes = () => {
   return async (dispatch: AppDispatch, getState: any) => {
     const loadingStatus = getState().itemOptions.stashLoading;
     // console.log("LOADING STATUS", loadingStatus);
     if (loadingStatus === "loading") {
-      return
+      return;
     }
 
     dispatch({
-      type: "UNSELECT_ALL_STASHES"
+      type: "UNSELECT_ALL_STASHES",
     });
-
   };
 };
 

@@ -22,7 +22,7 @@ const CurrencyTypePicker = () => {
   const { authService } = useAuth();
 
   const ninjaItems: Record<string, NinjaItem> = JSON.parse(
-    window.localStorage.getItem("ninjaItems") || "{}"
+    window.localStorage.getItem("ninjaItems") || "{}",
   );
 
   const click = () => {
@@ -31,36 +31,30 @@ const CurrencyTypePicker = () => {
         authService.getAuthTokens().access_token,
         league,
         Number(multiplier.substr(0, multiplier.length - 1)) || 0,
-        ninjaItems
-      )
+        ninjaItems,
+      ),
     );
     let isContract = false;
     let isSextant = false;
     currencyTypes.forEach((currencyType: CurrencyType) => {
-      if (
-        currencyType.isSelected &&
-        (currencyType.type === "Contract")
-      )
+      if (currencyType.isSelected && currencyType.type === "Contract")
         isContract = true;
 
-      if (
-        currencyType.isSelected &&
-        (currencyType.type === "Sextant")
-      )
+      if (currencyType.isSelected && currencyType.type === "Sextant")
         isSextant = true;
     });
     if (isContract) {
       toast.info(
-        "We ask you to just paste the generated text - no need for the image when selling contracts."
+        "We ask you to just paste the generated text - no need for the image when selling contracts.",
       );
       toast.warn(
-        "You are using an experimental type, please input the prices yourself since they are not supported by poe.ninja."
+        "You are using an experimental type, please input the prices yourself since they are not supported by poe.ninja.",
       );
     }
 
     if (isSextant) {
       toast.info(
-        "We ask you to just paste the generated text - no need for the image when selling sextants."
+        "We ask you to just paste the generated text - no need for the image when selling sextants.",
       );
     }
     setInput("100%");
@@ -97,14 +91,14 @@ const CurrencyTypePicker = () => {
                   {currencyType.type === "BlightedMap"
                     ? "Blighted Map"
                     : currencyType.type === "BlightRavagedMap"
-                    ? "Blight Ravaged Map"
-                    : currencyType.type === "DeliriumOrb"
-                    ? "Delirium Orb"
-                    : currencyType.type === "DivinationCard"
-                    ? "Divination"
-                    : currencyType.type === "AllflameEmber"
-                    ? "Allflame"
-                    : currencyType.type}
+                      ? "Blight Ravaged Map"
+                      : currencyType.type === "DeliriumOrb"
+                        ? "Delirium Orb"
+                        : currencyType.type === "DivinationCard"
+                          ? "Divination"
+                          : currencyType.type === "AllflameEmber"
+                            ? "Allflame"
+                            : currencyType.type}
                 </p>
               </TypeWrap>
             );

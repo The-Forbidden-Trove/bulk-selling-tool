@@ -63,6 +63,7 @@ export interface NinjaItem {
 export interface CurrencyType {
   type: string;
   icon: string;
+  exchange: boolean;
   ninjaEndpoint: string;
   isSelected: boolean;
   typeFilter: string[]; // it is supposed to be a usefull to allow us to filter out
@@ -76,6 +77,7 @@ export const currencies: CurrencyType[] = [
     ninjaEndpoint: "currencyoverview",
     isSelected: false,
     typeFilter: itemFilter.currencyFilter.items,
+    exchange: true,
   },
   {
     type: "Fragment",
@@ -83,6 +85,7 @@ export const currencies: CurrencyType[] = [
     ninjaEndpoint: "currencyoverview",
     isSelected: false,
     typeFilter: itemFilter.fragmentFilter.items,
+    exchange: true,
   },
   {
     type: "Oil",
@@ -90,6 +93,7 @@ export const currencies: CurrencyType[] = [
     ninjaEndpoint: "itemoverview",
     isSelected: false,
     typeFilter: itemFilter.oilFilter.items,
+    exchange: true,
   },
   {
     type: "Scarab",
@@ -97,6 +101,7 @@ export const currencies: CurrencyType[] = [
     ninjaEndpoint: "itemoverview",
     isSelected: false,
     typeFilter: itemFilter.scarabFilter.items,
+    exchange: true,
   },
   {
     type: "KalguuranRune",
@@ -104,6 +109,7 @@ export const currencies: CurrencyType[] = [
     ninjaEndpoint: "itemoverview",
     isSelected: false,
     typeFilter: itemFilter.runeFilter.items,
+    exchange: true,
   },
   {
     type: "Fossil",
@@ -111,6 +117,7 @@ export const currencies: CurrencyType[] = [
     ninjaEndpoint: "itemoverview",
     isSelected: false,
     typeFilter: itemFilter.fossilFilter.items,
+    exchange: true,
   },
   {
     type: "Essence",
@@ -118,6 +125,7 @@ export const currencies: CurrencyType[] = [
     ninjaEndpoint: "itemoverview",
     isSelected: false,
     typeFilter: itemFilter.essenceFilter.items,
+    exchange: true,
   },
   {
     type: "High Essence",
@@ -125,6 +133,7 @@ export const currencies: CurrencyType[] = [
     ninjaEndpoint: "none",
     isSelected: false,
     typeFilter: itemFilter.highEssenceFilter.items,
+    exchange: true,
   },
   {
     type: "AllflameEmber",
@@ -132,6 +141,7 @@ export const currencies: CurrencyType[] = [
     ninjaEndpoint: "itemoverview",
     isSelected: false,
     typeFilter: itemFilter.allflameFilter.items,
+    exchange: true,
   },
   {
     type: "Coffin",
@@ -139,6 +149,7 @@ export const currencies: CurrencyType[] = [
     ninjaEndpoint: "itemoverview",
     isSelected: false,
     typeFilter: itemFilter.coffinsFilter.items,
+    exchange: false,
   },
 
   {
@@ -147,6 +158,7 @@ export const currencies: CurrencyType[] = [
     ninjaEndpoint: "itemoverview",
     isSelected: false,
     typeFilter: itemFilter.incubatorFilter.items,
+    exchange: false,
   },
   {
     type: "Artifact",
@@ -154,6 +166,7 @@ export const currencies: CurrencyType[] = [
     ninjaEndpoint: "itemoverview",
     isSelected: false,
     typeFilter: itemFilter.artifactFilter.items,
+    exchange: true,
   },
   {
     type: "BlightRavagedMap",
@@ -161,6 +174,7 @@ export const currencies: CurrencyType[] = [
     ninjaEndpoint: "itemoverview",
     isSelected: false,
     typeFilter: itemFilter.blightRavagedMapFilter.items,
+    exchange: false,
   },
   {
     type: "BlightedMap",
@@ -168,6 +182,7 @@ export const currencies: CurrencyType[] = [
     ninjaEndpoint: "itemoverview",
     isSelected: false,
     typeFilter: itemFilter.blightedMapFilter.items,
+    exchange: false,
   },
   {
     type: "DeliriumOrb",
@@ -175,6 +190,7 @@ export const currencies: CurrencyType[] = [
     ninjaEndpoint: "itemoverview",
     isSelected: false,
     typeFilter: itemFilter.deliriumOrbFilter.items,
+    exchange: true,
   },
 
   {
@@ -183,6 +199,7 @@ export const currencies: CurrencyType[] = [
     ninjaEndpoint: "itemoverview",
     isSelected: false,
     typeFilter: itemFilter.beastFilter.items,
+    exchange: false,
   },
 
   {
@@ -191,6 +208,7 @@ export const currencies: CurrencyType[] = [
     ninjaEndpoint: "itemoverview",
     isSelected: false,
     typeFilter: itemFilter.invitationFilter.items,
+    exchange: false,
   },
 
   {
@@ -199,6 +217,7 @@ export const currencies: CurrencyType[] = [
     ninjaEndpoint: "itemoverview",
     isSelected: false,
     typeFilter: itemFilter.resonatorFilter.items,
+    exchange: true,
   },
   {
     type: "DivinationCard",
@@ -206,6 +225,7 @@ export const currencies: CurrencyType[] = [
     ninjaEndpoint: "itemoverview",
     isSelected: false,
     typeFilter: itemFilter.divinationFilter.items,
+    exchange: true,
   },
   {
     type: "Tattoo",
@@ -213,6 +233,7 @@ export const currencies: CurrencyType[] = [
     ninjaEndpoint: "itemoverview",
     isSelected: false,
     typeFilter: itemFilter.tattooFilter.items,
+    exchange: true,
   },
 
   {
@@ -221,5 +242,6 @@ export const currencies: CurrencyType[] = [
     ninjaEndpoint: "none",
     isSelected: false,
     typeFilter: itemFilter.contractFilter.items,
+    exchange: false,
   },
 ];

@@ -92,17 +92,6 @@ export const getAllItemTypePrices = async (league: string) => {
   return items;
 };
 
-const getTFTCompassData = async () => {
-  const leagueLink =
-    "https://raw.githubusercontent.com/The-Forbidden-Trove/tft-data-prices/master/lsc/bulk-compasses.json";
-  const standardLink =
-    "https://raw.githubusercontent.com/The-Forbidden-Trove/tft-data-prices/master/std/bulk-compasses.json";
-
-  const leagueCompasses = (await axios.get(leagueLink)).data;
-  const standardCompasses = (await axios.get(standardLink)).data;
-  return { lsc: leagueCompasses.data, std: standardCompasses.data };
-};
-
 export const fetchNinjaData = (league: string) => {
   const time = JSON.parse(window.localStorage.getItem("ninjaFetch") || "{}");
 
@@ -110,9 +99,6 @@ export const fetchNinjaData = (league: string) => {
     localStorage.setItem("ninjaFetch", JSON.stringify(new Date().getTime()));
     getAllItemTypePrices(league).then((res) => {
       window.localStorage.setItem("ninjaItems", JSON.stringify(res));
-    });
-    getTFTCompassData().then((res) => {
-      window.localStorage.setItem("TFTCompassPrices", JSON.stringify(res));
     });
   } else {
     const diff = differenceInMinutes(new Date().getTime(), time);
@@ -122,8 +108,5 @@ export const fetchNinjaData = (league: string) => {
         window.localStorage.setItem("ninjaItems", JSON.stringify(res));
       });
     }
-    getTFTCompassData().then((res) => {
-      window.localStorage.setItem("TFTCompassPrices", JSON.stringify(res));
-    });
   }
 };

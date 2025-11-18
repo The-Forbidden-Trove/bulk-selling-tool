@@ -214,18 +214,7 @@ const TotalValue = () => {
           (x: any) => x.name.includes("Contract") && !x.name.match(/^Sextant/),
         );
 
-      const TFTNamesLink =
-        "https://raw.githubusercontent.com/The-Forbidden-Trove/tft-data-prices/master/mappings/compasses.json";
-      const TFTNames = (await axios.get(TFTNamesLink)).data;
-
-      const sextants = Object.values(items)
-        .filter((x: any) => x.isSelected)
-        .filter((x: any) => {
-          return (
-            x.name.match(/Sextant (\w\s*)*\(\d*\s*uses\)/) ||
-            TFTNames[x.name] !== undefined
-          );
-        });
+      const sextants: any[] = [];
 
       const ninjaPrice = Math.round(
         Math.round((ninjaSum + Number.EPSILON) * 100) / 100,

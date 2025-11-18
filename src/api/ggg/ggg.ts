@@ -44,8 +44,9 @@ export const getAllSTashTabs = async (token: string, league: string) => {
 export const getSTashTabItems = async (
   token: string,
   league: string,
-  id: string
+  id: string,
 ) => {
+  // console.log("Getting items for: ", `${baseUrl}/stash/${league}/${id}`);
   const request = await axios.get(`${baseUrl}/stash/${league}/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -53,13 +54,15 @@ export const getSTashTabItems = async (
       "Content-Type": "application/x-www-form-urlencoded",
     },
   });
+
+  // console.log("Response: ", request);
   return request.data;
 };
 
 export const getSelectedTabsItems = async (
   token: string,
   league: string,
-  stashes: StashTab[]
+  stashes: StashTab[],
 ) => {
   let items: Record<string, any> = [];
 
@@ -82,7 +85,7 @@ export const getSelectedTabsItems = async (
             };
           });
         });
-    })
+    }),
   );
   return items;
 };
